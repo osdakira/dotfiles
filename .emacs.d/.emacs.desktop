@@ -1,0 +1,381 @@
+;; -*- mode: emacs-lisp; coding: emacs-mule; -*-
+;; --------------------------------------------------------------------------
+;; Desktop File for Emacs
+;; --------------------------------------------------------------------------
+;; Created Wed Jan  5 20:49:14 2011
+;; Desktop file format version 206
+;; Emacs version 23.2.1
+
+;; Global section:
+(setq desktop-missing-file-warning nil)
+(setq tags-file-name nil)
+(setq tags-table-list nil)
+(setq search-ring '("Sort" "when" "ac-mode" "complete" "p" "snack"))
+(setq regexp-search-ring nil)
+(setq register-alist nil)
+(setq file-name-history '("~/.emacs.d/init.el" "~/.emacs.d/conf/nxhtml-conf.el" "~/.emacs.d/elisp/elscreen.el" "~/.emacs.d/conf/nxhtml-conf.el" "~/.emacs.d/conf/auto-complete-conf.el" "~/mytmp/.emacs" "~/.emacs.d/elisp/auto-complete.el" "~/.emacs.d/init.el" "~/.emacs.d/conf/extension.el" "~/.emacs.d/conf/auto-complete-conf.el" "~/projects/kitty/application/website/mobile_gree/templates/" "~/projects/kitty/application/website/mobile_gree/views/" "~/projects/kitty/application/" "~/.emacs.d/conf/smartchar-conf.el" "~/.emacs.d/conf/nxhtml-conf.el" "~/.emacs.d/snippets/html-mode/if.yasnippet" "~/.emacs.d/init.el" "~/projects/kitty/application/" "~/projects/kitty/application/website/mobile_gree/views/care.py" "~/projects/kitty/application/module/player/careaction.py" "~/projects/kitty/application/website/mobile_gree/views/care.py" "~/.emacs.d/init.el" "~/.emacs.d/" "~/.emacs.d/conf/face-conf.el" "~/.emacs.d/conf/extension.el" "~/.emacs.d/init.el" "~/.emacs.d/conf/smartchar-conf.el" "~/projects/kitty/application/website/mobile_gree/views/care.py" "~/projects/kitty/application/module/money/models.py" "~/.framesize.el" "~/projects/kitty/application/module/player/counter.py" "~/projects/kitty/application/website/mobile_gree/views/root.py" "~/projects/kitty/application/website/mobile_gree/templates/root/home.html" "~/projects/kitty/application/module/gacha/admin.py" "~/projects/kitty/application/module/gacha/models.py" "~/projects/space/space/gacha/models.py" "~/projects/kitty/application/website/mobile_gree/views/gacha.py" "~/projects/kitty/application/website/mobile_gree/urls.py" "~/projects/kitty/application/module/abstract/models/abstract_item.py" "~/projects/kitty/application/module/abstract/models/cached_master_model.py" "~/.virtualenvs/kitty/lib/python2.7/site-packages/django/template/context.py" "~/projects/kitty/application/module/common/context_processors.py" "~/projects/kitty/application/website/mobile_gree/views/item.py" "~/.virtualenvs/kitty/lib/python2.7/site-packages/django/template/__init__.py" "~/.virtualenvs/kitty/lib/python2.7/site-packages/django/core/management/commands/startapp.py" "~/.virtualenvs/kitty/lib/python2.7/site-packages/django/shortcuts/__init__.py" "~/projects/kitty/application/settings.py" "~/projects/kitty/application/settings_gree_staging.py" "~/projects/kitty/application/module/activity/models.py" "~/projects/kitty/application/website/mobile_gree/views/note.py" "~/projects/kitty/application/website/mobile_gree/views/debugroom.py" "~/.emacs.d/conf/basic.el" "~/code.txt" "~/memo.txt" "~/projects/sweet/ryoma/notification/models.py" "~/.emacs.d/init.el" "~/projects/kitty/application/module/friend/models.py" "~/projects/sweet/ryoma/activity/models.py" "~/projects/kitty/application/website/mobile_gree/views/friend.py" "~/projects/kitty/application/website/mobile_gree/views/poke.py" "~/projects/kitty/application/submodule/kvs/generic.py" "~/projects/kitty/application/module/parttime/models.py" "~/projects/kitty/application/website/mobile_gree/views/kokolog.py" "~/projects/kitty/application/module/experience/models.py" "~/projects/kitty/application/module/poke/models.py" "~/projects/kitty/application/submodule/gu3/login_bonus.py" "~/projects/kitty/application/module/diary/models.py" "~/projects/kitty/application/module/player/abstract_action.py" "~/projects/kitty/application/module/player/kitty.py" "~/projects/kitty/application/module/common/template_text.py" "~/projects/kitty/application/website/mobile_gree/templates/shop/purchase_complete_present_item.html" "~/projects/kitty/application/settings_gree.py" "~/projects/town/town/settings_gree_development.py" "~/projects/kitty/application/website/mobile_gree/views/shop.py" "~/projects/kitty/application/module/genericitem/models.py" "~/projects/kitty/application/module/experience/models_hierarchy_experience.py" "~/projects/kitty/application/module/experience/admin.py" "~/projects/kitty/application/module/item/models.py" "~/projects/kitty/application/module/abstract/models/abstract_player_item.py" "~/projects/kitty/application/website/mobile_gree/templates/shop/purchase_complete_care_item.html" "~/projects/kitty/application/module/player/decorators.py" "~/projects/space/space/shop/models.py" "~/projects/kitty/application/module/player/careaction.py" "~/projects/kitty/application/website/mobile_gree/templates/item/index_care.include.html" "~/.emacs.d/elisp/rgr-python.el" "~/projects/kitty/application/module/clearlevel/models.py" "~/projects/town/town/player/currency.py" "~/projects/town/town/player/models.py" "~/.workrc" "~/.emacs.d/conf/face-conf.el" "~/projects/kitty/application/module/player/management/commands/init_kitties.py" "~/.emacs.d/conf/elscreen-conf.el" "~/.emacs.d/conf/flymake-conf.el" "~/projects/kitty/application/website/mobile_gree/templates/debugroom/index.html" "~/projects/kitty/static/images/convert_png2gif_for_memoryitem.py" "~/projects/space/utility/ImageUtility.py" "~/projects/space/utility/make_material_thumbnails.py" "~/projects/space/utility/make_building_thumbnails.py" "~/projects/space/utility/" "~/projects/space/"))
+
+;; Buffer section -- buffers listed in same order as in buffer list:
+(desktop-create-buffer 206
+  "/Users/akira/projects/kitty/application/module/gacha/models.py"
+  "models.py"
+  'python-mode
+  '(auto-complete-mode yas/minor-mode flymake-mode)
+  32797
+  '(5837 nil)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/projects/kitty/application/module/invitation/models.py"
+  "models.py"
+  'python-mode
+  '(auto-complete-mode yas/minor-mode flymake-mode)
+  1
+  '(12319 nil)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/.emacs.d/conf/nxhtml-conf.el"
+  "nxhtml-conf.el"
+  'emacs-lisp-mode
+  '(auto-complete-mode yas/minor-mode auto-async-byte-compile-mode)
+  286
+  '(210 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/projects/kitty/application/website/mobile_gree/templates/poke/poke.html"
+  "poke.html"
+  'django-html-mumamo-mode
+  '(auto-complete-mode yas/minor-mode)
+  1292
+  '(299 nil)
+  nil
+  nil
+  '((tab-width . 4) (buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/mytmp/.emacs"
+  ".emacs"
+  'emacs-lisp-mode
+  '(auto-complete-mode yas/minor-mode auto-async-byte-compile-mode)
+  1724
+  '(1662 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/.emacs.d/elisp/elscreen.el"
+  "elscreen.el"
+  'emacs-lisp-mode
+  '(auto-complete-mode yas/minor-mode auto-async-byte-compile-mode)
+  3869
+  '(3801 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . undecided-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/.emacs.d/elisp/smartchr.el"
+  "smartchr.el"
+  'emacs-lisp-mode
+  '(auto-complete-mode yas/minor-mode auto-async-byte-compile-mode)
+  5607
+  '(5672 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/.emacs.d/elisp/auto-complete.el"
+  "auto-complete.el"
+  'emacs-lisp-mode
+  '(auto-complete-mode yas/minor-mode auto-async-byte-compile-mode)
+  34975
+  '(1 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . undecided-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/mytmp/.emacs.d/extension-settings.el"
+  "extension-settings.el"
+  'emacs-lisp-mode
+  '(auto-complete-mode yas/minor-mode auto-async-byte-compile-mode)
+  935
+  '(1045 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/.emacs.d/conf/auto-complete-conf.el"
+  "auto-complete-conf.el"
+  'emacs-lisp-mode
+  '(auto-complete-mode yas/minor-mode auto-async-byte-compile-mode)
+  4
+  '(122 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/.emacs.d/elisp/auto-complete-config.el"
+  "auto-complete-config.el"
+  'emacs-lisp-mode
+  '(auto-complete-mode yas/minor-mode auto-async-byte-compile-mode)
+  17543
+  '(2512 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . undecided-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/.emacs.d/conf/extension.el"
+  "extension.el"
+  'emacs-lisp-mode
+  '(auto-complete-mode yas/minor-mode auto-async-byte-compile-mode)
+  831
+  '(1105 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/.emacs.d/init.el"
+  "init.el"
+  'emacs-lisp-mode
+  '(auto-complete-mode yas/minor-mode auto-async-byte-compile-mode)
+  19
+  '(638 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/projects/kitty/application/module/player/decorators.py"
+  "decorators.py"
+  'python-mode
+  '(auto-complete-mode yas/minor-mode flymake-mode)
+  41
+  '(3841 nil)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/projects/kitty/application/website/mobile_gree/views/poke.py"
+  "poke.py"
+  'python-mode
+  '(auto-complete-mode yas/minor-mode flymake-mode)
+  4329
+  '(1 nil)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/private/etc/my.cnf"
+  "my.cnf"
+  'fundamental-mode
+  nil
+  2772
+  '(2682 nil)
+  t
+  nil
+  '((buffer-file-coding-system . undecided-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/projects/kitty/application/website/mobile_gree/templates/root/home.html"
+  "home.html"
+  'django-html-mumamo-mode
+  '(auto-complete-mode yas/minor-mode)
+  145
+  '(145 nil)
+  nil
+  nil
+  '((tab-width . 4) (buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/projects/kitty/application/website/mobile_gree/templates/poke/talk.html"
+  "talk.html"
+  'django-html-mumamo-mode
+  '(auto-complete-mode yas/minor-mode)
+  335
+  '(298 nil)
+  nil
+  nil
+  '((tab-width . 4) (buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/projects/kitty/application/website/mobile_gree/templates/kokolog/motionitem_detail.html"
+  "motionitem_detail.html"
+  'django-html-mumamo-mode
+  '(auto-complete-mode yas/minor-mode)
+  188
+  '(186 nil)
+  nil
+  nil
+  '((tab-width . 4) (buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/projects/kitty/application/website/mobile_gree/templates/item/present_done.html"
+  "present_done.html"
+  'django-html-mumamo-mode
+  '(auto-complete-mode yas/minor-mode)
+  172
+  '(136 nil)
+  nil
+  nil
+  '((tab-width . 4) (buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/projects/kitty/application/website/mobile_gree/views/care.py"
+  "care.py"
+  'python-mode
+  '(auto-complete-mode yas/minor-mode flymake-mode)
+  1260
+  '(1259 nil)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/projects/kitty/application/website/mobile_gree/views/examination.py"
+  "examination.py"
+  'python-mode
+  '(auto-complete-mode yas/minor-mode flymake-mode)
+  947
+  '(947 nil)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/projects/kitty/application/website/mobile_gree/views/kokolog.py"
+  "kokolog.py"
+  'python-mode
+  '(auto-complete-mode yas/minor-mode flymake-mode)
+  978
+  '(978 nil)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/projects/kitty/application/website/mobile_gree/views/item.py"
+  "item.py"
+  'python-mode
+  '(auto-complete-mode yas/minor-mode flymake-mode)
+  5311
+  '(996 nil)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/projects/kitty/application/website/mobile_gree/views/root.py"
+  "root.py"
+  'python-mode
+  '(auto-complete-mode yas/minor-mode flymake-mode)
+  1299
+  '(4120 nil)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/projects/kitty/application/submodule/opensocial/decorators.py"
+  "decorators.py"
+  'python-mode
+  '(auto-complete-mode yas/minor-mode flymake-mode)
+  4180
+  '(nil nil)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/projects/kitty/application/module/player/kitty.py"
+  "kitty.py"
+  'python-mode
+  '(auto-complete-mode yas/minor-mode flymake-mode)
+  25
+  '(1635 nil)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/projects/kitty/application/website/mobile_gree/templates/care/index.html"
+  "index.html"
+  'django-html-mumamo-mode
+  '(auto-complete-mode yas/minor-mode)
+  2243
+  '(1997 nil)
+  nil
+  nil
+  '((tab-width . 4) (buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/projects/kitty/application/website/mobile_gree/views/debugroom.py"
+  "debugroom.py"
+  'python-mode
+  '(auto-complete-mode yas/minor-mode flymake-mode)
+  21642
+  '(nil nil)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/projects/kitty/application/module/player/careaction.py"
+  "careaction.py"
+  'python-mode
+  '(auto-complete-mode yas/minor-mode flymake-mode)
+  2711
+  '(3240 nil)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/.emacs.d/conf/basic.el"
+  "basic.el"
+  'emacs-lisp-mode
+  '(auto-complete-mode yas/minor-mode auto-async-byte-compile-mode)
+  1
+  '(836 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/.emacs.d/conf/face-conf.el"
+  "face-conf.el"
+  'emacs-lisp-mode
+  '(auto-complete-mode yas/minor-mode auto-async-byte-compile-mode)
+  1457
+  '(5402 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/akira/.framesize.el"
+  ".framesize.el"
+  'emacs-lisp-mode
+  '(auto-complete-mode yas/minor-mode auto-async-byte-compile-mode)
+  259
+  '(nil nil)
+  nil
+  nil
+  '((buffer-file-coding-system . undecided-unix)))
+
