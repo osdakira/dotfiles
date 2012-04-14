@@ -1,2 +1,0 @@
-
-((digest . "a664281e8c3d9fcf61e987f4f8b3a2d3") (undo-list nil (4030 . 4033) (3995 . 3998) 4052 (t 20328 . 23712) nil (#("n" 0 1 (fontified t)) . -4328) (t 20328 . 23536) ((marker) . -1) ((marker) . -1) ((marker) . -1) ((marker) . -1) ((marker) . -1) ((marker) . -1) ((marker) . -1) ((marker) . -1) ((marker) . -1) ((marker) . -1) ((marker) . -1) ((marker) . -1) ((marker) . -1) ((marker) . -1) ((marker) . -1) ((marker) . -1) ((marker) . -1)))

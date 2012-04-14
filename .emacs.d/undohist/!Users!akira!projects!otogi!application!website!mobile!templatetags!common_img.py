@@ -1,2 +1,0 @@
-
-((digest . "7d57a09313343f619612dbdabe2a9571") (undo-list nil (nil rear-nonsticky nil 276 . 277) (nil fontified nil 254 . 277) (nil fontified nil 186 . 254) (nil fontified nil 183 . 186) (nil fontified nil 177 . 183) (nil fontified nil 173 . 177) (nil fontified nil 172 . 173) (nil fontified nil 169 . 172) (nil fontified nil 158 . 169) (nil fontified nil 157 . 158) (nil fontified nil 154 . 157) (nil fontified nil 153 . 154) (nil fontified nil 133 . 153) (133 . 277) nil (133 . 134) (t 20258 . 28702)))

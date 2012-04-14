@@ -1,3 +1,0 @@
-
-((digest . "63de3e4144754e75a1430c457edba502") (undo-list nil (#("
-" 0 1 (fontified t face my-eol-face)) . -27442) nil (#("    battle_result = 0" 0 4 (fontified t) 4 17 (fontified t) 17 21 (fontified t)) . 27443) (t 20329 . 63358) ((marker) . -21) nil (27463 . 27464) nil (27460 . 27463) nil (27447 . 27460) (#("bat" 0 3 (fontified nil)) . -27447) ((marker*) . 3) nil (27447 . 27450) nil (#("r" 0 1 (fontified t)) . -27447) nil (#("e" 0 1 (fontified t)) . -27448) nil (27447 . 27449) nil (27443 . 27447) nil (27442 . 27443) (t 20329 . 63095) nil (#("template" 0 8 (fontified t)) . 27707) nil (nil rear-nonsticky nil 27706 . 27707) (nil fontified nil 27694 . 27707) (27694 . 27707) nil undo-tree-canary))
