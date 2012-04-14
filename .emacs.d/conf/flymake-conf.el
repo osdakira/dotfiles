@@ -18,13 +18,16 @@
                         temp-file
                         (file-name-directory buffer-file-name))))
       ;;(list "pyflakes" (list local-file))))
-      (list "lintrunner.py" (list local-file))))
+      (list "~/.dotfiles/.mybin/lintrunner.py" (list local-file))))
  
   (add-to-list 'flymake-allowed-file-name-masks
                '("\\.py\\'" flymake-pyflakes-init)))
  
 (add-hook 'find-file-hook 'flymake-find-file-hook)
 (delete '("\\.html?\\'" flymake-xml-init) flymake-allowed-file-name-masks)
+(delete '("\\.\\(?:c\\(?:pp\\|xx\\|\\+\\+\\)?\\|CC\\)\\'" flymake-simple-make-init) flymake-allowed-file-name-masks)
+
+;;(delete '(".+\\.c$" flymake-c-init) flymake-allowed-file-name-masks)
 ;;(setq flymake-cursor-error-display-delay nil)
 
 

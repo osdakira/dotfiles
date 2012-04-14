@@ -1,7 +1,6 @@
 PS1='\w\$ '
 
-export PATH=/usr/local/mysql/bin:$HOME/.mybin:/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/:$PATH
-
+export PATH=$HOME/.dotfiles/.mybin/:/usr/local/mysql/bin:/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/:$PATH
 
 alias ls='ls -GFW'
 alias ll="ls -l"
@@ -10,8 +9,8 @@ alias lla="ls -la"
 alias h="history"
 alias run="source"
 
-alias en="open -n -a /Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
-alias em="open -a /Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
+alias en="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -t "
+alias em="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -c "
 
 alias rm="rm -i"
 
@@ -61,4 +60,4 @@ alias M="cd $HOME/memo/"
 export PYTHONSTARTUP=~/.pythonrc
 
 
-
+alias today="echo `date +%y-%m-%d`"

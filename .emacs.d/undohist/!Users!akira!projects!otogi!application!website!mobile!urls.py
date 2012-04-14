@@ -1,0 +1,2 @@
+
+((digest . "e16915959d94d590d109688043db4192") (undo-list nil (73127 . 73133) (t 20329 . 31521) nil (73174 . 73185) nil (#("_wintercup" 0 10 (fontified t face font-lock-string-face)) . 73174) ((marker) . -10) nil (73127 . 73132) nil (#("dungeon" 0 7 (fontified t face font-lock-string-face)) . -73127) nil (nil rear-nonsticky nil 73194 . 73195) (nil fontified nil 73192 . 73195) (nil fontified nil 73146 . 73192) (nil fontified nil 73136 . 73146) (nil fontified nil 73119 . 73136) (nil fontified nil 73113 . 73119) (73113 . 73195) nil (73112 . 73113) (t 20329 . 28552)))

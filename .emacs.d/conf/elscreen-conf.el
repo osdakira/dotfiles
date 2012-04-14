@@ -14,3 +14,10 @@
 
 (defadvice elscreen-toggle (around elscreen-create-automatically activate)
   (elscreen-create-automatically ad-do-it))
+
+(defface elscreen-tab-current-screen-face
+  '((((class color))
+     (:background "white" :foreground "green"))
+    (t (:underline t)))
+  "Face for current screen tab."
+  :group 'elscreen)

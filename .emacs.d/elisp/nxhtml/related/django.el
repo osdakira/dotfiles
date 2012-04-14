@@ -50,7 +50,7 @@
 (defconst django-indenting-keywords
   '("block" "comment" "else"
     "filter" "for" "if" "ifchanged" "ifequal"
-    "ifnotequal" "spaceless" "with"))
+    "ifnotequal" "spaceless" "with" "elif"))
 
 ;; (append '(or) django-indenting-keywords)
 (defconst django-font-lock-keywords

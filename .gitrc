@@ -13,7 +13,7 @@ alias gpush="git push"
 alias gtus="git status"
 alias glog="git log"
 alias gls="git log --stat"
-alias gp="git log -p"
+alias glp="git log -p"
 alias gout="git checkout"
 alias gbr="git branch"
 alias gdiff="git diff"
@@ -160,3 +160,18 @@ function prompt_command {
     echo -e "$ASCII_BOLD[$PROMPT_PREFIX$ASCII_RESET]"
 }
 #export PROMPT_COMMAND=prompt_command
+
+# function _git_not_pushed()
+# {
+#     if [ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]; then
+#         head="$(git rev-parse HEAD)"
+#         for x in $(git rev-parse --remotes)
+#         do
+#             if [ "$head" = "$x" ]; then
+#                 return 0
+#             fi
+#         done
+#         echo "#unpushed"
+#     fi
+#     return 0
+# }

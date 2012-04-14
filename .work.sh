@@ -2,6 +2,8 @@
 # workon #
 ##########
 
+alias seleniumfox="open -a Firefox --args -p SeleniumUser"
+
 alias comgrep="./manage.py help 2>&1|grep "
 
 alias tags="ctags -eR ."
@@ -10,6 +12,11 @@ alias tags="ctags -eR ."
 alias sqllog="tail -n 1000 -f /tmp/myquery.log"
 
 alias L="sqllog"
+
+allmigrate(){
+    ./manage.py migrate $*
+    ./manage.py migrate --database=genju-hime_part0 $*
+}
 
 workonhook(){
     workon $1
@@ -44,7 +51,7 @@ resetserver(){
     killrunsever
     killttserver
     sleep 0.2
-	runttserver &
+    runttserver &
     memcached &
     sleep 0.2
     # redis-server &

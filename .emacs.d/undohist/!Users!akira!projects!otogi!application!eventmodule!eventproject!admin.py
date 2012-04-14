@@ -1,0 +1,2 @@
+
+((digest . "52c36d03612b4cfde5227565fb9d1e83") (undo-list nil (443 . 445) (418 . 420) (397 . 399) (371 . 373) (341 . 343) (333 . 335) (313 . 315) (291 . 293) (266 . 268) (248 . 250) (232 . 234) (211 . 213) (184 . 186) (139 . 141) 469 nil (#("," 0 1 (fontified t)) . -137) nil (#("EventProjectAdmin" 0 17 (fontified t)) . -138) nil (nil rear-nonsticky nil 155 . 156) (nil fontified nil 105 . 156) (105 . 156) (t 20320 . 19189)))

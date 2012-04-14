@@ -41,7 +41,21 @@
   ("local-decoding" base64-decode-region)
   ("remote-encoding" tramp-perl-encode-with-module)
   ("remote-decoding" tramp-perl-decode-with-module))
- (["scp" nil "sweet-mbga-lb" nil]
+ (["scpc" nil "sshx" nil]
   nil)
- (["scp" nil "sweet-mbga-app1" nil]
-  nil))
+ (["sshx" "webapp" "duel-gree.dev2.gu3.jp" nil]
+  ("uname" "Linux 2.6.21.7-2.fc8xen")
+  ("test" "test")
+  ("remote-path"
+   ("/bin" "/usr/bin" "/usr/sbin" "/usr/local/bin"))
+  ("remote-shell" "/bin/sh")
+  ("~" "/home/webapp")
+  ("file-exists" "test -e")
+  ("perl-file-spec" t)
+  ("perl-cwd-realpath" t)
+  ("perl" "\\perl")
+  ("ls" "/bin/ls --color=never")
+  ("ls-dired" t)
+  ("stat" "\\stat")
+  ("id" "/usr/bin/id")
+  ("gid-integer" 501)))

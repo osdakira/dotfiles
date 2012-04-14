@@ -1,4 +1,5 @@
 ;; (install-elisp "http://www.emacswiki.org/emacs/download/auto-install.el")
+;; auto-install による elisp のインストール
 (when (require 'auto-install nil t)
   (setq auto-install-directory "~/.emacs.d/elisp/")
   (auto-install-update-emacswiki-package-name t)
@@ -6,11 +7,12 @@
   ;;(setq auto-install-use-wget t)
   )
 
+;; anything
 (require 'anything-startup)
 (global-set-key (kbd "C-;") 'anything)
 (global-set-key (kbd "M-y") 'anything-show-kill-ring)
 (global-set-key (kbd "M-i") 'anything-imenu)
-
+(global-set-key (kbd "M-C-.") 'anything-etags+-select)
 ;; tag jump
 ;; (require 'anything-etags)
 ;; (require 'anything-gtags)
@@ -24,11 +26,13 @@
 ;;       "Find Tag: " nil)))
 
 
+;; recentf-ext
 (setq recentf-max-saved-items 3000)
 (require 'recentf-ext)
 
 ;;(require 'col-highlight)
 ;;(column-highlight-mode 1)
+
 
 ;; ;; 同一名の buffer があったとき、開いているファイルのパスの一部を表示して区別する
 ;; (when (locate-library "uniquify")
@@ -39,16 +43,25 @@
 (setq uniquify-buffer-name-style 'forward)
  ;;'(uniquify-buffer-name-style (quote forward) nil (uniquify));;同名のファイルはディレクトリを付ける
 
+
 ;; 連続押しカスタマイズ
 (require 'sequential-command-config)
 (sequential-command-setup-keys)
 
+
+;;  検索
 (require 'color-moccur)
 (require 'moccur-edit)
 (require 'grep-edit)
+(defadvice moccur-edit-change-file
+  (after save-after-moccur-edit-buffer activate)
+  (save-buffer)
+)
+
 
 (require 'wdired)
 (define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
+
 
 (require 'minor-mode-hack)
 
@@ -78,11 +91,9 @@
 ;; (setq drill-instructor-global t)
 
 
-
 (require 'auto-async-byte-compile)
 (setq auto-async-byte-compile-exclude-files-regexp "/junk/")
 (add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode)
-
 
 
 (require 'boxes)
@@ -139,3 +150,25 @@
 ;; anything-etags+.el
 ;; (require 'anything-etags+)
 ;; (global-set-key "\M-." 'anything-etags+-select-one-key)
+
+;; Emacsを終了してもundoできる
+;; (when (require 'undohist nil t)
+;;   (undohist-initialize))
+
+;; undo が履歴で辿れる
+;; (require 'undo-tree)
+;; (global-undo-tree-mode)
+
+
+;; yaml
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+
+
+;; ctags
+(require 'anything-exuberant-ctags)
+
+
+;; multi-term mode
+(require 'multi-term)
+(setq multi-term-program "/bin/bash")

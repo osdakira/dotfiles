@@ -1,54 +1,52 @@
 ;; Command-Key and Option-Key
-(setq ns-command-modifier (quote meta)) ;; command → alt
-(setq ns-alternate-modifier (quote super)) ;; alt → command
-(global-set-key (kbd "M-h") 'backward-kill-word) 
-(global-unset-key [insert]) ;; disable insert key
-(keyboard-translate ?\C-h ?\C-?)
-(global-set-key (kbd "C-t") 'other-window-or-split)
-(global-set-key (kbd "C-S-i")   'indent-region)
+(setq ns-command-modifier (quote meta))               ;; command → alt
+(setq ns-alternate-modifier (quote super))            ;; alt → command
+(keyboard-translate ?\C-h ?\C-?)                      ;; C-h と C-?を入れ替える
+(global-set-key (kbd "M-h") 'backward-kill-word)      ;; M-hで単語消す
+(global-unset-key [insert])                           ;; disable insert key
+(global-set-key (kbd "C-t") 'other-window-or-split)   ;; 別のwindowへ
+(global-set-key (kbd "C-c l") 'toggle-truncate-lines) ;; 折り返しのトグル
 
 (custom-set-variables
  ;; 設定系
- '(indent-tabs-mode nil) ;; タブは使わない
- '(indent-level 4)
- '(tab-width 4)
+ '(indent-tabs-mode nil)                                ;; タブは使わない
+ '(indent-level 4)                                      ;; スペース4つ
+ '(scroll-step 1)                                       ;; スクロールは1行ずつ
+ '(indicate-empty-lines t)                              ;; 空行は出す
+ '(show-paren-mode t)                                   ;; 括弧の対応は表示
+ '(search-highlight t)                                  ;; 検索はハイライト
+ '(visible-bell t)                                      ;; エラーは画面のFlashで
+ '(make-backup-files nil)                               ;; バックアップは作らない
+ '(tool-bar-mode nil)                                   ;; ツールバーは要らない
+ '(inhibit-startup-screen t)                            ;; 起動画面不要
  '(backward-delete-char-untabify-method (quote hungry)) ;; 沢山消す
- '(scroll-step 1)
- '(indicate-empty-lines t) ;; 空行は出す
- '(show-paren-mode t) ;; 括弧の対応は表示
- '(search-highlight t) ;; 検索はハイライト
- '(visible-bell t) ;; エラーは画面のFlashで
- '(make-backup-files nil) ;; バックアップは作らない
- '(tool-bar-mode nil)
- '(inhibit-startup-screen t)
 
  ;; 内部保持設定系
- '(history-length 100)
+ '(kill-ring-max 100)      ; 100個まで記録しておく
+ '(history-length 100)     ; 100個まで記録しておく
  '(auto-save-interval 300) ; デフォルトは300
- '(kill-ring-max 100) ; 100個まで記録しておく
 
  ;; 表示系
- '(case-fold-search nil) ;;
  '(column-number-mode t) ;; 桁数出す
- '(enable-recursive-minibuffers t)
- ;;'(global-font-lock-mode t)
- '(initial-frame-alist '((width . 260) (height . 55)))
- '(isearch-lazy-highlight-initial-delay 0)
- '(frame-title-format (format "emacs : %%f" ))
- ;;'(mumamo-chunk-coloring t)
- '(save-place t nil (saveplace))
+ '(isearch-lazy-highlight-initial-delay 0) ;; 検索ﾊｲﾗｲﾄはすぐに
+ '(frame-title-format (format "emacs : %%f" )) ;; タイトルはファイルフルパス
+ '(initial-frame-alist '((width . 260) (height . 55))) ;; 画面サイズ
+ '(case-fold-search nil) 
  '(scroll-conservatively 1)
- '(show-paren-style 'expression)
  '(size-indication-mode t)
- '(text-mode-hook (quote (text-mode-hook-identify)))
- ;;'(transient-mark-mode t)
+ '(save-place t nil (saveplace))
+ '(show-paren-style 'expression)
+ '(enable-recursive-minibuffers t)
  '(truncate-partial-width-windows nil)
+ ;; '(text-mode-hook (quote (text-mode-hook-identify)))
+ ;;'(mumamo-chunk-coloring t)
+ ;;'(transient-mark-mode t)
+ ;;'(global-font-lock-mode t)
 
  ;; 文字コード系
  '(set-default-file-coding-system 'utf-8-unix)
  '(prefer-coding-system 'utf-8-unix)
  '(current-language-environment "UTF-8")
-
 )
 
 (custom-set-faces
@@ -58,9 +56,12 @@
  (set-frame-parameter nil 'alpha 85)
  (set-face-foreground 'modeline "#FF00")
 )
-(setq frame-background-mode 'dark)
-;;(setq  initial-frame-alist '((width . 10) (height . 10)))
-(standard-display-ascii ?\n "$\n")
+
+;;(setq frame-background-mode 'dark)
+(standard-display-ascii ?\n "$\n") ;; 
+(fset 'yes-or-no-p 'y-or-n-p) ;; yes じゃなくて y 
+(global-hl-line-mode) ;; カーソルに横ラインを出す
+
 ;; (defface my-eol-face
 ;;   '((t (:foreground "gray")))
 ;;   "eol")
@@ -71,13 +72,9 @@
 
 
 ;; Indent
-(setq-default indent-tabs-mode nil)
 (setq-default c-basic-offset 4)
-(setq-default tab-width 4)
 (c-set-offset 'case-label '+)
 
-(global-hl-line-mode) ;; カーソルに横ラインを出す
-(fset 'yes-or-no-p 'y-or-n-p) ;; yes じゃなくて y 
 
 ;; modeline関係
 ;;(set-face-underline-p 'modeline t) ; モードラインには下線をつける
@@ -93,12 +90,12 @@
              ((eq last-input-event ?\M-m)
               (goto-char (match-beginning 0))))))
 
+
 ;; ;; shell-modeで上下で補完
 ;; (setq shell-mode-hook
 ;;       (function (lambda ()
 ;;                   (define-key shell-mode-map [up] 'comint-previous-input)
 ;;                   (define-key shell-mode-map [down] 'comint-next-input))))
-
 
 
 ;; ctags
@@ -108,10 +105,13 @@
 ;; (setq tags-table-list
 ;;       '("~/projects/dragon/application"))
 (setq tags-table-list
-      '("~/projects/dragon/application" "~/projects/otogi/application")
+      ;; '("~/projects/dragon/application" "~/projects/otogi/application")
+      '("~/projects/genju-hime/application")
       )
 
+
 (defun other-window-or-split ()
+  "他のwindowへ。なかったら作る"
   (interactive)
   (when (one-window-p)
     (split-window-horizontally))
@@ -119,11 +119,13 @@
   (change-frame-background-color-by-project)
 )
 
+
 ;; local varibales list の警告を出さないようにする
 (custom-set-variables
  '(safe-local-variable-values (quote ((clmemo-mode . t)))))
 
 
+;; タブ、空白を眼に見えるように
 (setq whitespace-style
       '(tabs tab-mark spaces space-mark))
 (setq whitespace-space-regexp "\\(\x3000+\\)")
