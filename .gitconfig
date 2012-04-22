@@ -111,4 +111,5 @@
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 [github]
-	user = Sadaz
+	user = osdakira
+	token = 555f073545a5736aa0dc7c40086fd5d6927fe29d

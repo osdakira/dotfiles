@@ -50,6 +50,7 @@
 (load "flymake-conf")
 (load "myworks-conf")
 (load "point-undo-conf")
+(load "clojure-conf")
 
 
 ;; http://gihyo.jp/book/2012/978-4-7741-5002-4/support

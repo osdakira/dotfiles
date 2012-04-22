@@ -25,7 +25,37 @@
  
 (add-hook 'find-file-hook 'flymake-find-file-hook)
 (delete '("\\.html?\\'" flymake-xml-init) flymake-allowed-file-name-masks)
-(delete '("\\.\\(?:c\\(?:pp\\|xx\\|\\+\\+\\)?\\|CC\\)\\'" flymake-simple-make-init) flymake-allowed-file-name-masks)
+
+
+(when (load "flymake" t)
+  (defun flymake-c-init ()
+    (let* ((temp-file   (flymake-init-create-temp-buffer-copy
+                         'flymake-create-temp-inplace))
+           (local-file  (file-relative-name
+                         temp-file
+                         (file-name-directory buffer-file-name))))
+      (list "clang" (list local-file))))
+
+  (push '("\\.c$" flymake-c-init) flymake-allowed-file-name-masks)
+
+  (add-hook 'c-mode-hook
+            '(lambda ()
+               (flymake-mode t)))
+)
+
+;; (when (load "flymake" t)
+;;   (defun flymake-c-init ()
+;;     (let* ((temp-file (flymake-init-create-temp-buffer-copy
+;;                        'flymake-create-temp-inplace))
+;;            (local-file (file-relative-name
+;;                         temp-file
+;;                         (file-name-directory buffer-file-name))))
+;;       (list "clang" (list local-file))))
+ 
+;;   (add-to-list 'flymake-allowed-file-name-masks
+;;                '("\\.c\\'" flymake-c-init)))
+
+
 
 ;;(delete '(".+\\.c$" flymake-c-init) flymake-allowed-file-name-masks)
 ;;(setq flymake-cursor-error-display-delay nil)

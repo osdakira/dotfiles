@@ -58,6 +58,7 @@ source $HOME/.work.sh
 alias M="cd $HOME/memo/"
 
 export PYTHONSTARTUP=~/.pythonrc
-
+export PYTHONDONTWRITEBYTECODE=1
 
 alias today="echo `date +%y-%m-%d`"
+

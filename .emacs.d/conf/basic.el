@@ -139,3 +139,12 @@
 (set-face-background 'whitespace-space "DarkSlateGray")
 (set-face-foreground 'whitespace-tab "LightSlateGray")
 (set-face-background 'whitespace-tab "DarkSlateGray")
+
+
+(add-hook 'js2-mode-hook
+          '(lambda ()
+             (require 'js)
+             (setq js-indent-level 4
+                   js-expr-indent-offset 4
+                   indent-tabs-mode nil)
+             (set (make-local-variable 'indent-line-function) 'js-indent-line)))

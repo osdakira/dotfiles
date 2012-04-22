@@ -28,7 +28,6 @@
 ;; (add-hook 'php-mode-hook 'my-smartchr-setting)
 ;; (add-hook 'javascript-mode-hook 'my-smartchr-setting)
 (add-hook 'python-mode-hook 'my-smartchr-setting)
-(add-hook 'c-mode-hook 'my-smartchr-setting)
 
 (defun my-smartchr-setting-django ()
   (local-set-key (kbd "{") (smartchr '("{" "{`!!'}" "{% `!!' %}" "{{ `!!' }}" "{# `!!' #}")))
@@ -44,3 +43,15 @@
   (local-set-key (kbd "*") (smartchr '("* " "** " "*** ")))
   )
 (add-hook 'org-mode-hook 'org-smartchr-setting)
+
+
+(defun my-smartchr-c-setting ()
+  (local-set-key (kbd "=") (smartchr '(" = " "=" " == " )))
+  (local-set-key (kbd "+") (smartchr '(" + " "+" " += " "++")))
+  (local-set-key (kbd "(") (smartchr '("(`!!')" "(")))
+  (local-set-key (kbd "'") (smartchr '("'`!!''" "'")))
+  (local-set-key (kbd "#") (smartchr '("# " "#")))
+  (local-set-key (kbd "[") (smartchr '("[`!!']" "[")))
+  (local-set-key (kbd ",") (smartchr '(", ")))
+  )
+(add-hook 'c-mode-hook 'my-smartchr-c-setting)
