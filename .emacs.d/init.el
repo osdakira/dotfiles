@@ -36,6 +36,8 @@
 ;; (byte-recompile-directory "~/.emacs.d/elisp" t nil)
 
 (load "basic")
+(load "auto-install-conf")
+(load "anything-conf")
 (load "extension")
 (load "auto-complete-conf")
 (load "elscreen-conf")

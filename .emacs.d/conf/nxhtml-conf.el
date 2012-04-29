@@ -6,8 +6,8 @@
 
 (load-library "autostart")
 (add-to-list 'auto-mode-alist '("\\.html$" . django-html-mumamo-mode))
-;;(setq mumamo-background-colors nil) 
-;;(setq mumamo-chunk-coloring 'no-chunks-colored)
+(setq mumamo-background-colors nil
+(setq mumamo-chunk-coloring 'no-chunks-colored)
 (add-hook 'django-html-mumamo-mode-hook 
           '(lambda () 
              (auto-complete-mode t)

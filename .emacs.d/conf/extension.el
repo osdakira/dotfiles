@@ -1,31 +1,3 @@
-;; (install-elisp "http://www.emacswiki.org/emacs/download/auto-install.el")
-;; auto-install による elisp のインストール
-(when (require 'auto-install nil t)
-  (setq auto-install-directory "~/.emacs.d/elisp/")
-  (auto-install-update-emacswiki-package-name t)
-  (auto-install-compatibility-setup)
-  ;;(setq auto-install-use-wget t)
-  )
-
-;; anything
-(require 'anything-startup)
-(global-set-key (kbd "C-;") 'anything)
-(global-set-key (kbd "M-y") 'anything-show-kill-ring)
-(global-set-key (kbd "M-i") 'anything-imenu)
-(global-set-key (kbd "M-C-.") 'anything-etags+-select)
-;; tag jump
-;; (require 'anything-etags)
-;; (require 'anything-gtags)
-;; (define-key global-map (kbd "C-x t")
-;;   (lambda ()
-;;     "Tag jump using etags, gtags and `anything'."
-;;     (interactive)
-;;     (let* ((initial-pattern (regexp-quote (or (thing-at-point 'symbol) ""))))
-;;       (anything (list anything-c-source-gtags-select
-;;                       anything-c-source-etags-select))
-;;       "Find Tag: " nil)))
-
-
 ;; recentf-ext
 (setq recentf-max-saved-items 3000)
 (require 'recentf-ext)
@@ -127,6 +99,24 @@
 ;; (setq interpreter-mode-alist (cons '("python" . python-mode)
 ;;                                       interpreter-mode-alist))
 
+(defun my-compile ()
+  "Use compile to run python programs"
+  (interactive)
+  (compile (concat "python " (buffer-name))))
+;; (defun my-py-execute-buffer ()
+;;   (interactive)
+;;   (set 'code-buffer (current-buffer))
+;;   (unless (get-buffer "*Python*")
+;;     (py-shell)
+;;     (set-buffer code-buffer)
+;;     (sleep-for 0.2))
+;;   (py-execute-buffer))
+(setq compilation-scroll-output t)
+(add-hook 'python-mode-hook 
+          (local-set-key "\C-c\C-c" 'my-compile)
+          ;; (local-set-key "\C-c\C-c" 'my-py-execute-buffer)
+          )
+           
 
 
 
