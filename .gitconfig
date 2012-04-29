@@ -4,7 +4,7 @@
 # あるリポジトリをクローンしたら、自動的に master ブランチを作成し、origin/master を追跡するようになります。これが、git push や git pull が引数なしでもうまく動作する理由です。しかし、必要に応じてそれ以外の追跡ブランチを作成し、origin 以外にあるブランチや master 以外のブランチを追跡させることも可能です。シンプルな方法としては、git checkout -b [branch] [remotename]/[branch] を実行します。Git バージョン 1.6.2 以降では、より簡単に --track を使うことができます。
 
 [core]
-    editor = vi
+	editor = /usr/bin/vim
     quotepath = false
 	excludesfile = /Users/akira/.gitignore
 

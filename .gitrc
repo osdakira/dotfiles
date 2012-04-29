@@ -24,12 +24,14 @@ alias gstash="git stash"
 alias gst="git stash"
 alias gmgm="git merge master"
 alias gmgr="git merge release"
+alias gmgd="git merge develop"
 alias grbm="git rebase master"
 alias g1="git log --stat -1 -p"
 
 alias gr="gout release"
 alias gm="gout master"
 alias go="gout osada"
+alias gd="gout develop"
 
 
 alias A="git add"
