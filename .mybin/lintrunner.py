@@ -244,11 +244,11 @@ def main():
     options, args = parser.parse_args()
 
     for runnerclass in (
-        # PylintRunner,
-        #PycheckerRunner,
+        PylintRunner,
+        # PycheckerRunner,
         Pep8Runner,
         PyflakesRunner,
-        CompilerRunner
+        # CompilerRunner
         ):
         runner = runnerclass(virtualenv=options.virtualenv,
                              ignore_codes=options.ignore_codes,
@@ -256,9 +256,8 @@ def main():
         try:
             runner.run(args[0])
         except Exception:
-            #print >> sys.stdout, '{0} FAILED'.format(runner)
-            print 'ERROR : {0} failed to run at {1} line 1.'.format(
-                runner.__class__.__name__, args[0])
+            # print >> sys.stdout, '{0} FAILED'.format(runner)
+            print 'ERROR : {0} failed to run at {1} line 1.'.format(runner.__class__.__name__, args[0])
 
 
 if __name__ == '__main__':
