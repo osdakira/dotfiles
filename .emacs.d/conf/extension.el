@@ -101,8 +101,9 @@
 
 (defun my-compile ()
   "Use compile to run python programs"
-  (interactive)
+  ;;(interactive)
   (compile (concat "python " (buffer-name))))
+
 ;; (defun my-py-execute-buffer ()
 ;;   (interactive)
 ;;   (set 'code-buffer (current-buffer))
@@ -112,11 +113,27 @@
 ;;     (sleep-for 0.2))
 ;;   (py-execute-buffer))
 (setq compilation-scroll-output t)
-(add-hook 'python-mode-hook 
-          (local-set-key "\C-c\C-c" 'my-compile)
-          ;; (local-set-key "\C-c\C-c" 'my-py-execute-buffer)
-          )
-           
+;; (add-hook 'python-mode-hook 
+;; ;; ;;           ;; (define-key map [(control c)(control c)] 'my-compile)
+;; ;; ;;           ;; (define-key python-mode-map [remap python-send-buffer] 'my-compile)
+;;           ;; (local-set-key (kbd "C-c C-c") 'my-compile)
+;; ;; ;;           ;; (local-set-key (kbd "C-c C-c") 'my-compile)
+;; ;; ;;           ;; (local-set-key "\C-c\C-c" 'my-py-execute-buffer)
+;;           )
+(add-hook 'python-mode-hook 'hs-minor-mode)
+(add-hook 'html-mumamo-mode-hook 'hs-minor-mode)
+
+;; (defun py-do-it ()
+;;   (interactive)
+;;   (if (string-match
+;;        (rx bos "test_")
+;;        (file-name-nondirectory (buffer-file-name)))
+;;       (compile "py.test")
+;;     (py-execute-buffer)))
+
+;; (add-hook 'python-mode-hook
+;;           (lambda ()
+;;             (local-set-key (kbd "C-c C-c") 'py-do-it)))           
 
 
 
@@ -160,5 +177,10 @@
 
 
 ;; multi-term mode
-(require 'multi-term)
-(setq multi-term-program "/bin/bash")
+;; (require 'multi-term)
+;; (setq multi-term-program "/bin/bash")
+
+;;
+(global-set-key (kbd "<f7>")      'fold-dwim-toggle)
+(global-set-key (kbd "<M-f7>")    'fold-dwim-hide-all)
+(global-set-key (kbd "<S-M-f7>")  'fold-dwim-show-all)

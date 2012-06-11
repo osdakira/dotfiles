@@ -8,14 +8,13 @@ alias la="ls -a"
 alias lla="ls -la"
 alias h="history"
 alias run="source"
+alias cd="pushd"
+alias pd="popd"
 
 alias en="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -t "
 alias em="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -c "
 
 alias rm="rm -i"
-
-alias pd="pushd"
-alias p="popd"
 
 alias grep="grep --color=auto"
 
@@ -37,7 +36,7 @@ shopt -u histappend
 export HISTSIZE=9999
 
 
-source ~/.local/bin/bashmarks.sh
+# source ~/.local/bin/bashmarks.sh
 
 export EDITOR=emacsclient
 

@@ -6,7 +6,9 @@ alias seleniumfox="open -a Firefox --args -p SeleniumUser"
 
 alias comgrep="./manage.py help 2>&1|grep "
 
-alias tags="ctags -eR ."
+tags(){
+    ctags -eR `pwd`
+}
 
 #alias sqllog="tail -n 1000 -f /usr/local/var/mysql/osada-no-MacBook-Pro.log"
 alias sqllog="tail -n 1000 -f /tmp/myquery.log"

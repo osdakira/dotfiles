@@ -6,9 +6,12 @@
 (global-unset-key [insert])                           ;; disable insert key
 (global-set-key (kbd "C-t") 'other-window-or-split)   ;; 別のwindowへ
 (global-set-key (kbd "C-c l") 'toggle-truncate-lines) ;; 折り返しのトグル
+(global-set-key (kbd "C-S-w") 'delete-region)
+
 
 (custom-set-variables
  ;; 設定系
+ '(tab-width 4) ;; タブは4
  '(indent-tabs-mode nil)                                ;; タブは使わない
  '(indent-level 4)                                      ;; スペース4つ
  '(scroll-step 1)                                       ;; スクロールは1行ずつ
