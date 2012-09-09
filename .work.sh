@@ -2,23 +2,46 @@
 # workon #
 ##########
 
+alias T="cd ~/project/test"
+
 alias seleniumfox="open -a Firefox --args -p SeleniumUser"
 
-alias comgrep="./manage.py help 2>&1|grep "
-
 tags(){
-    ctags -eR `pwd`
+    ctags -ueR `pwd`
 }
 
 #alias sqllog="tail -n 1000 -f /usr/local/var/mysql/osada-no-MacBook-Pro.log"
 alias sqllog="tail -n 1000 -f /tmp/myquery.log"
-
 alias L="sqllog"
 
-allmigrate(){
-    ./manage.py migrate $*
-    ./manage.py migrate --database=genju-hime_part0 $*
+migrate(){
+    echo "Start migration"
+    all_dbs eventmodule migrate --no-initial-data $*
+    echo "End migration"
 }
+
+revert_app(){
+    echo "Start revert"
+    all_dbs eventmodule revert_app $*
+    echo "End revert"
+}
+
+all_dbs(){
+    PIDS=()
+    DATABASE_ALIAS_NAMES=`python -c "from settings.osada import DATABASES;print ' '.join([db for db in DATABASES if db != 'read'])"`
+    for i in ${DATABASE_ALIAS_NAMES}
+    do
+        echo ./manage.py ${*} --database=${i} &
+        ./manage.py ${*} --database=${i} &
+        PIDS=(${PIDS[@]} $!)
+    done
+
+    for pid in ${PIDS}
+    do
+        wait ${pid}
+    done
+}
+
 
 workonhook(){
     workon $1
@@ -47,11 +70,13 @@ killttserver(){
 
 resetserver(){
     `basename "$VIRTUAL_ENV"`
-    #killserversg
+    # killservers
     # killall redis-server
     killall memcached
-    killrunsever
-    killttserver
+    killall python
+    killall ttserver
+    # killrunsever
+    # killttserver
     sleep 0.2
     runttserver &
     memcached &
@@ -69,17 +94,13 @@ syncdb(){
     echo $c;$c
 }
 
-loaddata(){
-    G
-    ./load.sh ${my_settings}
-}
+# migrate(){
+#     #c="python manage.py migrate ${1} ${2} --settings=${my_settings}"
+#     c="python manage.py migrate ${1} ${2}"
+#     echo $c
+#     $c
+# }
 
-migrate(){
-    #c="python manage.py migrate ${1} ${2} --settings=${my_settings}"
-    c="python manage.py migrate ${1} ${2}"
-    echo $c
-    $c
-}
 rebuildapp(){
     python manage.py migrate  ${1} zero 
     rm -rf module/${1}/migrations/
@@ -125,7 +146,7 @@ tcr(){
     tcrmgr ${1} -port ${tt_port} localhost ${2}
 }
 runttserver(){
-	ttserver -port ${tt_port} ~/mytmp/`basename "$VIRTUAL_ENV"`.tch
+    ttserver -port ${tt_port} ~/mytmp/`basename "$VIRTUAL_ENV"`.tch
 }
 
 ########
@@ -144,8 +165,8 @@ shell(){
     python manage.py shell_plus
 }
 
-alias update_cache_all="./manage.py update_cache_all;R"
-alias UA="update_cache_all"
+# alias update_cache_all="./manage.py update_cache_all;R"
+# alias UA="update_cache_all"
 
 # ${ENV_NAME}(){
 #     workon ${ENV_NAME}

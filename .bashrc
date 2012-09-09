@@ -51,8 +51,8 @@ alias unrepr="python -c \"import sys; [ sys.stdout.write('\t'.join( [ (s.startsw
 source $HOME/.gitrc
 export WORKON_HOME=$HOME/.virtualenvs 
 source /usr/local/bin/virtualenvwrapper_bashrc
-source $HOME/.app.sh
 source $HOME/.work.sh
+source $HOME/.app.sh
 
 alias M="cd $HOME/memo/"
 
@@ -61,3 +61,4 @@ export PYTHONDONTWRITEBYTECODE=1
 
 alias today="echo `date +%y-%m-%d`"
 
+export HISTTIMEFORMAT='%y/%m/%d %H:%M:%S '

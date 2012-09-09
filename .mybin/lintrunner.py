@@ -4,8 +4,13 @@ import os
 import re
 import sys
 import compiler
+import logging
+logging.basicConfig(filename='/tmp/lint.log',level=logging.DEBUG)
+import traceback
 
 from subprocess import Popen, PIPE
+
+
 
 PYLINT_COMMAND = "pylint"
 PYCHECKER_COMMAND = "pychecker"
@@ -70,6 +75,7 @@ class LintRunner(object):
         args = [self.command]
         args.extend(self.run_flags)
         args.append(filename)
+        logging.debug("args {}".format(args))
         process = Popen(args, stdout=PIPE, stderr=PIPE, env=self.env)
         for line in process.stdout:
             self.process_output(line)
@@ -126,7 +132,7 @@ class PylintRunner(LintRunner):
         "R0904",  # Too many public methods
         "R0903",  # Too few public methods
         "R0201",  # Method could be a function
-        "W0141",  # Used built in function map
+        # "W0141",  # Used built in function map
         "W0201",  # Attribute defined outside __init__
         "E1101",  # has no 'hoge' member
         ])
@@ -249,7 +255,7 @@ def main():
     for runnerclass in (
         PylintRunner,
         # PycheckerRunner,
-        PyflakesRunner,
+        # PyflakesRunner,
         Pep8Runner,
         # CompilerRunner
         ):
@@ -260,6 +266,7 @@ def main():
             runner.run(args[0])
         except Exception:
             # print >> sys.stdout, '{0} FAILED'.format(runner)
+            logging.debug("lintrunner error {}".format(traceback.format_exc()))
             print 'ERROR : {0} failed to run at {1} line 1.'.format(runner.__class__.__name__, args[0])
 
 

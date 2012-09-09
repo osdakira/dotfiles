@@ -1,32 +1,34 @@
+GIT_MERGE_AUTOEDIT=no
+export GIT_MERGE_AUTOEDIT
 alias ginit="cd ..; git submodule init; cd application"
 alias gupdate="cd ..; git submodule update ; cd application"
 alias gsubmodule="cd ..; git submodule; cd application"
 
-alias gadd="git add"
+alias gconf="git commit"
 alias gcom="git commit -m"
-alias gcam="git add .; git commit -am"
-alias gpul="git pull"
-alias gpl="git pull"
-alias gpuh="git push"
-alias gpsh="git push"
+alias gpul="git pull --no-ff "
+alias gpl="gpul"
 alias gpush="git push"
-alias gtus="git status"
-alias glog="git log"
+alias gpuh="gpush"
+alias gpsh="gpush"
 alias gls="git log --stat"
 alias glp="git log -p"
 alias gout="git checkout"
 alias gbr="git branch"
-alias gdiff="git diff"
-alias gdif="git diff"
-alias gmerge="git merge"
-alias gmerg="git merge"
+alias gmerge="git merge --no-ff"
+alias gmerg="gmerge"
+
 alias gstash="git stash"
-alias gst="git stash"
-alias gmgm="git merge master"
-alias gmgr="git merge release"
-alias gmgd="git merge develop"
-alias grbm="git rebase master"
-alias g1="git log --stat -1 -p"
+alias gstashs="gstash save"
+alias gstashp="gstash pop"
+
+alias grb="git rebase --no-ff"
+alias gr="git rebase --no-ff"
+alias grbm="gr master"
+
+alias gmgm="gmerg master"
+alias gmgr="gmerge release"
+alias gmgd="gmerge develop"
 
 alias gr="gout release"
 alias gm="gout master"
@@ -38,11 +40,10 @@ alias A="git add"
 alias S="git status"
 alias D="git diff"
 alias DC="git diff --cached"
-alias C="git commit -m"
 alias gamend="git commit --amend"
 
-alias glogtree="git log --graph --pretty=oneline --decorate --date=short --abbrev-commit --branches"
-
+#alias gtree="git log --graph --pretty=oneline --decorate --date=short --abbrev-commit --branches"
+alias gtree="git log --graph --pretty=oneline --date=short --abbrev-commit --branches"
 
 ### Display git branch ###
 

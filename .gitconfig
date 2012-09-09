@@ -8,15 +8,12 @@
     quotepath = false
 	excludesfile = /Users/akira/.gitignore
 	autocrlf = input
-
-[gui]
 [color]
-	branch = auto
-	diff = auto
-	interactive = auto
-	status = auto
-[gui]
-	recentrepo = /Users/akira/projects/ryoma
+	ui = auto
+	#branch = auto
+	#diff = auto
+	#interactive = auto
+	#status = auto
 [user]
 	name = Akira Osada
 	email = osada@gu3.co.jp
@@ -126,3 +123,4 @@
 [github]
 	user = osdakira
 	token = 555f073545a5736aa0dc7c40086fd5d6927fe29d
+
