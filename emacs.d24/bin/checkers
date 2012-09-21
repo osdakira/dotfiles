@@ -1,0 +1,5 @@
+#!/bin/bash
+
+pep8 --ignore=E221,E701,E202,E501 --repeat "$1"
+pylint "$1"
+true
