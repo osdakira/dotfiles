@@ -1,0 +1,5 @@
+# contributor: Jimmy Wu <frozenthrone88@gmail.com>
+# name: comment
+# key: com
+# --
+{% comment %}$0{% endcomment %

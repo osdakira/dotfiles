@@ -1,7 +1,9 @@
 alias seleniumfox="open -a Firefox --args -p SeleniumUser"
-
+alias size="sips -g all"
+alias ql='qlmanage -p "$@" >& /dev/null'
 tags(){
-    ctags -ueR `pwd`
+    # ctags -ueR `pwd`
+    find `pwd` -name "*.py" -print | etags -a -
 }
 
 alias sqllog="tail -n 1000 -f /tmp/myquery.log"
@@ -62,13 +64,15 @@ resetserver(){
     else
         redis-server ${HOME}/.redis.conf &
     fi
+    # python ./manage.py update_cache_all &
+    ./manage.py update_gacha_deck &
     python manage.py runserver_plus 0.0.0.0:${server_port}
 }
 alias R=resetserver
-
+alias U="./mange.py update_cache_all"
 
 rebuildapp(){
-    python manage.py migrate  ${1} zero 
+    python manage.py migrate  ${1} zero
     rm -rf module/${1}/migrations/
     sinit  ${1}
     # python manage.py schemamigration ${1} --initial --settings=${my_settings}
@@ -76,17 +80,17 @@ rebuildapp(){
 }
 
 sinit(){
-    python manage.py schemamigration ${1} --initial
-    python manage.py migrate ${1} 
+    python manage.py eventmodule schemamigration ${1} --initial
+    python manage.py eventmodule migrate ${1}
 }
 
 sauto(){
-    python manage.py schemamigration ${1} --auto
-    python manage.py migrate ${1} 
+    python manage.py eventmodule schemamigration ${1} --auto
+    python manage.py eventmodule migrate ${1}
 }
 
 szero(){
-    python manage.py migrate ${1} zero
+    python manage.py eventmodule migrate ${1} zero
 }
 
 createdb(){

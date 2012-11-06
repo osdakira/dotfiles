@@ -1,1 +1,3 @@
 --python-kinds=-i
+--exclude=/var/folders/
+--links=no

@@ -69,7 +69,7 @@
 (elscreen-start)
 
 ;; (global-set-key "\C-cg" 'mo-git-blame-current)
-(global-set-key "\C-cg" 'magit-status)
+;; (global-set-key "\C-cg" 'magit-status)
 
 
 (require 'auto-complete)
@@ -79,8 +79,9 @@
 
 
 ;; 行末の空白を強調表示
-(setq-default show-trailing-whitespace t)
-(set-face-background 'trailing-whitespace "#b14770")
+;; (setq-default show-trailing-whitespace t)
+;; (set-face-background 'trailing-whitespace "#b14770")
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; 行間
 (setq-default line-spacing 0)
@@ -106,7 +107,7 @@
 
 (require 'pony-mode)
 (add-hook 'sgml-mode-hook
-          (lambda () 
+          (lambda ()
             (auto-complete-mode)
             (setq sgml-basic-offset 4)
             (setq indent-tabs-mode nil)
@@ -131,8 +132,8 @@
 
 ;; (auto-compile-on-save-mode 1)
 
-(require 'ctags-update)
-(ctags-auto-update-mode 1)
+;; (require 'ctags-update)
+;; (ctags-auto-update-mode 1)
 
 ;; (setq ipython-command "/usr/local/bin/ipython")
 ;; (require 'ipython)
@@ -148,15 +149,19 @@
 
 
 (add-hook 'python-mode-hook
-  (lambda ()
+  '(lambda ()
     (setq imenu-create-index-function 'python-imenu-create-index)))
 
 
 (require 'fold-dwim)
-(global-set-key (kbd "C-c C-l") 'fold-dwim-toggle)
+(global-set-key (kbd "C-c o") 'fold-dwim-toggle)
 (global-set-key (kbd "C-c n") 'fold-dwim-hide-all)
 (global-set-key (kbd "C-c k") 'fold-dwim-show-all)
-(add-hook 'python-mode-hook 'hs-minor-mode)
+(add-hook 'python-mode-hook
+          '(lambda ()
+             (hs-minor-mode)
+             ;; (fold-dwim-hide-all)
+             ))
 
 
 ;; diffの表示方法を変更
@@ -188,3 +193,28 @@
   ;; diffの表示設定が上書きされてしまうのでハイライトを無効にする
   (set-face-attribute 'magit-item-highlight nil :inherit nil))
 (add-hook 'magit-mode-hook 'magit-setup-diff)
+
+
+;; (autoload 'edbi:open-db-viewer "edbi")
+;; (require 'edbi)
+
+(require 'yasnippet)
+(setq yas-use-menu nil)
+(yas-global-mode 1)
+
+
+(defun seq-upcase-backward-word ()
+  (interactive)
+  (backward-word)
+  (upcase-word 1))
+(defun seq-capitalize-backward-word ()
+  (interactive)
+  (backward-word)
+  (capitalize-word 1))
+(defun seq-downcase-backward-word ()
+  (interactive)
+  (backward-word)
+  (downcase-word 1))
+(global-set-key "\M-u" 'seq-upcase-backward-word)
+(global-set-key "\M-c" 'seq-capitalize-backward-word)
+(global-set-key "\M-l" 'seq-downcase-backward-word)

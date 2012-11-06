@@ -7,6 +7,8 @@
 ;;デフォルトは 10.
 (setq anything-kill-ring-threshold 20)
 (global-set-key "\M-y" 'anything-show-kill-ring)
+(global-set-key (kbd "C-M-.") 'find-tag-noselect)
+
 
 ;; ;; ▼要拡張機能インストール▼
 ;; ;;; P190-191 ctagsとEmacsとの連携
@@ -40,7 +42,7 @@
 ;;     (anything anything-for-tags
 ;;               (thing-at-point 'symbol)
 ;;               nil nil nil "*anything for tags*"))
-  
+
 ;; ;; M-tにanything-for-currentを割り当て
 ;; (define-key global-map (kbd "M-t") 'anything-for-tags))
 
@@ -105,5 +107,3 @@
 ;;    anything-c-moccur-enable-initial-pattern t)
 ;;   ;; C-M-oにanything-c-moccur-occur-by-moccurを割り当てる
 ;;   (global-set-key (kbd "C-M-o") 'anything-c-moccur-occur-by-moccur))
-
-
