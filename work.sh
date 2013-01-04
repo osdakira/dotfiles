@@ -6,7 +6,7 @@ tags(){
     find `pwd` -name "*.py" -print | etags -a -
 }
 
-alias sqllog="tail -n 1000 -f /tmp/myquery.log"
+alias sqllog="sudo tail -n 1000 -f /tmp/myquery.log"
 
 migrate(){
     all_dbs eventmodule migrate --no-initial-data $*
@@ -17,11 +17,11 @@ revert_app(){
 }
 
 all_dbs(){
-    DATABASE_ALIAS_NAMES=`python -c "from settings.osada import DATABASES;print ' '.join([db for db in DATABASES if db != 'read'])"`
-    for i in ${DATABASE_ALIAS_NAMES}
+    for i in `./manage.py get_db_names`
     do
-        echo ./manage.py ${*} --database=${i} &
+        set -x
         ./manage.py ${*} --database=${i} &
+        set +x
     done
     wait
 }
@@ -68,8 +68,27 @@ resetserver(){
     ./manage.py update_gacha_deck &
     python manage.py runserver_plus 0.0.0.0:${server_port}
 }
-alias R=resetserver
+alias R=resetserver2
 alias U="./mange.py update_cache_all"
+
+
+resetserver2(){
+    cd ${PWD%%/application*}/application
+    killall redis-server
+    killall memcached
+    killrunsever
+    sleep 0.2
+
+    memcached &
+    if [ -f ${VIRTUAL_ENV}/redis.conf ]; then
+        redis-server ${VIRTUAL_ENV}/redis.conf &
+    else
+        redis-server ${HOME}/.redis.conf &
+    fi
+    # python ./manage.py update_cache_all &
+    ./manage.py update_gacha_deck &
+    python manage.py runserver_plus 0.0.0.0:${server_port}
+}
 
 rebuildapp(){
     python manage.py migrate  ${1} zero
@@ -124,11 +143,11 @@ runttserver(){
 # Misc #
 ########
 dbshell(){
-    workonhook `basename "$VIRTUAL_ENV"`
+    # workonhook `basename "$VIRTUAL_ENV"`
     python manage.py dbshell
 }
 shell(){
-    workonhook `basename "$VIRTUAL_ENV"`
+    # workonhook `basename "$VIRTUAL_ENV"`
     python manage.py shell_plus
 }
 

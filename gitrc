@@ -6,7 +6,7 @@ alias gsubmodule="cd ..; git submodule; cd application"
 
 alias gconf="git commit"
 alias gcom="git commit -m"
-alias gpul="git pull --no-ff "
+alias gpul="git pull --no-ff"
 alias gpl="gpul"
 alias gpull="gpul"
 alias gpush="git push"
@@ -16,11 +16,12 @@ alias gls="git log --stat"
 alias glp="git log -p"
 alias gout="git checkout"
 alias gbr="git branch"
-alias gmerge="git merge"
+alias gmerge="git merge --no-ff"
 alias gmerg="gmerge"
 
 alias gstash="git stash"
 alias gstashs="gstash save"
+alias gstashl="gstash list"
 alias gstashp="gstash pop"
 
 alias grb="git rebase --no-ff"
@@ -69,7 +70,7 @@ parse_git_status(){
         if [[ `echo $GIT_STATUS | grep "ahead of"` != "" ]] ; then
             STAT_COLOR="\[\e[1;31m\]"
             REFS="${REFS}\[\e[0m\] \[\e[1;36m\]not pushed\[\e[0m\]"
-        fi 
+        fi
         if [[ `echo $GIT_STATUS | grep "modified:"` != "" ]] ; then
             STAT_COLOR="\[\e[1;31m\]"
             REFS="${REFS}\[\e[0m\] \[\e[1;35m\]modified\[\e[0m\]"
@@ -79,27 +80,15 @@ parse_git_status(){
             REFS="${REFS}\[\e[0m\] \[\e[1;35m\]modified\[\e[0m\]"
         fi
         echo -e "${STAT_COLOR}${REFS}"
-        
+
     fi
 }
 
-parse_git_branch ()
-{
-  if git rev-parse --git-dir >/dev/null 2>&1
-  then
-          gitver=$(git branch 2>/dev/null| sed -n '/^\*/s/^\* //p')
-  else
-          return 0
-  fi
-  echo -e $gitver
-}
-
-branch_color ()
-{
+branch_color (){
         if git rev-parse --git-dir >/dev/null 2>&1
         then
                 color=""
-                if git diff --quiet 2>/dev/null >&2 
+                if git diff --quiet 2>/dev/null >&2
                 then
                         color="${c_green}"
                 else
@@ -111,16 +100,19 @@ branch_color ()
         echo -ne $color
 }
 
-parse_git_stash(){
-        if [[ `git stash list 2>/dev/null`  != "" ]] ; then
-           color=" "${c_cyan}stash${c_sgr0}
-        else
-                return 0
-        fi
-        echo -ne $color
+parse_git_branch(){
+    echo -ne $(git branch 2>/dev/null| sed -n '/^\*/s/^\* //p')
+}
+check_sync(){
+        [[ `git diff --numstat origin/$(parse_git_branch)..HEAD 2>/dev/null` != "" ]] && echo -ne " (\033[33mno_sync\033[0m)"
 }
 
-PS1='[\[$(branch_color)\]$(parse_git_branch)\[${c_sgr0}\]$(parse_git_stash)]\[${c_red}\]\w\[${c_sgr0}\]: '
+parse_git_stash(){
+        [[ `git stash list 2>/dev/null`  != "" ]] && echo -ne " "${c_cyan}stash${c_sgr0}
+}
+
+PS1='[\[$(branch_color)\]$(parse_git_branch)\[${c_sgr0}\]$(parse_git_stash)$(check_sync)]\[${c_red}\]\w\[${c_sgr0}\]: '
+# PS1='[$(check_sync) \w]: '
 
 #PS1='[\[$(branch_color)\]$(parse_git_branch)\[${c_sgr0}\]] \u@\[${c_red}\]\w\[${sgr0_c}\]: '
 #PS1='[\[$(branch_color)\]$(parse_git_status)\[${c_sgr0}\]] \[${c_red}\]\w\[${c_sgr0}\]: '
@@ -141,7 +133,7 @@ function prompt_command {
     local TIME_STRING="\$(date +%H:%M:%S)"
     local CYAN_COLOR="\[\e[1;36m\]"
     local PINK_COLOR="\[\e[1;35m\]"
-    
+
     local PROMPT_PREFIX="$PROMPT_COLOR"
     if [[ $RETURN_CODE != 0 ]] ; then
         PROMPT_PREFIX="$DATE_COLOR$RETURN_CODE$ASCII_RESET " # do nothing
@@ -155,10 +147,10 @@ function prompt_command {
         fi
         if [[ `echo $GIT_STATUS | grep "ahead of"` != "" ]] ; then
             REFS="$REFS$ASCII_RESET ${CYAN_COLOR}not pushed"
-        fi 
+        fi
         PROMPT_PREFIX="$PROMPT_PREFIX$USER_COLOR$REFS$ASCII_RESET"
     fi
-    
+
     #PS1="$ASCII_BOLD[$USER_COLOR\u $HOST_COLOR\h $DATE_COLOR$DATE_STRING $TIME_COLOR$TIME_STRING $PROMPT_PREFIX$ASCII_RESET\w$ASCII_BOLD]$ASCII_RESET\n$PROMPT_COLOR\\\$$ASCII_RESET "
     #PS1="$ASCII_BOLD[$PROMPT_PREFIX$ASCII_RESET]\w:"
     #PS1="(`basename \"$VIRTUAL_ENV\"`)$PS1"
@@ -180,3 +172,7 @@ function prompt_command {
 #   fi
 #   return 0
 # }
+
+hpush(){
+git push heroku ${1:-master}
+}
