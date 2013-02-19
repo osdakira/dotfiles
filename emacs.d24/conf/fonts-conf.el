@@ -79,20 +79,20 @@
 
 
 ;;; 改行やタブを可視化する whitespace-mode
-(setq whitespace-display-mappings
-      '((space-mark ?\x3000 [?\□]) ; zenkaku space
-        (newline-mark 10 [8629 10]) ; newlne
-        (tab-mark 9 [187 9] [92 9]) ; tab » 187
-        )
-      whitespace-style
-      '(spaces
-        ;; tabs
-        trailing
-        newline
-        space-mark
-        tab-mark
-        newline-mark))
-;; whitespace-modeで全角スペース文字を可視化　
+;; (setq whitespace-display-mappings
+;;       '((space-mark ?\x3000 [?\□]) ; zenkaku space
+;;         (newline-mark 10 [8629 10]) ; newlne
+;;         (tab-mark 9 [187 9] [92 9]) ; tab » 187
+;;         )
+;;       whitespace-style
+;;       '(spaces
+;;         ;; tabs
+;;         trailing
+;;         newline
+;;         space-mark
+;;         tab-mark
+;;         newline-mark))
+;; ;; whitespace-modeで全角スペース文字を可視化　
 ;; (setq whitespace-space-regexp "\\(\x3000+\\)")
-;; whitespace-mode をオン
-(global-whitespace-mode t)
+;; ;; whitespace-mode をオン
+;; (global-whitespace-mode t)

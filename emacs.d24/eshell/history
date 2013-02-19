@@ -1,0 +1,12 @@
+ls
+cd ../../../
+ls
+cd south/
+tags
+. ~/.bashrc
+ls
+cd .virtualenvs/gibson.jr/lib/python2.7/site-packages/south/
+ls
+ls
+gtags --gtagslabel=ctags `pwd` -v
+gtags --gtagslabel=ctags . -v

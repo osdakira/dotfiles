@@ -1,4 +1,10 @@
-(setenv "PATH" (concat (substitute-in-file-name (substring (shell-command-to-string "grep PATH ~/.bashrc") 12 -1)) '":" (getenv "PATH")))
+(setenv "PATH"
+        (concat
+         (substitute-in-file-name
+          (substring (shell-command-to-string "grep PATH ~/.bashrc") 12 -1))
+         '":"
+         (getenv "PATH")))
+
 ;;; P82-83 パスの設定
 (add-to-list 'exec-path "/opt/local/bin")
 (add-to-list 'exec-path "/usr/local/bin")

@@ -1,3 +1,0 @@
-# name: pp
-# --
-import pprint;pprint.pprint($0)

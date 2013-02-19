@@ -1,23 +1,9 @@
-;; (load "~/.emacs.d/basic")
-;; Command-Key and Option-Key
-(setq ns-command-modifier (quote meta))
-(setq ns-alternate-modifier (quote super))
-(keyboard-translate ?\C-h ?\C-?)
-(global-unset-key [insert])
-
-(standard-display-ascii ?\n "$\n")
-(global-hl-line-mode)
-(fset 'yes-or-no-p 'y-or-n-p)
-(global-set-key (kbd "M-h") 'backward-kill-word)
-
 (defun other-window-or-split ()
   (interactive)
   (when (one-window-p)
     (split-window-horizontally))
   (other-window 1))
 (global-set-key (kbd "C-t") 'other-window-or-split)
-
-(global-set-key (kbd "M-g")     'goto-line)
 
 ;; modeline関係
 (set-face-underline-p 'modeline t) ; モードラインには下線をつける
@@ -55,27 +41,22 @@
  '(uniquify-buffer-name-style (quote forward) nil (uniquify))
  '(tool-bar-mode nil)
  '(transient-mark-mode t)
- '(which-function-mode t)
+ ;; '(which-function-mode t)
  '(python-indent-offset 4)
  '(custom-enabled-themes (quote (molokai)))
  '(custom-safe-themes (quote ("cd881cd785e681c826a455d367697e60a2131a051801ae96d0f33cdaabd8d487" "6615e5aefae7d222a0c252c81aac52c4efb2218d35dfbb93c023c4b94d3fa0db" default)))
 )
 
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-(package-initialize)
-
 (elscreen-start)
-
-;; (global-set-key "\C-cg" 'mo-git-blame-current)
-;; (global-set-key "\C-cg" 'magit-status)
-
 
 (require 'auto-complete)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/dict")
 (require 'auto-complete-config)
 (ac-config-default)
+(setq ac-auto-start 1)
+(setq ac-dwim t)
+(setq ac-use-menu-map t) ;; C-n/C-pで候補選択可能
+(add-to-list 'ac-sources 'ac-source-yasnippet) ;; 常にYASnippetを補完候補に
 
 
 ;; 行末の空白を強調表示
@@ -116,19 +97,12 @@
             ))
 
 
-(define-key global-map (kbd "C-c l") 'toggle-truncate-lines) ;; 折り返しをトグル
 
 (require 'wdired)
 (define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
 
-(setq show-paren-delay 0) ; 表示までの秒数。初期値は0.125
-
-
-(cua-mode t) ; cua-modeをオン
-(setq cua-enable-cua-keys nil) ; CUAキーバインドを無効にする
-
 ;;; Mac でファイルを開いたときに、新たなフレームを作らない
-(setq ns-pop-up-frames nil)
+;; (setq ns-pop-up-frames nil)
 
 ;; (auto-compile-on-save-mode 1)
 
@@ -139,7 +113,7 @@
 ;; (require 'ipython)
 
 
-(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+;; (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
 
 (when (require 'point-undo nil t)
@@ -148,9 +122,13 @@
   )
 
 
-(add-hook 'python-mode-hook
-  '(lambda ()
-    (setq imenu-create-index-function 'python-imenu-create-index)))
+;; (add-hook 'python-mode-hook
+;;   '(lambda ()
+;;     (setq imenu-create-index-function 'python-imenu-create-index)))
+
+;; (add-hook 'python-mode-hook
+;;   '(lambda ()
+;;     (setq imenu-create-index-function 'python-imenu-create-index)))
 
 
 (require 'fold-dwim)
@@ -164,45 +142,41 @@
              ))
 
 
-;; diffの表示方法を変更
-(defun diff-mode-setup-faces ()
-  ;; 追加された行は緑で表示
-  (set-face-attribute 'diff-added nil
-                      :foreground "white" :background "dark green")
-  ;; 削除された行は赤で表示
-  (set-face-attribute 'diff-removed nil
-                      :foreground "white" :background "dark red")
-  ;; 文字単位での変更箇所は色を反転して強調
-  (set-face-attribute 'diff-refine-change nil
-                      :foreground nil :background nil
-                      :weight 'bold :inverse-video t))
-(add-hook 'diff-mode-hook 'diff-mode-setup-faces)
+;; ;; diffの表示方法を変更
+;; (defun diff-mode-setup-faces ()
+;;   ;; 追加された行は緑で表示
+;;   (set-face-attribute 'diff-added nil
+;;                       :foreground "white" :background "dark green")
+;;   ;; 削除された行は赤で表示
+;;   (set-face-attribute 'diff-removed nil
+;;                       :foreground "white" :background "dark red")
+;;   ;; 文字単位での変更箇所は色を反転して強調
+;;   (set-face-attribute 'diff-refine-change nil
+;;                       :foreground nil :background nil
+;;                       :weight 'bold :inverse-video t))
+;; (add-hook 'diff-mode-hook 'diff-mode-setup-faces)
 
-;; diffを表示したらすぐに文字単位での強調表示も行う
-(defun diff-mode-refine-automatically ()
-  (diff-auto-refine-mode t))
-(add-hook 'diff-mode-hook 'diff-mode-refine-automatically)
+;; ;; diffを表示したらすぐに文字単位での強調表示も行う
+;; (defun diff-mode-refine-automatically ()
+;;   (diff-auto-refine-mode t))
+;; (add-hook 'diff-mode-hook 'diff-mode-refine-automatically)
 
-;; diff関連の設定
-(defun magit-setup-diff ()
-  ;; diffを表示しているときに文字単位での変更箇所も強調表示する
-  ;; 'allではなくtにすると現在選択中のhunkのみ強調表示する
-  (setq magit-diff-refine-hunk 'all)
-  ;; diff用のfaceを設定する
-  (diff-mode-setup-faces)
-  ;; diffの表示設定が上書きされてしまうのでハイライトを無効にする
-  (set-face-attribute 'magit-item-highlight nil :inherit nil))
-(add-hook 'magit-mode-hook 'magit-setup-diff)
+;; ;; diff関連の設定
+;; (defun magit-setup-diff ()
+;;   ;; diffを表示しているときに文字単位での変更箇所も強調表示する
+;;   ;; 'allではなくtにすると現在選択中のhunkのみ強調表示する
+;;   (setq magit-diff-refine-hunk 'all)
+;;   ;; diff用のfaceを設定する
+;;   (diff-mode-setup-faces)
+;;   ;; diffの表示設定が上書きされてしまうのでハイライトを無効にする
+;;   (set-face-attribute 'magit-item-highlight nil :inherit nil))
+;; (add-hook 'magit-mode-hook 'magit-setup-diff)
 
 
 ;; (autoload 'edbi:open-db-viewer "edbi")
 ;; (require 'edbi)
 
-(require 'yasnippet)
-(setq yas-use-menu nil)
-(yas-global-mode 1)
-
-
+;; 大文字小文字変換
 (defun seq-upcase-backward-word ()
   (interactive)
   (backward-word)
@@ -218,3 +192,17 @@
 (global-set-key "\M-u" 'seq-upcase-backward-word)
 (global-set-key "\M-c" 'seq-capitalize-backward-word)
 (global-set-key "\M-l" 'seq-downcase-backward-word)
+
+(add-to-list 'auto-mode-alist '("[Rr]akefile" . ruby-mode))
+
+(require 'popwin)
+;; (setq display-buffer-function 'popwin:display-buffer)
+(setq pop-up-windows nil)
+(require 'popwin nil t)
+(when (require 'popwin nil t)
+  (setq anything-samewindow nil)
+  (setq display-buffer-function 'popwin:display-buffer)
+  (push '("anything" :regexp t :height 0.5) popwin:special-display-config)
+  (push '("*Completions*" :height 0.4) popwin:special-display-config)
+  (push '("*compilation*" :height 0.4 :noselect t :stick t) popwin:special-display-config)
+  )

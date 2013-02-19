@@ -2,13 +2,27 @@
 (global-set-key (kbd "C-;") 'anything-for-files)
 (require 'anything-match-plugin nil t)
 (require 'anything-extension)
-(require 'anything-exuberant-ctags)
+;; (require 'anything-exuberant-ctags)
 ;;anything で対象とするkill-ring の要素の長さの最小値.
 ;;デフォルトは 10.
-(setq anything-kill-ring-threshold 20)
+(setq anything-kill-ring-threshold 30)
 (global-set-key "\M-y" 'anything-show-kill-ring)
-(global-set-key (kbd "C-M-.") 'find-tag-noselect)
 
+;; (global-set-key (kbd "C-M-.") 'find-tag-noselect)
+
+;; (global-set-key "\M-." 'etags-select-find-tag-at-point)
+
+;; (require 'anything-yaetags)
+;; (add-to-list 'anything-sources 'anything-c-source-yaetags-select)
+;; (global-set-key (kbd "M-.") 'anything-yaetags-find-tag)
+
+;; (when (require 'anything nil t)
+;;   (require 'anything-exuberant-ctags)
+;;   (global-set-key (kbd "M-.") 'anything-exuberant-ctags-select-from-here)
+;;   )
+(global-set-key (kbd "M-.") 'anything-c-etags-select)
+
+;; (define-key global-map [(control @)] 'anything-exuberant-ctags-select-from-here)
 
 ;; ;; ▼要拡張機能インストール▼
 ;; ;;; P190-191 ctagsとEmacsとの連携

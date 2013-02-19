@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: pdb
+# key: pdb
+# binding: direct-keybinding
+# expand-env: ((some-var some-value))
+# type: command
+# --
+import ipdb; ipdb.set_trace()
