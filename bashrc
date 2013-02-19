@@ -2,32 +2,11 @@ PS1='\w\$ '
 export LOAD_BASHRC=1
 export PATH=/usr/local/mysql/bin:/opt/local/bin:/usr/local/bin:${PATH}
 
-
 alias ls='ls -GFW'
 alias ll="ls -l"
 alias la="ls -a"
 alias lla="ls -la"
 
-once_pushd(){
-    if [ $1 ]; then
-        target=$1
-    else
-        target=`pwd`
-    fi
-    # echo target ${target}
-
-    a_dir=`dirs -l +1 2>/dev/null`
-    if [ $? -eq 0 ]; then
-        #echo ${target} ${a_dir}
-
-        if [ ${target} != ${a_dir} ]; then
-            pushd ${target}
-        fi
-    else
-        pushd ${target}
-    fi
-}
-#alias cd="once_pushd"
 alias cd="pushd"
 alias pd="popd"
 
@@ -43,14 +22,6 @@ export HISTIGNORE=ls
 
 alias javac="javac -J-Dfile.encoding=UTF8"
 alias unrepr="python -c \"import sys; [ sys.stdout.write('\t'.join( [ (s.startswith('u') and eval(s) or s) for s in line.split('\t') ])) for line in sys.stdin]\""
-
-# virtualenv
-my_rename(){
-    while read LINE
-    do
-        rename ${LINE} $*
-    done
-}
 
 alias rm='rmtrash'
 
@@ -74,13 +45,17 @@ git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
 git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
 }
 
-[[ -d $HOME/.rbenv/bin ]] && export PATH=$HOME/.rbenv/bin:$PATH; eval "$(rbenv init -)"
 [[ -d /usr/local/share/npm/bin ]] && export PATH=${PATH}:/usr/local/share/npm/bin
 [[ -d $HOME/node_modules/.bin ]] && export PATH=${PATH}:$HOME/node_modules/.bin
 
-# export PYTHONDONTWRITEBYTECODE=1
+export PYTHONDONTWRITEBYTECODE=1
 
 [[ -s "/opt/local/lib/mysql55/bin" ]] && export PATH=/opt/local/lib/mysql55/bin:${PATH}
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+[[ -d $HOME/Dropbox/cloud/bin ]] && export PATH=${PATH}:$HOME/Dropbox/cloud/bin
+
+[[ -d $HOME/.phpenv/bin ]] && export PATH=${HOME}/.phpenv/bin:${PATH}; eval "$(phpenv init -)"
+[[ -d $HOME/.rbenv/bin ]] && export PATH=$HOME/.rbenv/bin:$PATH; eval "$(rbenv init -)"

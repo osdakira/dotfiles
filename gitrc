@@ -7,6 +7,7 @@ alias gsubmodule="cd ..; git submodule; cd application"
 alias gconf="git commit"
 alias gcom="git commit -m"
 alias gpul="git pull --no-ff"
+#alias gpulr="git pull --rebase --no-ff --prune"
 alias gpl="gpul"
 alias gpull="gpul"
 alias gpush="git push"
@@ -47,6 +48,10 @@ alias gamend="git commit --amend"
 
 #alias gtree="git log --graph --pretty=oneline --decorate --date=short --abbrev-commit --branches"
 alias gtree="git log --graph --pretty=oneline --date=short --abbrev-commit --branches"
+
+gtrack(){
+    git branch --set-upstream-to=origin/$1 $1
+}
 
 ### Display git branch ###
 

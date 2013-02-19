@@ -1,4 +1,5 @@
 syntax on
+set synmaxcol=500
 colorscheme molokai
 set showmatch	" 対応括弧のハイライト
 set display=uhex " 印字不可能文字を16進数表示
