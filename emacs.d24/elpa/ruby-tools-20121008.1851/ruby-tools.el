@@ -53,7 +53,7 @@
     (define-key map (kbd "C-'") 'ruby-tools-to-single-quote-string)
     (define-key map (kbd "C-\"") 'ruby-tools-to-double-quote-string)
     (define-key map (kbd "C-:") 'ruby-tools-to-symbol)
-    (define-key map (kbd "C-;") 'ruby-tools-clear-string)
+    ;; (define-key map (kbd "C-;") 'ruby-tools-clear-string)
     (define-key map (kbd "#") 'ruby-tools-interpolate)
     map)
   "Keymap for `ruby-tools-mode'.")

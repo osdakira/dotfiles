@@ -11,3 +11,5 @@ GPATH
 GRTAGS
 GTAGS
 .rb*
+.php-version
+.#*

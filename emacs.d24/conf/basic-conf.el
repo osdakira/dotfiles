@@ -86,15 +86,15 @@
 (define-key grep-mode-map (kbd "C-x C-s") 'wgrep-save-all-buffers)
 
 
-(require 'pony-mode)
-(add-hook 'sgml-mode-hook
-          (lambda ()
-            (auto-complete-mode)
-            (setq sgml-basic-offset 4)
-            (setq indent-tabs-mode nil)
-;;            (tab-width 4)
-            (pony-tpl-mode)
-            ))
+;; (require 'pony-mode)
+;; (add-hook 'sgml-mode-hook
+;;           (lambda ()
+;;             (auto-complete-mode)
+;;             (setq sgml-basic-offset 4)
+;;             (setq indent-tabs-mode nil)
+;; ;;            (tab-width 4)
+;;             (pony-tpl-mode)
+;;             ))
 
 
 
@@ -195,14 +195,14 @@
 
 (add-to-list 'auto-mode-alist '("[Rr]akefile" . ruby-mode))
 
-(require 'popwin)
-;; (setq display-buffer-function 'popwin:display-buffer)
-(setq pop-up-windows nil)
-(require 'popwin nil t)
-(when (require 'popwin nil t)
-  (setq anything-samewindow nil)
-  (setq display-buffer-function 'popwin:display-buffer)
-  (push '("anything" :regexp t :height 0.5) popwin:special-display-config)
-  (push '("*Completions*" :height 0.4) popwin:special-display-config)
-  (push '("*compilation*" :height 0.4 :noselect t :stick t) popwin:special-display-config)
-  )
+;; (require 'popwin)
+;; ;; (setq display-buffer-function 'popwin:display-buffer)
+;; (setq pop-up-windows nil)
+;; (require 'popwin nil t)
+;; (when (require 'popwin nil t)
+;;   (setq anything-samewindow nil)
+;;   (setq display-buffer-function 'popwin:display-buffer)
+;;   (push '("anything" :regexp t :height 0.5) popwin:special-display-config)
+;;   (push '("*Completions*" :height 0.4) popwin:special-display-config)
+;;   (push '("*compilation*" :height 0.4 :noselect t :stick t) popwin:special-display-config)
+;;   )

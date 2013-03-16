@@ -36,10 +36,10 @@
 (load "env-conf")
 ;; (load "anything-conf")
 (load "04-yasnippet")
-(load "helm-conf")
 (load "flymake-conf")
 (load "ruby-conf")
 (load "plugins-conf")
+(load "helm-conf")
 
 ;; scratchの初期メッセージ消去
 (setq initial-scratch-message "")
@@ -103,8 +103,7 @@
  '(transient-mark-mode t)
  '(uniquify-buffer-name-style (quote forward) nil (uniquify))
  '(visible-bell t)
- ;; '(which-function-mode t)
-)
+ '(warning-minimum-level :emergency))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

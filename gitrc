@@ -1,13 +1,12 @@
-GIT_MERGE_AUTOEDIT=no
-export GIT_MERGE_AUTOEDIT
+export GIT_MERGE_AUTOEDIT=no
 alias ginit="cd ..; git submodule init; cd application"
 alias gupdate="cd ..; git submodule update ; cd application"
 alias gsubmodule="cd ..; git submodule; cd application"
 
 alias gconf="git commit"
 alias gcom="git commit -m"
-alias gpul="git pull --no-ff"
-#alias gpulr="git pull --rebase --no-ff --prune"
+alias gpul="git pull"
+# alias gpulr="git pull --rebase --no-ff --prune"
 alias gpl="gpul"
 alias gpull="gpul"
 alias gpush="git push"
@@ -17,7 +16,8 @@ alias gls="git log --stat"
 alias glp="git log -p"
 alias gout="git checkout"
 alias gbr="git branch"
-alias gmerge="git merge --no-ff"
+#alias gmerge="git merge --no-ff"
+alias gmerge="git merge"
 alias gmerg="gmerge"
 
 alias gstash="git stash"
@@ -29,15 +29,23 @@ alias grb="git rebase --no-ff"
 alias gr="git rebase --no-ff"
 alias grbm="gr master"
 
-alias gmgm="gmerg master"
-alias gmgr="gmerge release"
+#alias gmgm="gmerg master"
+#alias gmgr="gmerge release"
 alias gmgd="gmerge develop"
 
 alias gr="gout release"
-alias gm="gout master"
+#alias gm="gout master"
 alias go="gout osada"
 alias gd="gout develop"
-
+alias gmgd="gmerge develop"
+alias gpullup="git pull upstream master"
+pullrequest(){
+  git checkout master
+  git pull upstream master
+  git push origin master
+  git checkout -
+  git rebase origin master
+}
 
 alias A="git add"
 alias S="git status"
@@ -180,4 +188,14 @@ function prompt_command {
 
 hpush(){
 git push heroku ${1:-master}
+}
+
+goutf(){
+  if [[ $2 ]] ; then
+    branch=$2; opt=$1
+  else
+    branch=$1; opt=""
+  fi
+  
+  git checkout ${opt} feature/${branch}
 }
