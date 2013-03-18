@@ -9,7 +9,7 @@
 ;; (key-combo-define-global (kbd "\"") '("\"" "\"\"" "\"\"\" \"\"\""))
 ;; (key-combo-define-global (kbd "\"\"") '("\"\"" "\"\"\" \"\"\""))
 ;; (key-combo-define-global (kbd "(") '("(`!!')"))
-(key-combo-define-global (kbd "=") '(" = " "=" " == "))
+(key-combo-define-global (kbd "=") '("=" " = " "=" " == "))
 ;; (key-combo-define-global (kbd "==") '(" == "))
 (key-combo-define-global (kbd ",") '(", " ","))
 ;; (key-combo-mode 1)
@@ -21,3 +21,4 @@
 (key-combo-define-global (kbd "-") '("-" " - " "->" ))
 (key-combo-define-global (kbd "&") '("&" " & " " && "))
 (key-combo-define-global (kbd "|") '("|" " || "))
+(key-combo-define-global (kbd "<") '("<" "<% `!!' %>" "<%= `!!' %>" "<%- `!!' %>"))

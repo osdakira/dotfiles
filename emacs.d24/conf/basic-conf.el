@@ -57,6 +57,7 @@
 (setq ac-dwim t)
 (setq ac-use-menu-map t) ;; C-n/C-pで候補選択可能
 (add-to-list 'ac-sources 'ac-source-yasnippet) ;; 常にYASnippetを補完候補に
+(global-auto-complete-mode t)
 
 
 ;; 行末の空白を強調表示

@@ -13,3 +13,5 @@ GTAGS
 .rb*
 .php-version
 .#*
+*js.js
+gitconfig

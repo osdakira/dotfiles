@@ -38,6 +38,7 @@
 (load "04-yasnippet")
 (load "flymake-conf")
 (load "ruby-conf")
+(load "coffee-conf")
 (load "plugins-conf")
 (load "helm-conf")
 
@@ -110,3 +111,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+
+(load "~/projects/backbone/nxhtml/autostart.el")
+(setq mumamo-background-colors nil)
