@@ -1,0 +1,11 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/Users/akira/projects/gibson.jr/static/sp/anims/prologue/opening'
+let g:netrw_dirhist_2='/Users/akira/projects/gibson.jr/application/submodule'
+let g:netrw_dirhist_3='/Users/akira/projects/gibson.jr/application/website'
+let g:netrw_dirhist_4='/Users/akira/.ipython'
+let g:netrw_dirhist_5='/Users/akira/.ipython/profile_default'
+let g:netrw_dirhist_6='/Users/akira/projects/genju-hime/application/settings'
+let g:netrw_dirhist_7='/Users/osada/projects/rails/edo/app/scripts/coffee/backbone/templates/enhances'
+let g:netrw_dirhist_8='/Users/osada/projects/rails/edo'
+let g:netrw_dirhist_9='/Users/osada/projects/rails/edo/lib/tasks'

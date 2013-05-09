@@ -51,7 +51,7 @@ installrbenv(){
 add_path_if_exist(){
   [[ -d $1 ]] && export PATH=${PATH}:$1 && echo $1
 }
-add_path_if_exist $HOME/.homebrew/share/npm/lib/node_modules/coffee-script/bin 
+add_path_if_exist $HOME/.homebrew/share/npm/lib/node_modules/coffee-script/bin
 
 export PYTHONDONTWRITEBYTECODE=1
 
@@ -70,7 +70,7 @@ export PATH="/usr/local/heroku/bin:$PATH"
 source $HOME/.git-completion.bash
 
 alias rdm="rake db:migrate"
-alias rdreset="rake db:reset"
+alias rdreset="rake db:reset && rdtp && notice 'rdreset'"
 alias gcomrdm="git commit -m 'rake db:migrate'"
 alias rgs="rails g scaffold"
 alias rsm="rake spec:models"
@@ -93,7 +93,87 @@ load_if_exist $HOME/.works.sh
 # [[ -f $HOME/.works.sh ]] && source $HOME/.works.sh
 #[[ -f $HOME/Dropbox/dotfiles/bash-completion ]] && source $HOME/Dropbox/dotfiles/bash-completion
 #[[ -f $HOME/Dropbox/dotfiles/rails.bash ]] && source $HOME/Dropbox/dotfiles/rails.bash
-alias R="unicorn_rails"
+R(){
+    case `pwd` in
+        *edo2) E2;;
+        *) E;;
+    esac
+  killprog memcached
+  killprog unicorn_rails
+  #killprog spork
+  unicorn_rails &
+  killall node
+  #spork &
+  memcached &
+  cd app/scripts/
+  node grunt c s watch
+}
 alias rgm="rails g migration"
 alias shell="rails c"
 alias db="rails db"
+alias rdtp="rake db:test:prepare"
+
+notice(){
+  message=${1:-$?}
+  title=${2:-"title"}
+  #terminal-notifier -message "${message}" -title "${title}"
+  growlnotify -m "${message}" -name "${title}"
+}
+alias N="notice"
+
+rakespec(){
+  SPEC_OPTS=""
+  [[ `ps | grep -v grep | grep spork` ]] && SPEC_OPTS="SPEC_OPTS=--drb"
+  bundle exec rake spec ${SPEC_OPTS} ; N "rspec"
+}
+
+rspec(){
+  SPEC_OPTS=""
+  [[ `ps | grep -v grep | grep spork` ]] && SPEC_OPTS="--drb"
+  bundle exec rspec ${SPEC_OPTS} $*; N "rspec"
+}
+
+killprog(){
+  ps aux | grep -v grep | grep $1 | awk '{print $2}' | xargs kill
+}
+deploy(){
+   expect -c "
+   spawn cap sandbox deploy -s branch="$(parse_git_branch)"
+   expect \"deployed server : \[ec2-54-249-158-75.ap-northeast-1.compute.amazonaws.com\]\"
+   send \"\n\n\"
+   expect \"branch or tag : \[$(parse_git_branch)\]\"
+   send \"\n\n\"
+   interact
+   "
+   urestart
+   notice "deploy"
+}
+urestart(){
+   expect -c "
+   spawn cap sandbox unicorn:restart
+   expect \"deployed server : \[ec2-54-249-158-75.ap-northeast-1.compute.amazonaws.com\]\"
+   send \"\n\n\"
+   interact
+  "
+}
+
+alias routes="rake routes"
+tlog(){
+  E
+  tail -f log/development.log
+}
+
+[[ -d $HOME/Dropbox/dotfiles/mybin ]] && export PATH=${PATH}:$HOME/Dropbox/dotfiles/mybin
+
+traverse_dir() {
+    current=`pwd`
+    echo ${current}
+    while [ `basename ${current}` != $1 ]
+    do
+        current=`dirname ${current}`
+        echo ${current}
+        if [ ${current} == "/" ]; then
+            break
+        fi
+    done
+}

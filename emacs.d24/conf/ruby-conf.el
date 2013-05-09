@@ -52,3 +52,9 @@
 
 (add-to-list 'ruby-encoding-map '(utf-8 . utf-8))
 (add-to-list 'ruby-encoding-map '(undecided . utf-8))
+
+(setq ruby-electric-expand-delimiters-list nil)
+;; (require 'rinari)
+;; (global-rinari-mode)
+
+;; (require 'ruby-end)

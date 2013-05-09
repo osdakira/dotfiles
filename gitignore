@@ -1,7 +1,7 @@
 TAGS
 *osada*.py
 \#*
-.*
+#.*
 *_flymake*
 app.sh
 *.dat
@@ -15,3 +15,4 @@ GTAGS
 .#*
 *js.js
 gitconfig
+.DS_Store

@@ -1,7 +1,18 @@
 (require 'helm-config)
+
+(defun helm-mini ()
+  "Preconfigured `helm' lightweight version \(buffer -> recentf\)."
+  (interactive)
+  (helm-other-buffer '(helm-c-source-recentf
+                       helm-c-source-buffers-list
+                       helm-c-source-buffer-not-found)
+                     "*helm mini*"))
+
 (global-set-key (kbd "C-;") 'helm-mini)
+;; (global-set-key (kbd "C-;") 'helm-recentf)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 ;;(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(setq helm-buffer-max-length '50)
 
 (require 'helm-c-moccur)
 (global-set-key (kbd "M-o") 'helm-c-moccur-occur-by-moccur)

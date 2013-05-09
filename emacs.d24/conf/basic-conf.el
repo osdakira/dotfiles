@@ -207,3 +207,9 @@
 ;;   (push '("*Completions*" :height 0.4) popwin:special-display-config)
 ;;   (push '("*compilation*" :height 0.4 :noselect t :stick t) popwin:special-display-config)
 ;;   )
+
+
+(add-hook
+  'nxml-mode-hook
+  (lambda ()
+    (define-key nxml-mode-map (kbd "M-h") 'backward-kill-word)))

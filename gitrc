@@ -16,9 +16,10 @@ alias gls="git log --stat"
 alias glp="git log -p"
 alias gout="git checkout"
 alias gbr="git branch"
-#alias gmerge="git merge --no-ff"
-alias gmerge="git merge"
+alias gmerge="git merge --no-ff"
+#alias gmerge="git merge"
 alias gmerg="gmerge"
+alias gmergs="git merge --squash"
 
 alias gstash="git stash"
 alias gstashs="gstash save"
@@ -48,7 +49,7 @@ pullrequest(){
 }
 
 alias A="git add"
-alias S="git status"
+alias S="git status; git stash list"
 alias D="git diff"
 alias DW="git diff --word-diff=plain"
 alias DC="git diff --cached"
@@ -196,6 +197,6 @@ goutf(){
   else
     branch=$1; opt=""
   fi
-  
+
   git checkout ${opt} feature/${branch}
 }

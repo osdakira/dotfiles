@@ -5,4 +5,7 @@
   )
 
 (add-hook 'coffee-mode-hook
-  '(lambda() (coffee-custom)))
+  '(lambda()
+     (coffee-custom)
+     (auto-complete-mode t)
+     ))
