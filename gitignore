@@ -17,3 +17,6 @@ GTAGS
 gitconfig
 .DS_Store
 dump.rdb
+*auto-save-list
+*elpa/archives/*
+*.elc
