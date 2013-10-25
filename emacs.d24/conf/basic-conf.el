@@ -1,8 +1,18 @@
+(defun my-dynamic-modeline ()
+  (cond
+   ((numberp (string-match "edo2" buffer-file-name))
+    (set-face-foreground 'modeline "#00ffff"))
+   ((numberp (string-match "edo" buffer-file-name))
+    (set-face-foreground 'modeline "#ffff00"))
+   (t
+    (set-face-foreground 'modeline "white"))))
 (defun other-window-or-split ()
   (interactive)
   (when (one-window-p)
     (split-window-horizontally))
-  (other-window 1))
+  (other-window 1)
+  (my-dynamic-modeline)
+)
 (global-set-key (kbd "C-t") 'other-window-or-split)
 
 ;; modeline関係

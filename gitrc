@@ -14,7 +14,14 @@ alias gpuh="gpush"
 alias gpsh="gpush"
 alias gls="git log --stat"
 alias glp="git log -p"
-alias gout="git checkout"
+gout() {
+    git checkout $*
+    if [ "$?" -ne 0 ]; then
+        echo "create branch ${*}"
+        git checkout -b $*
+    fi
+    git log --oneline -1
+}
 alias gbr="git branch"
 alias gmerge="git merge --no-ff"
 #alias gmerge="git merge"
@@ -35,7 +42,9 @@ alias grbm="gr master"
 alias gmgd="gmerge develop"
 
 alias gr="gout release"
-#alias gm="gout master"
+alias gm="gout master"
+alias gs="gout staging"
+alias gd="gout development"
 alias go="gout osada"
 alias gd="gout develop"
 alias gmgd="gmerge develop"
@@ -191,12 +200,12 @@ hpush(){
 git push heroku ${1:-master}
 }
 
-goutf(){
-  if [[ $2 ]] ; then
-    branch=$2; opt=$1
-  else
-    branch=$1; opt=""
-  fi
+# goutf(){
+#   if [[ $2 ]] ; then
+#     branch=$2; opt=$1
+#   else
+#     branch=$1; opt=""
+#   fi
 
-  git checkout ${opt} feature/${branch}
-}
+#   git checkout ${opt} feature/${branch}
+# }

@@ -5,7 +5,6 @@ export LOAD_BASHRC=1
 alias ls='ls -GFW'
 alias ll="ls -l"
 alias la="ls -a"
-alias lla="ls -la"
 
 alias cd="pushd"
 alias pd="popd"
@@ -25,6 +24,21 @@ alias unrepr="python -c \"import sys; [ sys.stdout.write('\t'.join( [ (s.startsw
 
 alias rm='rmtrash'
 
+tags(){
+    # ctags --exclude=.git -eR `pwd`
+    # find `pwd` -name "*.py" -print | etags -a -
+    # ctags --verbose -R --fields="+afikKlmnsSzt" --langmap=Python:+.t --exclude=.git
+    gtags --gtagslabel=ctags `pwd` -v
+}
+
+alias seleniumfox="open -a Firefox --args -p SeleniumUser"
+alias size="sips -g all"
+alias ql='qlmanage -p "$@" >& /dev/null'
+
+
+alias sqllog="sudo tail -n 1000 -f /tmp/myquery.log"
+
+
 # export WORKON_HOME=$HOME/.virtualenvs
 #source /usr/local/bin/virtualenvwrapper_bashrc
 # [[ -s "/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/" ]] && export PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/:${PATH}
@@ -35,7 +49,9 @@ alias rm='rmtrash'
 #[[ -s $HOME/.pythonz/etc/bashrc ]] && source $HOME/.pythonz/etc/bashrc
 
 source $HOME/.gitrc
+
 #source $HOME/.work.sh
+
 #source $HOME/.app.sh
 
 #alias tmux=~/.mybin/tmuxx.sh
@@ -53,9 +69,9 @@ add_path_if_exist(){
 }
 add_path_if_exist $HOME/.homebrew/share/npm/lib/node_modules/coffee-script/bin
 
-export PYTHONDONTWRITEBYTECODE=1
+#export PYTHONDONTWRITEBYTECODE=1
 
-[[ -s "/opt/local/lib/mysql55/bin" ]] && export PATH=/opt/local/lib/mysql55/bin:${PATH}
+#[[ -s "/opt/local/lib/mysql55/bin" ]] && export PATH=/opt/local/lib/mysql55/bin:${PATH}
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
@@ -72,20 +88,11 @@ source $HOME/.git-completion.bash
 alias rdm="rake db:migrate"
 alias rdreset="rake db:reset && rdtp && notice 'rdreset'"
 alias gcomrdm="git commit -m 'rake db:migrate'"
-alias rgs="rails g scaffold"
-alias rsm="rake spec:models"
-alias rsr="rake spec:requests"
-raddc(){
-    rails g migration add_column_to_$*
-}
-rremovec(){
-    rails g migration remove_column_from_$*
-}
 
 load_if_exist(){
   [[ -f $1 ]] && source $1 && echo $1
 }
-load_if_exist $HOME/.works.sh
+# load_if_exist $HOME/.works.sh
 # load_if_exist $HOME/Dropbox/dotfiles/bash_completion
 # berw install bash_completion
 # load_if_exist $HOME/Dropbox/dotfiles/rails.bash
@@ -93,21 +100,24 @@ load_if_exist $HOME/.works.sh
 # [[ -f $HOME/.works.sh ]] && source $HOME/.works.sh
 #[[ -f $HOME/Dropbox/dotfiles/bash-completion ]] && source $HOME/Dropbox/dotfiles/bash-completion
 #[[ -f $HOME/Dropbox/dotfiles/rails.bash ]] && source $HOME/Dropbox/dotfiles/rails.bash
-R(){
-    case `pwd` in
-        *edo2) E2;;
-        *) E;;
-    esac
-  killprog memcached
-  killprog unicorn_rails
-  #killprog spork
-  unicorn_rails &
-  killall node
-  #spork &
-  memcached &
-  cd app/scripts/
-  node grunt c s watch
-}
+
+# R(){
+#   killprog memcached
+#   killprog redis-server
+#   #killprog spork
+#   case `pwd` in
+#       *)
+#           M
+#           ps aux| grep -v grep | grep  unicorn_rails | grep 8080 | awk '{print $2}' | xargs kill
+#           bundle exec unicorn_rails -p 8080 &
+#           ;;
+#   esac
+#   # killprog node
+#   # spork &
+#   memcached &
+#   redis-server &
+# }
+
 alias rgm="rails g migration"
 alias shell="rails c"
 alias db="rails db"
@@ -117,50 +127,39 @@ notice(){
   message=${1:-$?}
   title=${2:-"title"}
   #terminal-notifier -message "${message}" -title "${title}"
-  growlnotify -m "${message}" -name "${title}"
+  echo $message $title
+  growlnotify -m "${message}" -s
 }
-alias N="notice"
+
+N(){
+  notice $*
+}
 
 rakespec(){
   SPEC_OPTS=""
   [[ `ps | grep -v grep | grep spork` ]] && SPEC_OPTS="SPEC_OPTS=--drb"
-  bundle exec rake spec ${SPEC_OPTS} ; N "rspec"
+  bundle exec rake spec ${SPEC_OPTS}
+  notice "rspec"
 }
 
-rspec(){
-  SPEC_OPTS=""
-  [[ `ps | grep -v grep | grep spork` ]] && SPEC_OPTS="--drb"
-  bundle exec rspec ${SPEC_OPTS} $*; N "rspec"
-}
+#rspec(){
+#  SPEC_OPTS=""
+#  [[ `ps | grep -v grep | grep spork` ]] && SPEC_OPTS="--drb"
+#  bundle exec rspec ${SPEC_OPTS} $*
+#  notice "rspec"
+#}
 
 killprog(){
-  ps aux | grep -v grep | grep $1 | awk '{print $2}' | xargs kill
-}
-deploy(){
-   expect -c "
-   spawn cap sandbox deploy -s branch="$(parse_git_branch)"
-   expect \"deployed server : \[ec2-54-249-158-75.ap-northeast-1.compute.amazonaws.com\]\"
-   send \"\n\n\"
-   expect \"branch or tag : \[$(parse_git_branch)\]\"
-   send \"\n\n\"
-   interact
-   "
-   urestart
-   notice "deploy"
-}
-urestart(){
-   expect -c "
-   spawn cap sandbox unicorn:restart
-   expect \"deployed server : \[ec2-54-249-158-75.ap-northeast-1.compute.amazonaws.com\]\"
-   send \"\n\n\"
-   interact
-  "
+  #ps aux | grep -v grep | grep $1 | awk '{print $2}' | xargs kill
+  ps u| grep -v grep | grep $1 | awk '{print $2}' | xargs kill
 }
 
-alias routes="rake routes"
 tlog(){
-  E
-  tail -f log/development.log
+  M
+  tail -n 1000 -f log/development.log
+}
+testlog() {
+    tail -n 1000 -f log/test.log | grep -v TRUNCATE
 }
 
 [[ -d $HOME/Dropbox/dotfiles/mybin ]] && export PATH=${PATH}:$HOME/Dropbox/dotfiles/mybin
@@ -177,3 +176,33 @@ traverse_dir() {
         fi
     done
 }
+
+alias android="adb forward tcp:9222 localabstract:chrome_devtools_remote"
+
+gbrclean(){
+  git branch --merged | grep -v "*" | xargs git branch -d
+}
+
+android_logcat(){
+  cd ~/projects/adt-bundle-mac-x86_64-20130514/sdk/platform-tools
+  ./adb logcat
+}
+
+#関数定義(引数3つ)
+tab-color() {
+    echo -ne "\033]6;1;bg;red;brightness;$1\a"
+    echo -ne "\033]6;1;bg;green;brightness;$2\a"
+    echo -ne "\033]6;1;bg;blue;brightness;$3\a"
+}
+
+tab-reset() {
+    echo -ne "\033]6;1;bg;*;default\a"
+}
+
+source $HOME/Dropbox/dotfiles/m.rc.sh
+
+callonce() {
+    ps u | grep $* | grep -v grep || $*
+}
+# [ -f ~/Dropbox/dotfiles/.bundler-exec.sh ] && source ~/.bundler-exec.sh
+load_if_exist $HOME/.bundler-exec.sh

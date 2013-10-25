@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: debug
+# type: command
+# --
+require "debugger"
+debugger

@@ -10,9 +10,10 @@ cookies
 GPATH
 GRTAGS
 GTAGS
-.rb*
 .php-version
+.ruby-version
 .#*
 *js.js
 gitconfig
 .DS_Store
+dump.rdb

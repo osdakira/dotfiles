@@ -40,6 +40,7 @@
 (load "ruby-conf")
 (load "coffee-conf")
 (load "plugins-conf")
+(load "dynamic-modeline-conf")
 (load "helm-conf")
 
 ;; scratchの初期メッセージ消去

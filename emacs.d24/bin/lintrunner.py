@@ -10,7 +10,8 @@ import logging
 logging.basicConfig(filename='/tmp/lint.log', level=logging.DEBUG)
 import traceback
 
-PYLINT_COMMAND = "pylint"
+# PYLINT_COMMAND = "pylint"
+PYLINT_COMMAND = "/Users/osada/.pyenv/shims/pylint"
 PYCHECKER_COMMAND = "pychecker"
 PEP8_COMMAND = "pep8"
 PYFLAKES_COMMAND = "pyflakes"
@@ -147,7 +148,7 @@ class PylintRunner(LintRunner):
     @property
     def run_flags(self):
         return ('--output-format', 'parseable',
-                '--include-ids', 'y',
+                # '--include-ids', 'y',
                 '--reports', 'n',
                 # '--disable-msg=' + ','.join(self.operative_ignore_codes))
                 '-d', ','.join(self.operative_ignore_codes))
@@ -248,7 +249,7 @@ def main():
     options, args = parser.parse_args()
 
     for runnerclass in (
-            Pep8Runner,
+            # Pep8Runner,
             PylintRunner,
             #PycheckerRunner,
             # PyflakesRunner,

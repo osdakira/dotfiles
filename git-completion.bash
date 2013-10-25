@@ -2790,3 +2790,4 @@ __git_complete gout _git_checkout
 __git_complete gmerg _git_merge
 __git_complete gmergs _git_merge
 __git_complete gbr _git_branch
+__git_complete glp _git_log

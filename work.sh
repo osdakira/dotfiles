@@ -1,15 +1,3 @@
-alias seleniumfox="open -a Firefox --args -p SeleniumUser"
-alias size="sips -g all"
-alias ql='qlmanage -p "$@" >& /dev/null'
-tags(){
-    # ctags --exclude=.git -eR `pwd`
-    # find `pwd` -name "*.py" -print | etags -a -
-    # ctags --verbose -R --fields="+afikKlmnsSzt" --langmap=Python:+.t --exclude=.git
-    gtags --gtagslabel=ctags `pwd` -v
-}
-
-alias sqllog="sudo tail -n 1000 -f /tmp/myquery.log"
-
 migrate(){
     all_dbs eventmodule migrate --no-initial-data $*
 }
