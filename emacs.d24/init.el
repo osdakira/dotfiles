@@ -116,3 +116,6 @@
 
 (load "~/projects/backbone/nxhtml/autostart.el")
 (setq mumamo-background-colors nil)
+
+(require 'grep)
+(add-to-list 'grep-find-ignored-directories "vendor")

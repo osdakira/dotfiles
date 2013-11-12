@@ -67,7 +67,12 @@ installrbenv(){
 add_path_if_exist(){
   [[ -d $1 ]] && export PATH=${PATH}:$1 && echo $1
 }
-add_path_if_exist $HOME/.homebrew/share/npm/lib/node_modules/coffee-script/bin
+# add_path_if_exist $HOME/.homebrew/share/npm/lib/node_modules/coffee-script/bin
+add_path_if_exist $HOME/.homebrew/share/npm/bin/
+
+add_path_if_exist $HOME/projects/adt-bundle-mac-x86_64-20130514/sdk/platform-tools
+add_path_if_exist $HOME/projects/adt-bundle-mac-x86_64-20130514/sdk/tools
+
 
 #export PYTHONDONTWRITEBYTECODE=1
 
@@ -78,15 +83,18 @@ export PATH="/usr/local/heroku/bin:$PATH"
 
 #[[ -d $HOME/Dropbox/cloud/bin ]] && export PATH=${PATH}:$HOME/Dropbox/cloud/bin
 
+export RBENV_ROOT=/Users/osada/.homebrew/var/rbenv
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
 [[ -d $HOME/.pyenv/bin ]] && export PATH=$HOME/.pyenv/bin:$PATH; eval "$(pyenv init -)"
-[[ -d $HOME/.phpenv/bin ]] && export PATH=${HOME}/.phpenv/bin:${PATH}; eval "$(phpenv init -)"
-[[ -d $HOME/.rbenv/bin ]] && export PATH=$HOME/.rbenv/bin:$PATH; eval "$(rbenv init -)"
+# [[ -d $HOME/.phpenv/bin ]] && export PATH=${HOME}/.phpenv/bin:${PATH}; eval "$(phpenv init -)"
+# [[ -d $HOME/.rbenv/bin ]] && export PATH=$HOME/.rbenv/bin:$PATH; eval "$(rbenv init -)"
 [[ -d $HOME/.homebrew ]] && export PATH=$HOME/.homebrew/bin:$PATH
 
 source $HOME/.git-completion.bash
 
-alias rdm="rake db:migrate"
-alias rdreset="rake db:reset && rdtp && notice 'rdreset'"
+alias rdm="be rake db:migrate"
+alias rdreset="be rake db:reset && rdtp && notice 'rdreset'"
 alias gcomrdm="git commit -m 'rake db:migrate'"
 
 load_if_exist(){
@@ -118,18 +126,26 @@ load_if_exist(){
 #   redis-server &
 # }
 
-alias rgm="rails g migration"
-alias shell="rails c"
-alias db="rails db"
-alias rdtp="rake db:test:prepare"
+alias rgm="be rails g migration"
+alias shell="be rails c"
+alias db="be rails db"
+alias rdtp=" be rake db:test:prepare"
 
-notice(){
-  message=${1:-$?}
-  title=${2:-"title"}
-  #terminal-notifier -message "${message}" -title "${title}"
-  echo $message $title
-  growlnotify -m "${message}" -s
+notice() {
+    message=${1:-$?}
+    title=${2:-"Terminal"}
+    echo "display notification \"${message}\" with title \"${title}\"" | osascript
+    # alias pong='perl -nle '\''print "display notification \"$_\" with title \"Terminal\""'\'' | osascript'
 }
+
+# notice(){
+#   message=${1:-$?}
+#   title=${2:-"title"}
+#   #terminal-notifier -message "${message}" -title "${title}"
+#   echo $message $title
+#   # growlnotify -m "${message}" -s
+#   osascript lib/skype/simple-notifier.scpt '${message}' '${title}' 2>/dev/null
+# }
 
 N(){
   notice $*
@@ -151,7 +167,7 @@ rakespec(){
 
 killprog(){
   #ps aux | grep -v grep | grep $1 | awk '{print $2}' | xargs kill
-  ps u| grep -v grep | grep $1 | awk '{print $2}' | xargs kill
+    ps aux| grep -v grep | grep $1 | awk '{print $2}' | xargs kill
 }
 
 tlog(){
@@ -202,7 +218,8 @@ tab-reset() {
 source $HOME/Dropbox/dotfiles/m.rc.sh
 
 callonce() {
-    ps u | grep $* | grep -v grep || $*
+    ps aux | grep $* | grep -v grep || $*
 }
 # [ -f ~/Dropbox/dotfiles/.bundler-exec.sh ] && source ~/.bundler-exec.sh
-load_if_exist $HOME/.bundler-exec.sh
+# load_if_exist $HOME/.bundler-exec.sh
+alias be="bundle exec"

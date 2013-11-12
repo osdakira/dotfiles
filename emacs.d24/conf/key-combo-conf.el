@@ -20,5 +20,5 @@
 (key-combo-define-global (kbd "\"") '("\"`!!'\""))
 (key-combo-define-global (kbd "-") '("-" " - " "->" ))
 (key-combo-define-global (kbd "&") '("&" " & " " && "))
-(key-combo-define-global (kbd "|") '("|" " || "))
+;; (key-combo-define-global (kbd "|") '("|" " || "))
 (key-combo-define-global (kbd "<") '("<" "<% `!!' %>" "<%= `!!' %>" "<%- `!!' %>"))
