@@ -17,7 +17,7 @@ R() {
     # bundle exec rake resque:work QUEUE='*' &
     # ps u | grep memcached | grep -v grep || memcached -vvv
 
-    ps aux | grep -v grep | grep rails | awk '{print $2}' | xargs kill -9
+    ps aux | grep -v grep | grep "rails s" | awk '{print $2}' | xargs kill -9
     bundle exec rails s
 
     # bundle exec guard
@@ -57,3 +57,5 @@ rspec() {
     bundle exec rspec $*
     notice "rspec"
 }
+alias cap="bundle exec cap"
+alias rake="bundle exec rake"

@@ -127,7 +127,7 @@ load_if_exist(){
 # }
 
 alias rgm="be rails g migration"
-alias shell="be rails c"
+alias con="be rails c"
 alias db="be rails db"
 alias rdtp=" be rake db:test:prepare"
 
