@@ -57,6 +57,8 @@
  '(custom-safe-themes (quote ("cd881cd785e681c826a455d367697e60a2131a051801ae96d0f33cdaabd8d487" "6615e5aefae7d222a0c252c81aac52c4efb2218d35dfbb93c023c4b94d3fa0db" default)))
 )
 
+(set-frame-parameter nil 'alpha 80)
+
 (elscreen-start)
 
 (require 'auto-complete)

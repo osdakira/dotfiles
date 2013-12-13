@@ -1,4 +1,4 @@
-;; -*- emacs-lisp -*- <12/09/28 17:36:54 /Users/akira/.emacs.d/tramp>
+;; -*- emacs-lisp -*- <13/12/13 21:02:50 /Users/osada/.emacs.d/tramp>
 ;; Tramp connection history.  Don't change this file.
 ;; You can delete it, forcing Tramp to reapply the checks.
 
@@ -22,4 +22,6 @@
   ("local-encoding" base64-encode-region)
   ("local-decoding" base64-decode-region)
   ("remote-encoding" tramp-perl-encode-with-module)
-  ("remote-decoding" tramp-perl-decode-with-module)))
+  ("remote-decoding" tramp-perl-decode-with-module))
+ (["scpc" nil "c" nil]
+  nil))

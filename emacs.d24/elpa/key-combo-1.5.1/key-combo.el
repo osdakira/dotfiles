@@ -344,7 +344,7 @@ which in most cases is shared with all other buffers in the same major mode.
     ("!~" . " !~ ")   ; for ruby
     ("~" . key-combo-execute-orignal)
     ;; for unary operator
-    ("::" . " :: ") ;; for haskell
+    ;; ("::" . " :: ") ;; for haskell
     ;; (":" . ":");;for ruby symbol
     ("&"  . (" & " " && "))             ;overwrite in c
     ("&=" . " &= ");; for c
@@ -362,7 +362,7 @@ which in most cases is shared with all other buffers in the same major mode.
     ("<<=" . " <<= ");; bit shift for c
     ("<-" . " <- ")
     ("<!" . "<!-- `!!' -->");; for html comment
-    ("|"  . (" | " " || "));; bit OR and OR for c
+    ;; ("|"  . (" | " " || "));; bit OR and OR for c
     ;;ToDo: ruby block
     ("|=" . " |= ");; for c
     ("||=" . " ||= ")                   ; for ruby
