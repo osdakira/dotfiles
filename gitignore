@@ -20,3 +20,5 @@ dump.rdb
 *auto-save-list
 *elpa/archives/*
 *.elc
+.~lock*
+.powrc

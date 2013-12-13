@@ -1,4 +1,5 @@
 PS1='\w\$ '
+export EDITOR=vim
 export LOAD_BASHRC=1
 #export PATH=/usr/local/mysql/bin:/opt/local/bin:/usr/local/bin:${PATH}
 
@@ -128,8 +129,10 @@ load_if_exist(){
 
 alias rgm="be rails g migration"
 alias con="be rails c"
+alias scon="be spring rails c"
 alias db="be rails db"
-alias rdtp=" be rake db:test:prepare"
+alias sdb="be spring rails db"
+alias rdtp="be spring rake db:test:prepare"
 
 notice() {
     message=${1:-$?}
@@ -167,7 +170,7 @@ rakespec(){
 
 killprog(){
   #ps aux | grep -v grep | grep $1 | awk '{print $2}' | xargs kill
-    ps aux| grep -v grep | grep $1 | awk '{print $2}' | xargs kill
+    ps aux | grep -v grep | grep $1 | awk '{print $2}' | xargs kill -9
 }
 
 tlog(){
@@ -223,3 +226,4 @@ callonce() {
 # [ -f ~/Dropbox/dotfiles/.bundler-exec.sh ] && source ~/.bundler-exec.sh
 # load_if_exist $HOME/.bundler-exec.sh
 alias be="bundle exec"
+export PIVOTAL_TOKEN='ef8c10f9b6a3f1b04fff6d5bf1affd87'

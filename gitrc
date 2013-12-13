@@ -16,10 +16,10 @@ alias gls="git log --stat"
 alias glp="git log -p"
 gout() {
     git checkout $*
-    if [ "$?" -ne 0 ]; then
-        echo "create branch ${*}"
-        git checkout -b $*
-    fi
+    # if [ "$?" -ne 0 ]; then
+    #     echo "create branch ${*}"
+    #     git checkout -b $*
+    # fi
     git log --oneline -1
 }
 alias gbr="git branch"
@@ -37,8 +37,8 @@ alias grb="git rebase --no-ff"
 alias gr="git rebase --no-ff"
 alias grbm="gr master"
 
-#alias gmgm="gmerg master"
-#alias gmgr="gmerge release"
+alias gmgm="gmerg master"
+# alias gmgr="gmerge release"
 alias gmgd="gmerge develop"
 
 alias gr="gout release"
@@ -47,7 +47,6 @@ alias gs="gout staging"
 alias gd="gout development"
 alias go="gout osada"
 alias gd="gout develop"
-alias gmgd="gmerge develop"
 alias gpullup="git pull upstream master"
 pullrequest(){
   git checkout master

@@ -7,9 +7,9 @@ R() {
     # killprog resque
     # killprog gurad
 
-    M
-
-    ps aux | grep redis-server | grep -v grep || redis-server &
+    # M
+    ps aux | grep ruby | grep guard | grep -v grep || bundle exec guard &
+    ps aux | grep redis-server | grep -v grep || redis-server ~/.redis.conf &
     ps aux | grep resque | grep -v grep || bundle exec rake resque:work QUEUE='*' &
 
     # ps aux| grep -v grep | grep unicorn_rails | grep 8080 | awk '{print $2}' | xargs kill
@@ -17,18 +17,15 @@ R() {
     # bundle exec rake resque:work QUEUE='*' &
     # ps u | grep memcached | grep -v grep || memcached -vvv
 
-    ps aux | grep -v grep | grep "rails s" | awk '{print $2}' | xargs kill -9
+    ps aux | grep "rails s" | grep -v grep | awk '{print $2}' | xargs kill -9
     bundle exec rails s
-
-    # bundle exec guard
-    # ps aux | grep ruby | grep guard | grep -v grep || bundle exec guard &
 }
 
 reset_db() {
-    bundle exec rake db:reset # 初期化。データベース構造を変えた場合
-    # bundle exec rake db:migrate # テーブル作成
-    # bundle exec rake db:seed # シードデータの挿入
-    bundle exec rake db:import_dummy_data_all  # テストデータの挿入
+    bundle exec spring rake db:reset # 初期化。データベース構造を変えた場合
+    bundle exec spring rake db:import_dummy_data_all  # テストデータの挿入
+    bundle exec spring rake db:test:prepare
+    N "reset_db"
 }
 
 b_cap(){
@@ -49,13 +46,23 @@ gr() {
 }
 
 parallel_test() {
+    # bundle exec spring rake parallel:prepare
+    # bundle exec spring rake parallel:spec
     bundle exec rake parallel:prepare
     bundle exec rake parallel:spec
+    notice "parallel_test"
 }
 
-rspec() {
-    bundle exec rspec $*
+srspec() {
+    echo "bundle exec spring rspec $*"
+    bundle exec spring rspec $*
     notice "rspec"
 }
+
+alias srake="bundle exec spring rake"
+alias srails="bundle exec spring rails"
+
+alias sstop="spring stop"
 alias cap="bundle exec cap"
 alias rake="bundle exec rake"
+alias load_sql="cat /Users/osada/tmp/sanitized_mysql_table_data.sql | be rails db"
