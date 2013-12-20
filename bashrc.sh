@@ -199,7 +199,7 @@ traverse_dir() {
 alias android="adb forward tcp:9222 localabstract:chrome_devtools_remote"
 
 gbrclean(){
-  git branch --merged | grep -v "*" | xargs git branch -d
+  git branch --merged | grep -v "*" | grep -v "develop" | grep -v "master" | xargs git branch -d
 }
 
 android_logcat(){
