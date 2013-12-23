@@ -72,5 +72,5 @@
     keystroke return
   end tell"
   buffer-file-name (line-number-at-pos))))
-n
+
 (define-key ruby-mode-map (kbd "C-c r") 'execute-rspec)

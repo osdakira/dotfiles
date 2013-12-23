@@ -36,10 +36,11 @@
              (setq gtags-path-style 'relative)
              (setq helm-c-gtags-use-otherwin t)
              ))
+
 ;; (setq gtags-path-style 'absolute)
 (add-hook 'python-mode-hook '(lambda () (helm-gtags-mode)))
 (add-hook 'coffee-mode-hook '(lambda () (helm-gtags-mode)))
-(add-hook 'ruby-mode-hook '(lambda () (helm-gtags-mode)))
+;; (add-hook 'ruby-mode-hook '(lambda () (helm-gtags-mode)))
 (add-hook 'javascript-mode-hook '(lambda () (helm-gtags-mode)))
 
 (require 'helm-c-yasnippet)
