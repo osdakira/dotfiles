@@ -31,6 +31,10 @@ tags(){
     # ctags --verbose -R --fields="+afikKlmnsSzt" --langmap=Python:+.t --exclude=.git
     gtags --gtagslabel=ctags `pwd` -v
 }
+rtags() {
+    ctags -a -e -f TAGS --tag-relative -R app lib vendor
+    # ctags -e app/**/*.rb lib/*.rb vendor/plugins/**/*.rb
+}
 
 alias seleniumfox="open -a Firefox --args -p SeleniumUser"
 alias size="sips -g all"
