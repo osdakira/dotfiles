@@ -32,7 +32,8 @@ tags(){
     gtags --gtagslabel=ctags `pwd` -v
 }
 rtags() {
-    ctags -a -e -f TAGS --tag-relative -R app lib vendor
+    # ctags -a -e -f TAGS --tag-relative -R app lib vendor # TAGS のサイズが大きすぎる
+    ctags -a -e -f TAGS --tag-relative -R app
     # ctags -e app/**/*.rb lib/*.rb vendor/plugins/**/*.rb
 }
 
@@ -100,6 +101,7 @@ source $HOME/.git-completion.bash
 
 alias rdm="be rake db:migrate"
 alias rdreset="be rake db:reset && rdtp && notice 'rdreset'"
+alias rdmreset="be rake db:migrate:reset && rdtp && notice 'rdreset'"
 alias gcomrdm="git commit -m 'rake db:migrate'"
 
 load_if_exist(){
@@ -131,7 +133,7 @@ load_if_exist(){
 #   redis-server &
 # }
 
-alias rgm="be rails g migration"
+alias rgm="be spring rails g migration"
 alias con="be rails c"
 alias scon="be spring rails c"
 alias db="be rails db"
@@ -231,3 +233,9 @@ callonce() {
 # load_if_exist $HOME/.bundler-exec.sh
 alias be="bundle exec"
 export PIVOTAL_TOKEN='ef8c10f9b6a3f1b04fff6d5bf1affd87'
+
+
+alias powrestart="powify server restart"
+alias powb="powify browse"
+alias powr="powify restart"
+alias powl="powify server logs"
