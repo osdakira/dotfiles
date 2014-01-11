@@ -4,8 +4,9 @@
 
 
 ;;;### (autoloads (global-rinari-mode rinari-minor-mode rinari-launch)
-;;;;;;  "rinari" "rinari.el" (21160 13386))
-;;; Generated autoloads from rinari.el
+;;;;;;  "rinari" "../../../../../.emacs.d/elpa/rinari-20131117.737/rinari.el"
+;;;;;;  "139f2e3c331d255607c3a5bd1e3840bc")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/rinari-20131117.737/rinari.el
 
 (autoload 'rinari-launch "rinari" "\
 Call function `rinari-minor-mode' if inside a rails project.
@@ -41,7 +42,9 @@ See `rinari-minor-mode' for more information on Rinari minor mode.
 
 ;;;***
 
-;;;### (autoloads nil nil ("rinari-pkg.el") (21160 13386 784355))
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/rinari-20131117.737/rinari-pkg.el"
+;;;;;;  "../../../../../.emacs.d/elpa/rinari-20131117.737/rinari.el")
+;;;;;;  (21201 11794 368003))
 
 ;;;***
 

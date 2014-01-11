@@ -225,3 +225,7 @@
   'nxml-mode-hook
   (lambda ()
     (define-key nxml-mode-map (kbd "M-h") 'backward-kill-word)))
+
+
+;; avoid "Symbolic link to SVN-controlled source file; follow link? (yes or no)"
+(setq vc-follow-symlinks t)

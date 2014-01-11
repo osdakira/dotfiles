@@ -16,8 +16,11 @@
 ;; FlymakeHtml
 (delete '("\\.html?\\'" flymake-xml-init) flymake-allowed-file-name-masks)
 (delete '("\\.xml?\\'" flymake-xml-init) flymake-allowed-file-name-masks)
-(delete '("\\.scss?\\'" flymake-xml-init) flymake-allowed-file-name-masks)
-(delete '("\\.css.scss?\\'" flymake-xml-init) flymake-allowed-file-name-masks)
+
+(add-hook 'scss-mode-hook 'flycheck-mode)
+(add-hook 'sass-mode-hook 'flycheck-mode)
+;; (setq exec-path (cons (expand-file-name "~/.homebrew/var/rbenv/shims/") exec-path))
+;; (setq exec-path (cons (expand-file-name "~/.homebrew/var/rbenv/versions/2.1.0/bin/") exec-path))
 
 ;; (defvar flymake-read-multiple-lines nil)
 ;; (make-variable-buffer-local 'flymake-read-multiple-lines)
@@ -112,3 +115,5 @@ temp-file
 )
 )
 (setq count (1- count)))))
+
+(setq flymake-gui-warnings-enabled nil)

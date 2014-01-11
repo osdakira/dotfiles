@@ -74,3 +74,12 @@
   buffer-file-name (line-number-at-pos))))
 
 (define-key ruby-mode-map (kbd "C-c r") 'execute-rspec)
+
+;; マジックコメントを入れない
+(setq ruby-insert-encoding-magic-comment nil)
+
+;; rbenv 有効
+(setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:"
+                       (getenv "HOME") "/.rbenv/bin:" (getenv "PATH")))
+(setq exec-path (cons (concat (getenv "HOME") "/.rbenv/shims")
+                      (cons (concat (getenv "HOME") "/.rbenv/bin") exec-path)))
