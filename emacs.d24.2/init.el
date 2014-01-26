@@ -120,3 +120,7 @@
 
 (require 'grep)
 (add-to-list 'grep-find-ignored-directories "vendor")
+
+(setq flymake-gui-warnings-enabled nil)
+
+(require 'helm-config)

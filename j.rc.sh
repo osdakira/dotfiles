@@ -80,9 +80,9 @@ urestart(){
 
 alias routes="rake routes"
 
-export AWS_ACCESS_KEY_ID="AKIAJZBWK4XQM7KK3LPA"
-export AWS_SECRET_ACCESS_KEY="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"
-export FOG_DIRECTORY="edo-sandbox" # S3バケット名
+# export AWS_ACCESS_KEY_ID="AKIAJZBWK4XQM7KK3LPA"
+# export AWS_SECRET_ACCESS_KEY="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"
+# export FOG_DIRECTORY="edo-sandbox" # S3バケット名
 
 alias gr="git checkout release/dmm"
 

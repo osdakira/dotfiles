@@ -6,6 +6,7 @@ export LOAD_BASHRC=1
 alias ls='ls -GFW'
 alias ll="ls -l"
 alias la="ls -a"
+alias lla="ls -la"
 
 alias cd="pushd"
 alias pd="popd"
@@ -76,9 +77,8 @@ add_path_if_exist(){
 # add_path_if_exist $HOME/.homebrew/share/npm/lib/node_modules/coffee-script/bin
 add_path_if_exist $HOME/.homebrew/share/npm/bin/
 
-add_path_if_exist $HOME/projects/adt-bundle-mac-x86_64-20130514/sdk/platform-tools
-add_path_if_exist $HOME/projects/adt-bundle-mac-x86_64-20130514/sdk/tools
-
+# add_path_if_exist $HOME/projects/adt-bundle-mac-x86_64-20130514/sdk/platform-tools
+# add_path_if_exist $HOME/projects/adt-bundle-mac-x86_64-20130514/sdk/tools
 
 #export PYTHONDONTWRITEBYTECODE=1
 
@@ -92,7 +92,7 @@ export PATH="/usr/local/heroku/bin:$PATH"
 export RBENV_ROOT=/Users/osada/.homebrew/var/rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
-[[ -d $HOME/.pyenv/bin ]] && export PATH=$HOME/.pyenv/bin:$PATH; eval "$(pyenv init -)"
+# [[ -d $HOME/.pyenv/bin ]] && export PATH=$HOME/.pyenv/bin:$PATH; eval "$(pyenv init -)"
 # [[ -d $HOME/.phpenv/bin ]] && export PATH=${HOME}/.phpenv/bin:${PATH}; eval "$(phpenv init -)"
 # [[ -d $HOME/.rbenv/bin ]] && export PATH=$HOME/.rbenv/bin:$PATH; eval "$(rbenv init -)"
 [[ -d $HOME/.homebrew ]] && export PATH=$HOME/.homebrew/bin:$PATH
@@ -225,6 +225,7 @@ tab-reset() {
 }
 
 source $HOME/Dropbox/dotfiles/m.rc.sh
+source $HOME/Dropbox/dotfiles/m.ignore.sh
 
 callonce() {
     ps aux | grep $* | grep -v grep || $*
