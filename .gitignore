@@ -2,3 +2,4 @@ elpa
 !archive-contents
 history
 *ignore*
+/emacs.d24.3/.edbi-ds-history

@@ -93,7 +93,7 @@
     (split-window-horizontally))
   (other-window 1)
   ;; (my-dynamic-modeline)
-)
+  )
 (global-set-key (kbd "C-t") 'other-window-or-split)
 
 
@@ -113,7 +113,7 @@
 ;; grep-mode > wgrep-mode への移行
 (setq wgrep-enable-key "r")
 ;; * To apply all changes wheather or not buffer is read-only.
-;(setq wgrep-change-readonly-file t)
+                                        ;(setq wgrep-change-readonly-file t)
 ;; バッファ編集適用後の一括保存を grep-mode でバインド
 (define-key grep-mode-map (kbd "C-x C-s") 'wgrep-save-all-buffers)
 
@@ -213,9 +213,9 @@
         tab-mark
         newline-mark))
 ;; whitespace-modeで全角スペース文字を可視化　
-(setq whitespace-space-regexp "\\(\x3000+\\)")
+;; (setq whitespace-space-regexp "\\(\x3000+\\)")
 ;; whitespace-mode をオン
-(global-whitespace-mode t)
+;; (global-whitespace-mode t)
 
 
 (require 'expand-region)
@@ -247,7 +247,7 @@
 ;; 基本設定
 ;;______________________________________________________________________
 ;; ディレクトリを先に表示する
-(setq ls-lisp-dirs-first t)
+;; (setq ls-lisp-dirs-first t)
 
 ;; サイズ表示を分かりやすくする
 (setq dired-listing-switches "-alh")
@@ -347,7 +347,7 @@
 ;; (setq default-input-method "MacOSX")
 ;; (mac-set-input-method-parameter "com.google.inputmethod.Japanese.base" `title "あ")
 
-(global-auto-highlight-symbol-mode)
+;; (global-auto-highlight-symbol-mode)
 
 (auto-indent-global-mode)
 
@@ -356,8 +356,6 @@
 (setq ruby-insert-encoding-magic-comment nil)
 ;; TODO FIXME を強調表示
 (add-hook 'ruby-mode-hook 'fic-ext-mode)
-;; mysql
-(autoload 'edbi:open-db-viewer "edbi")
 ;; flycheck
 (add-hook 'ruby-mode-hook 'flycheck-mode)
 (require 'ruby-block)
@@ -529,7 +527,8 @@ are always included."
 
 ;; Firefoxライクなキーバインドに
 (global-set-key [(control tab)]       'tabbar-forward)
-(global-set-key [(control shift iso-lefttab)] 'tabbar-backward)
+(global-set-key [(control shift tab)] 'tabbar-backward)
+(global-set-key [(control shift w)] 'kill-this-buffer)
 
 ;; (custom-set-valiables '(ac-ignore-case nil))
 
@@ -572,6 +571,8 @@ are always included."
 (add-hook 'ruby-mode-hook 'git-gutter-mode)
 (add-hook 'python-mode-hook 'git-gutter-mode)
 
+;; mysql
+;; (autoload 'edbi:open-db-viewer "edbi")
 
 (require 'helm-config)
 ;; 自動補完を無効
