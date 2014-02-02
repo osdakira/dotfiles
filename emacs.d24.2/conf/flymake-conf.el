@@ -17,7 +17,7 @@
 (delete '("\\.html?\\'" flymake-xml-init) flymake-allowed-file-name-masks)
 (delete '("\\.xml?\\'" flymake-xml-init) flymake-allowed-file-name-masks)
 
-(add-hook 'scss-mode-hook 'flycheck-mode)
+;; (add-hook 'scss-mode-hook 'flycheck-mode)
 (add-hook 'sass-mode-hook 'flycheck-mode)
 ;; (setq exec-path (cons (expand-file-name "~/.homebrew/var/rbenv/shims/") exec-path))
 ;; (setq exec-path (cons (expand-file-name "~/.homebrew/var/rbenv/versions/2.1.0/bin/") exec-path))

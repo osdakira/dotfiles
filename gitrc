@@ -17,12 +17,13 @@ alias glp="git log -p"
 
 gout() {
     git checkout $*
-    # if [ "$?" -ne 0 ]; then
-    #     echo "create branch ${*}"
-    #     git checkout -b $*
-    # fi
+    if [ "$?" -ne 0 ]; then
+        echo "create branch ${*}"
+        git checkout -b $*
+    fi
     git log --oneline -1
 }
+alias gf="git fetch"
 alias gbr="git branch"
 alias gmerge="git merge --no-ff"
 #alias gmerge="git merge"

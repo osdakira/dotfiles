@@ -51,7 +51,7 @@
  '(set-default-file-coding-system (quote utf-8-unix))
  '(show-paren-mode t)
  '(tool-bar-mode nil)
- ;; '(uniquify-buffer-name-style (quote forward) nil (uniquify))
+ '(uniquify-buffer-name-style (quote forward) nil (uniquify))
  )
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -259,9 +259,9 @@
 (setq dired-recursive-copies 'always)
 (setq dired-recursive-deletes 'always)
 
-(require 'goto-chg)
-(global-set-key "\M-[" 'goto-last-change)
-(global-set-key "\M-]" 'goto-last-change-reverse)
+;; (require 'goto-chg)
+;; (global-set-key "\M-[" 'goto-last-change)
+;; (global-set-key "\M-]" 'goto-last-change-reverse)
 
 
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
@@ -284,6 +284,10 @@
 (key-combo-load-default)
 (key-combo-define-global (kbd "C-a") '(back-to-indentation
                                        beginning-of-buffer key-combo-return))
+(key-combo-define-global (kbd "<") '("<" "<%- `!!' -%>" "<%= `!!' %>" "<%- `!!' %>" "<%# `!!' %>"))
+
+
+
 ;; (require 'lineno)
 
 (require 'multi-term)
@@ -301,16 +305,26 @@
 (add-hook 'css-hook 'rainbow-mode)
 (add-hook 'scss-hook 'rainbow-mode)
 
+;; インデント幅を2にする
+;; コンパイルは compass watchで行うので自動コンパイルをオフ
+(defun scss-custom ()
+  "scss-mode-hook"
+  (and
+   (set (make-local-variable 'css-indent-offset) 2)
+   (set (make-local-variable 'scss-compile-at-save) nil)
+   )
+  )
+(add-hook 'scss-mode-hook
+          '(lambda() (scss-custom)))
+
 ;; (setq rbenv-installation-dir (concat (getenv "HOME") "/.homebrew/var/rbenv/"))
-;; ;; (custom-set-variables '(rbenv-installation-dir (concat (getenv "HOME") "/.homebrew/var/rbenv/")))
-;; (require 'rbenv)
-;; (rbenv-use-global)
+(custom-set-variables '(rbenv-installation-dir (concat (getenv "HOME") "/.homebrew/var/rbenv/")))
+(require 'rbenv)
+(rbenv-use-global)
 
 
 (require 'smart-mode-line)
 (sml/setup)
-
-;; (require 'smartrep)
 
 (autoload 'ssh-config-mode "ssh-config-mode" t)
 (add-to-list 'auto-mode-alist '(".ssh/config\\'"  . ssh-config-mode))
@@ -323,27 +337,15 @@
 ;;   (setq yas/root-directory snippet-directory)
 ;;   (yas/jit-load)
 
-(require 'helm-config)
-(global-set-key (kbd "C-;") 'helm-mini)
-(global-set-key (kbd "M-y") 'helm-show-kill-ring)
-(global-set-key (kbd "C-x b") 'helm-buffers-list)
-;; 自動補完を無効
-(custom-set-variables '(helm-ff-auto-update-initial-value nil))
-;; ;; C-hでバックスペースと同じように文字を削除
-;; (define-key helm-c-read-file-map (kbd "C-h") 'delete-backward-char)
-;; TABで任意補完。選択肢が出てきたらC-nやC-pで上下移動してから決定することも可能
-(define-key helm-c-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
-(helm-mode 1)
 
 ;; [Mac の emacs で find-file のデフォルトディレクトリを "~/" にする。 - Qiita [キータ]](http://qiita.com/t2psyto/items/05776f010792ba967152)
-(setq default-directory "~/")
-(setq command-line-default-directory "~/")
+;; (setq default-directory "~/")
+;; (setq command-line-default-directory "~/")
 
 
 ;; Google日本語入力を使う場合はおすすめ
-(setq default-input-method "MacOSX")
-(mac-set-input-method-parameter "com.google.inputmethod.Japanese.base" `title "あ")
-
+;; (setq default-input-method "MacOSX")
+;; (mac-set-input-method-parameter "com.google.inputmethod.Japanese.base" `title "あ")
 
 (global-auto-highlight-symbol-mode)
 
@@ -367,6 +369,20 @@
 (require 'ruby-end)
 
 (require 'ruby-tools)
+(define-key ruby-mode-map (kbd "C-c C-d") 'xmp)
+(define-key ruby-mode-map (kbd "C-;") nil)
+
+
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+(global-unset-key [insert])
+(define-key web-mode-map (kbd "C-;") 'nil)
 
 ;; (add-hook 'ruby-mode-hook 'robe-mode)
 ;;  - M-. to jump to the definition
@@ -410,7 +426,161 @@
 ;;  * run spec for entire project (bound to `\C-c ,a`)
 ;;
 
+(defun execute-rspec ()
+  (interactive)
+  (do-applescript (format "tell application \"iTerm\"
+  activate
+  tell current session of current terminal
+    write text \"bundle exec spring rspec %s:%s\"
+  end tell
+  end tell
+  tell application \"System Events\"
+    keystroke return
+  end tell"
+                          buffer-file-name (line-number-at-pos))))
+
+(define-key ruby-mode-map (kbd "C-c r") 'execute-rspec)
+
+(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.rake\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Rakefile\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.gemspec\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.ru\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Gemfile\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Guardfile\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Capfile\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.thor\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Thorfile\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Vagrantfile\\'" . ruby-mode))
+
 (require 'foreign-regexp)
 (custom-set-variables
- '(foreign-regexp/regexp-type 'perl) ;; Choose by your preference.
+ '(foreign-regexp/regexp-type 'ruby) ;; Choose by your preference.
  '(reb-re-syntax 'foreign-regexp)) ;; Tell re-builder to use foreign regexp.
+
+
+(tabbar-mode 1)
+;; グループ化しない
+(setq tabbar-buffer-groups-function nil)
+;; 左に表示されるボタンを無効化
+(dolist (btn '(tabbar-buffer-home-button
+               tabbar-scroll-left-button
+               tabbar-scroll-right-button))
+  (set btn (cons (cons "" nil)
+                 (cons "" nil))))
+;; タブ同士の間隔
+(setq tabbar-separator '(0.8))
+
+;; 外観変更
+(set-face-attribute
+ 'tabbar-default nil
+ :family "Comic Sans MS"
+ :background "black"
+ :foreground "gray72"
+ :height 1.0)
+(set-face-attribute
+ 'tabbar-unselected nil
+ :background "black"
+ :foreground "grey72"
+ :box nil)
+(set-face-attribute
+ 'tabbar-selected nil
+ :background "black"
+ :foreground "yellow"
+ :box nil)
+(set-face-attribute
+ 'tabbar-button nil
+ :box nil)
+(set-face-attribute
+ 'tabbar-separator nil
+ :height 1.5)
+
+;; タブに表示させるバッファの設定
+;; (defvar my-tabbar-displayed-buffers
+;;   '("*scratch*" "*Messages*" "*Backtrace*" "*Colors*" "*Faces*" "*vc-")
+;;   "*Regexps matches buffer names always included tabs.")
+(defvar my-tabbar-displayed-buffers
+  '("*scratch*" "*vc-")
+  "*Regexps matches buffer names always included tabs.")
+
+(defun my-tabbar-buffer-list ()
+  "Return the list of buffers to show in tabs.
+Exclude buffers whose name starts with a space or an asterisk.
+The current buffer and buffers matches `my-tabbar-displayed-buffers'
+are always included."
+  (let* ((hides (list ?\  ?\*))
+         (re (regexp-opt my-tabbar-displayed-buffers))
+         (cur-buf (current-buffer))
+         (tabs (delq nil
+                     (mapcar (lambda (buf)
+                               (let ((name (buffer-name buf)))
+                                 (when (or (string-match re name)
+                                           (not (memq (aref name 0) hides)))
+                                   buf)))
+                             (buffer-list)))))
+    ;; Always include the current buffer.
+    (if (memq cur-buf tabs)
+        tabs
+      (cons cur-buf tabs))))
+
+(setq tabbar-buffer-list-function 'my-tabbar-buffer-list)
+
+
+;; Firefoxライクなキーバインドに
+(global-set-key [(control tab)]       'tabbar-forward)
+(global-set-key [(control shift iso-lefttab)] 'tabbar-backward)
+
+;; (custom-set-valiables '(ac-ignore-case nil))
+
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'post-forward)
+
+;; [emacs:init.el - PastelWiki](http://pastelwill.jp/wiki/doku.php?id=emacs:init.el#全角スペースと行末タブ_半角スペースを強調表示する)
+;; Avoid adding a new line at the end of buffer
+(setq next-line-add-newlines nil)
+;; Limit the final word to a line break code (automatically correct)
+(setq require-final-newline t)
+
+(require 'point-undo nil t)
+(define-key global-map "\M-[" 'point-undo)
+(define-key global-map "\M-]" 'point-redo)
+
+
+;; (add-hook 'sgml-mode-hook 'zencoding-mode)
+;; (add-hook 'html-mode-hook 'zencoding-mode)
+;; (add-hook 'web-mode-hook 'zencoding-mode)
+;; (eval-after-autoload-if-found
+;;  '(zencoding-mode zencoding-expand-line) "zencoding-mode" "Zen-coding" t nil
+;;  '((define-key zencoding-mode-keymap (kbd "M-<return>") 'zencoding-expand-line)))
+
+;; [Emacs標準のファイラdiredの基本的な使い方と便利なTipsいくつか - Qiita [キータ]](http://qiita.com/l3msh0@github/items/8665122e01f6f5ef502f)
+;; コントロール用のバッファを同一フレーム内に表示
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+;; diffのバッファを上下ではなく左右に並べる
+(setq ediff-split-window-function 'split-window-horizontally)
+
+;; diredを2つのウィンドウで開いている時に、デフォルトの移動orコピー先をもう一方のdiredで開いているディレクトリにする
+(setq dired-dwim-target t)
+;; ディレクトリを再帰的にコピーする
+(setq dired-recursive-copies 'always)
+;; diredバッファでC-sした時にファイル名だけにマッチするように
+(setq dired-isearch-filenames t)
+
+;; (require 'smartrep)
+
+(add-hook 'ruby-mode-hook 'git-gutter-mode)
+(add-hook 'python-mode-hook 'git-gutter-mode)
+
+
+(require 'helm-config)
+;; 自動補完を無効
+(custom-set-variables '(helm-ff-auto-update-initial-value nil))
+(global-set-key (kbd "C-;") 'helm-mini)
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
+(global-set-key (kbd "C-x b") 'helm-buffers-list)
+(helm-mode 1)
+;; For find-file etc.
+(define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
+;; For helm-find-files etc.
+(define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
