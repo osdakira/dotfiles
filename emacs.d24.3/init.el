@@ -668,3 +668,8 @@ are always included."
 
 
 (require 'recentf-ext)
+
+;; cask の管理
+(require 'cask "~/.cask/cask.el")
+(cask-initialize)
+(require 'pallet)
