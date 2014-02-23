@@ -346,7 +346,8 @@
 
 ;; (global-auto-highlight-symbol-mode)
 
-;; (auto-indent-global-mode)
+;; これがあると、hungry が効く。理由は知らない。
+(auto-indent-global-mode)
 
 ;; ruby-mode
 ;; マジックコメントを入れない
