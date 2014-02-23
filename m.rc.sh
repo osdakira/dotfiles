@@ -41,25 +41,32 @@ gr() {
     git checkout `git branch | grep -v "*" | grep " .release"`
 }
 
+parallel_test_with_prepare() {
+    # bundle exec spring rake parallel:prepare
+    # bundle exec spring rake parallel:spec
+    RAILS_ENV=test bundle exec bin/rake parallel:prepare
+    RAILS_ENV=test bundle exec bin/rake parallel:spec
+    notice "parallel_test"
+}
 parallel_test() {
     # bundle exec spring rake parallel:prepare
     # bundle exec spring rake parallel:spec
-    bundle exec rake parallel:prepare
-    bundle exec rake parallel:spec
+    # bundle exec bin/rake parallel:prepare RAILS_ENV=test
+    RAILS_ENV=test bundle exec bin/rake parallel:spec
     notice "parallel_test"
 }
 parallel_test_create() {
-    bundle exec rake parallel:create
+    RAILS_ENV=test bundle exec bin/rake parallel:create
 }
 
 srspec() {
-    echo "bundle exec spring rspec $*"
-    bundle exec spring rspec $*
+    echo "bundle exec bin/rspec $*"
+    bundle exec bin/rspec $*
     notice "rspec"
 }
 
-alias srake="bundle exec spring rake"
-alias srails="bundle exec spring rails"
+alias srake="bundle exec bin/rake"
+alias srails="bundle exec bin/rails"
 
 alias sstop="bundle exec spring stop"
 alias cap="bundle exec cap"
@@ -68,3 +75,12 @@ alias load_sql="cat /Users/osada/tmp/sanitized_mysql_table_data.sql | be rails d
 alias precompile="RAILS_ENV=development RAILS_GROUPS=assets bundle exec rake assets:precompile"
 
 alias reset_gem='gem list | grep -v "rdoc" | grep -v "test-unit" | grep -v "rake" | grep -v "psych" | grep -v "io-console"  | grep -v "bigdecimal" | grep -v "json" | grep -v "minitest" | xargs gem uninstall -a'
+
+tree(){
+  find . -print 2>/dev/null | awk '!/\.$/ { \
+    for (i=1; i<NF; i++) { \
+        printf("%4s", "|") \
+    } \
+    print "-- "$NF \
+}' FS='/'
+}
