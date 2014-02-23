@@ -14,7 +14,7 @@
 (setq cua-enable-cua-keys nil) ; CUAキーバインドを無効にする
 (global-hl-line-mode)
 (setq show-paren-delay 0) ; 表示までの秒数。初期値は0.125
-;; (global-auto-revert-mode 1)
+(global-auto-revert-mode 1)
 
 ;; set by emacs configuration
 
@@ -199,19 +199,19 @@
 
 
 ;; 改行やタブを可視化する whitespace-mode
-(setq whitespace-display-mappings
-      '((space-mark ?\x3000 [?\□]) ; zenkaku space
-        (newline-mark 10 [8629 10]) ; newlne
-        (tab-mark 9 [187 9] [92 9]) ; tab » 187
-        )
-      whitespace-style
-      '(spaces
-        ;; tabs
-        trailing
-        newline
-        space-mark
-        tab-mark
-        newline-mark))
+;; (setq whitespace-display-mappings
+;;       '((space-mark ?\x3000 [?\□]) ; zenkaku space
+;;         (newline-mark 10 [8629 10]) ; newlne
+;;         (tab-mark 9 [187 9] [92 9]) ; tab » 187
+;;         )
+;;       whitespace-style
+;;       '(spaces
+;;         ;; tabs
+;;         trailing
+;;         newline
+;;         space-mark
+;;         tab-mark
+;;         newline-mark))
 ;; whitespace-modeで全角スペース文字を可視化　
 ;; (setq whitespace-space-regexp "\\(\x3000+\\)")
 ;; whitespace-mode をオン
@@ -231,7 +231,9 @@
 (setq ac-use-fuzzy t) ;; 曖昧マッチな補完が出来るようにする。
 
 ;; (add-hook 'emacs-lisp-mode-hook '(lambda () (require 'eldoc-extension) (eldoc-mode t) ))
-
+(global-auto-complete-mode)
+(add-to-list 'ac-modes 'cofee-mode)
+(add-to-list 'ac-modes 'markdown-mode)
 
 
 (require 'autopair)
@@ -285,6 +287,7 @@
 (key-combo-define-global (kbd "C-a") '(back-to-indentation
                                        beginning-of-buffer key-combo-return))
 (key-combo-define-global (kbd "<") '("<" "<%- `!!' -%>" "<%= `!!' %>" "<%- `!!' %>" "<%# `!!' %>"))
+(key-combo-define-global (kbd "=") '("=" " = " "=" " == "))
 
 
 
@@ -317,19 +320,13 @@
 (add-hook 'scss-mode-hook
           '(lambda() (scss-custom)))
 
-;; (setq rbenv-installation-dir (concat (getenv "HOME") "/.homebrew/var/rbenv/"))
-(custom-set-variables '(rbenv-installation-dir (concat (getenv "HOME") "/.homebrew/var/rbenv/")))
-(require 'rbenv)
-(rbenv-use-global)
+;; (require 'smart-mode-line)
+;; (sml/setup)
 
-
-(require 'smart-mode-line)
-(sml/setup)
-
-(autoload 'ssh-config-mode "ssh-config-mode" t)
-(add-to-list 'auto-mode-alist '(".ssh/config\\'"  . ssh-config-mode))
-(add-to-list 'auto-mode-alist '("sshd?_config\\'" . ssh-config-mode))
-(add-hook 'ssh-config-mode-hook 'turn-on-font-lock)
+;; (autoload 'ssh-config-mode "ssh-config-mode" t)
+;; (add-to-list 'auto-mode-alist '(".ssh/config\\'"  . ssh-config-mode))
+;; (add-to-list 'auto-mode-alist '("sshd?_config\\'" . ssh-config-mode))
+;; (add-hook 'ssh-config-mode-hook 'turn-on-font-lock)
 
 ;; (global-undo-tree-mode)
 
@@ -349,15 +346,18 @@
 
 ;; (global-auto-highlight-symbol-mode)
 
-(auto-indent-global-mode)
+;; (auto-indent-global-mode)
 
 ;; ruby-mode
 ;; マジックコメントを入れない
 (setq ruby-insert-encoding-magic-comment nil)
 ;; TODO FIXME を強調表示
-(add-hook 'ruby-mode-hook 'fic-ext-mode)
+;; (add-hook 'ruby-mode-hook 'fic-ext-mode)
 ;; flycheck
 (add-hook 'ruby-mode-hook 'flycheck-mode)
+(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode)
+
+;; 対応する block を強調表示
 (require 'ruby-block)
 (ruby-block-mode t)
 (setq ruby-block-highlight-toggle 'overlay)
@@ -366,10 +366,19 @@
 
 (require 'ruby-end)
 
-(require 'ruby-tools)
-(define-key ruby-mode-map (kbd "C-c C-d") 'xmp)
-(define-key ruby-mode-map (kbd "C-;") nil)
+;; (require 'ruby-tools)
+;; (define-key ruby-mode-map (kbd "C-c C-d") 'xmp)
+;; (define-key ruby-mode-map (kbd "C-;") nil)
 
+;; (setq rbenv-installation-dir (concat (getenv "HOME") "/.homebrew/var/rbenv/"))
+(custom-set-variables '(rbenv-installation-dir (concat (getenv "HOME") "/.homebrew/var/rbenv/")))
+(defun load-rbenv ()
+  (require 'rbenv)
+  (rbenv-use-global))
+(add-hook 'ruby-mode 'load-rbenv)
+
+(require 'rubocop)
+(add-hook 'ruby-mode-hook 'rubocop-mode)
 
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
@@ -381,6 +390,7 @@
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 (global-unset-key [insert])
 (define-key web-mode-map (kbd "C-;") 'nil)
+(add-hook 'web-mode-hook 'auto-complete-mode)
 
 ;; (add-hook 'ruby-mode-hook 'robe-mode)
 ;;  - M-. to jump to the definition
@@ -452,10 +462,12 @@
 (add-to-list 'auto-mode-alist '("Thorfile\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Vagrantfile\\'" . ruby-mode))
 
-(require 'foreign-regexp)
-(custom-set-variables
- '(foreign-regexp/regexp-type 'ruby) ;; Choose by your preference.
- '(reb-re-syntax 'foreign-regexp)) ;; Tell re-builder to use foreign regexp.
+(global-rinari-mode t)
+
+;; (require 'foreign-regexp)
+;; (custom-set-variables
+;;  '(foreign-regexp/regexp-type 'ruby) ;; Choose by your preference.
+;;  '(reb-re-syntax 'foreign-regexp)) ;; Tell re-builder to use foreign regexp.
 
 
 (tabbar-mode 1)
@@ -545,7 +557,6 @@ are always included."
 (define-key global-map "\M-[" 'point-undo)
 (define-key global-map "\M-]" 'point-redo)
 
-
 ;; (add-hook 'sgml-mode-hook 'zencoding-mode)
 ;; (add-hook 'html-mode-hook 'zencoding-mode)
 ;; (add-hook 'web-mode-hook 'zencoding-mode)
@@ -568,20 +579,91 @@ are always included."
 
 ;; (require 'smartrep)
 
-(add-hook 'ruby-mode-hook 'git-gutter-mode)
-(add-hook 'python-mode-hook 'git-gutter-mode)
+(add-hook 'ruby-mode-hook 'git-gutter+-mode)
+(add-hook 'python-mode-hook 'git-gutter+-mode)
+(setq ruby-deep-indent-paren-style nil)
 
 ;; mysql
 ;; (autoload 'edbi:open-db-viewer "edbi")
 
+;; (require 'blank-mode)
+
+(mouse-wheel-mode nil)
+
 (require 'helm-config)
+(helm-mode 1)
+
+;; 自動補完を無効にする
+(setq helm-ff-auto-update-initial-value nil)
 ;; 自動補完を無効
 (custom-set-variables '(helm-ff-auto-update-initial-value nil))
-(global-set-key (kbd "C-;") 'helm-mini)
-(global-set-key (kbd "M-y") 'helm-show-kill-ring)
-(global-set-key (kbd "C-x b") 'helm-buffers-list)
-(helm-mode 1)
 ;; For find-file etc.
 (define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
 ;; For helm-find-files etc.
 (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
+
+
+;; 文字列を入力してから検索するまでのタイムラグを設定する（デフォルトは 0.1）
+(setq helm-input-idle-delay 0.2)
+
+;; helm-source-buffers-list でバッファ名を表示する幅を調整する
+(setq helm-buffer-max-length 50)
+
+;; helm-follow-mode （C-c C-f で ON/OFF）の前回の状態を維持する
+(setq helm-follow-mode-persistent t)
+
+(global-set-key (kbd "C-;") 'helm-mini)
+(define-key global-map (kbd "M-x")     'helm-M-x)
+;; (define-key global-map (kbd "C-x C-f") 'helm-find-files)
+(define-key global-map (kbd "C-x C-f") 'find-file)
+(define-key global-map (kbd "C-x C-r") 'helm-recentf)
+(define-key global-map (kbd "M-y")     'helm-show-kill-ring)
+(define-key global-map (kbd "C-c i")   'helm-imenu)
+(define-key global-map (kbd "C-x b")   'helm-buffers-list)
+
+
+(defadvice helm-ff-kill-or-find-buffer-fname (around execute-only-if-exist activate)
+  "Execute command only if CANDIDATE exists"
+  (when (file-exists-p candidate)
+    ad-do-it))
+
+;;; 処理を変更したいコマンドをリストに登録していく
+(add-to-list 'helm-completing-read-handlers-alist '(find-file . nil))
+
+;; vcを起動しないようにする
+(custom-set-variables
+ '(vc-handled-backends nil))
+(setq vc-handled-backends nil)
+
+;; 不要なhookを外す
+(remove-hook 'find-file-hook 'vc-find-file-hook)
+(remove-hook 'kill-buffer-hook 'vc-kill-buffer-hook)
+
+
+(custom-set-variables '(coffee-tab-width 2))
+;; automatically clean up bad whitespace
+(setq whitespace-action '(auto-cleanup))
+;; only show bad whitespace
+(setq whitespace-style '(trailing space-before-tab indentation empty space-after-tab))
+
+
+(require 'visual-regexp)
+(require 'visual-regexp-steroids)
+;; (define-key global-map (kbd "C-c r") 'vr/replace)
+;; (define-key global-map (kbd "C-c q") 'vr/query-replace)
+;; if you use multiple-cursors, this is for you:
+(define-key global-map (kbd "C-c m") 'vr/mc-mark)
+(global-set-key (kbd "C-M-%") 'vr/query-replace)
+(define-key esc-map (kbd "C-r") 'vr/isearch-backward) ;; C-M-r
+(define-key esc-map (kbd "C-s") 'vr/isearch-forward) ;; C-M-s
+
+;; (global-set-key (kbd "C-c r") 'anzu-query-replace)
+;; (global-set-key (kbd "C-c R") 'anzu-query-replace-regexp)
+;; (global-set-key (kbd "M-%") 'anzu-query-replace)
+;; (global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
+
+
+;; (elscreen-start)
+
+
+(require 'recentf-ext)
