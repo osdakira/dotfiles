@@ -5,7 +5,8 @@ alias gsubmodule="cd ..; git submodule; cd application"
 
 alias gconf="git commit"
 alias gcom="git commit -m"
-alias gpul="git pull"
+alias gpul="git pull --rebase"
+# alias gpul="git pull"
 # alias gpulr="git pull --rebase --no-ff --prune"
 alias gpl="gpul"
 alias gpull="gpul"
@@ -59,6 +60,7 @@ pullrequest(){
   git rebase origin master
 }
 
+alias grbc="git rebase --continue"
 alias A="git add"
 alias S="git status; git stash list"
 alias D="git diff"
