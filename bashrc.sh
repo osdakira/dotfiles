@@ -240,3 +240,6 @@ alias powrestart="powify server restart"
 alias powb="powify browse"
 alias powr="powify restart"
 alias powl="powify server logs"
+
+# export PARALLEL_TESTS_EXECUTABLE="bundle exec rspec"
+export PATH="$HOME/.cask/bin:$PATH"
