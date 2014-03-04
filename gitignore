@@ -1,4 +1,4 @@
-# TAGS
+TAGS
 *osada*.py
 \#*
 #.*
@@ -10,8 +10,8 @@ cookies
 GPATH
 GRTAGS
 GTAGS
-.php-version
-.ruby-version
+#.php-version
+#.ruby-version
 .#*
 *js.js
 gitconfig

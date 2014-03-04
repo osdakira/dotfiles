@@ -41,24 +41,23 @@ gr() {
     git checkout `git branch | grep -v "*" | grep " .release"`
 }
 
-parallel_test_with_prepare() {
-    # bundle exec spring rake parallel:prepare
-    # bundle exec spring rake parallel:spec
+parallel_prepare(){
+    echo "RAILS_ENV=test bundle exec bin/rake parallel:prepare"
     RAILS_ENV=test bundle exec bin/rake parallel:prepare
-    RAILS_ENV=test bundle exec bin/rake parallel:spec
-    notice "parallel_test"
 }
 parallel_test() {
-    # bundle exec spring rake parallel:prepare
-    # bundle exec spring rake parallel:spec
-    # bundle exec bin/rake parallel:prepare RAILS_ENV=test
+    echo "RAILS_ENV=test bundle exec bin/rake parallel:spec"
     RAILS_ENV=test bundle exec bin/rake parallel:spec
     notice "parallel_test"
 }
+parallel_test_with_prepare() {
+    parallel_prepare
+    parallel_test
+}
 parallel_test_create() {
+    echo "RAILS_ENV=test bundle exec bin/rake parallel:create"
     RAILS_ENV=test bundle exec bin/rake parallel:create
 }
-
 srspec() {
     echo "bundle exec bin/rspec $*"
     bundle exec bin/rspec $*
@@ -83,4 +82,8 @@ tree(){
     } \
     print "-- "$NF \
 }' FS='/'
+}
+
+parallel_retry(){
+    ruby -ne 'puts $1 if /(?<=rspec )([\.\/:\w]+)/' tmp/failing_specs.log | xargs bundle exec bin/rspec
 }

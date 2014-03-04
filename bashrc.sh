@@ -26,17 +26,22 @@ alias unrepr="python -c \"import sys; [ sys.stdout.write('\t'.join( [ (s.startsw
 
 alias rm='rmtrash'
 
-tags(){
-    # ctags --exclude=.git -eR `pwd`
-    # find `pwd` -name "*.py" -print | etags -a -
-    # ctags --verbose -R --fields="+afikKlmnsSzt" --langmap=Python:+.t --exclude=.git
-    gtags --gtagslabel=ctags `pwd` -v
+rtags(){
+    # ripper-tags -R --exclude=vendor
+    ripper-tags -e -R -f TAGS --exclude=vendor
 }
-rtags() {
-    # ctags -a -e -f TAGS --tag-relative -R app lib vendor # TAGS のサイズが大きすぎる
-    ctags -a -e -f TAGS --tag-relative -R app
-    # ctags -e app/**/*.rb lib/*.rb vendor/plugins/**/*.rb
-}
+
+# tags(){
+#     # ctags --exclude=.git -eR `pwd`
+#     # find `pwd` -name "*.py" -print | etags -a -
+#     # ctags --verbose -R --fields="+afikKlmnsSzt" --langmap=Python:+.t --exclude=.git
+#     gtags --gtagslabel=ctags `pwd` -v
+# }
+# rtags() {
+#     # ctags -a -e -f TAGS --tag-relative -R app lib vendor # TAGS のサイズが大きすぎる
+#     ctags -a -e -f TAGS --tag-relative -R app
+#     # ctags -e app/**/*.rb lib/*.rb vendor/plugins/**/*.rb
+# }
 
 alias seleniumfox="open -a Firefox --args -p SeleniumUser"
 alias size="sips -g all"
@@ -243,3 +248,10 @@ alias powl="powify server logs"
 
 # export PARALLEL_TESTS_EXECUTABLE="bundle exec rspec"
 export PATH="$HOME/.cask/bin:$PATH"
+
+if [ -d /usr/local/java ]; then
+    export JAVA_HOME=/usr/local/java
+    export PATH=$JAVA_HOME/bin:$PATH
+fi
+
+alias shoes="/Applications/Shoes.app/Contents/MacOS/shoes"

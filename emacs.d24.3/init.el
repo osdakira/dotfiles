@@ -236,8 +236,13 @@
 (add-to-list 'ac-modes 'markdown-mode)
 
 
-(require 'autopair)
-(autopair-global-mode) ;; to enable in all buffers
+;; (require 'autopair)
+;; (autopair-global-mode) ;; to enable in all buffers
+
+(require 'smartparens-config)
+(require 'smartparens-ruby)
+(smartparens-global-mode t)
+
 
 ;;(ctags-update-minor-mode)
 
@@ -288,6 +293,7 @@
                                        beginning-of-buffer key-combo-return))
 (key-combo-define-global (kbd "<") '("<" "<%- `!!' -%>" "<%= `!!' %>" "<%- `!!' %>" "<%# `!!' %>"))
 (key-combo-define-global (kbd "=") '("=" " = " "=" " == "))
+(key-combo-define-global (kbd "|") '("|" " | " " || "))
 
 
 
@@ -344,7 +350,7 @@
 ;; (setq default-input-method "MacOSX")
 ;; (mac-set-input-method-parameter "com.google.inputmethod.Japanese.base" `title "あ")
 
-;; (global-auto-highlight-symbol-mode)
+(global-auto-highlight-symbol-mode)
 
 ;; これがあると、hungry が効く。理由は知らない。
 (auto-indent-global-mode)
@@ -356,7 +362,10 @@
 ;; (add-hook 'ruby-mode-hook 'fic-ext-mode)
 ;; flycheck
 (add-hook 'ruby-mode-hook 'flycheck-mode)
-(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode)
+(add-hook 'enh-ruby-mode-hook 'flycheck-mode)
+(add-hook 'after-init-hook 'global-flycheck-mode)
+(setq flycheck-check-syntax-automatically '(mode-enabled save))
+;; (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode)
 
 ;; 対応する block を強調表示
 (require 'ruby-block)
@@ -373,13 +382,12 @@
 
 ;; (setq rbenv-installation-dir (concat (getenv "HOME") "/.homebrew/var/rbenv/"))
 (custom-set-variables '(rbenv-installation-dir (concat (getenv "HOME") "/.homebrew/var/rbenv/")))
-(defun load-rbenv ()
-  (require 'rbenv)
-  (rbenv-use-global))
-(add-hook 'ruby-mode 'load-rbenv)
+(require 'rbenv)
+(global-rbenv-mode)
 
 (require 'rubocop)
 (add-hook 'ruby-mode-hook 'rubocop-mode)
+(add-hook 'enh-ruby-mode-hook 'rubocop-mode)
 
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
@@ -581,6 +589,7 @@ are always included."
 ;; (require 'smartrep)
 
 (add-hook 'ruby-mode-hook 'git-gutter+-mode)
+(add-hook 'enh-ruby-mode-hook 'git-gutter+-mode)
 (add-hook 'python-mode-hook 'git-gutter+-mode)
 (setq ruby-deep-indent-paren-style nil)
 
@@ -665,7 +674,6 @@ are always included."
 
 
 ;; (elscreen-start)
-
 
 (require 'recentf-ext)
 
