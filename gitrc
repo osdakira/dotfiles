@@ -24,6 +24,10 @@ gout() {
     fi
     git log --oneline -1
 }
+gouto(){
+    gf
+    git checkout -b $1 origin/$1
+}
 alias gf="git fetch"
 alias gbr="git branch"
 alias gmerge="git merge --no-ff"

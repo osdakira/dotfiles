@@ -358,11 +358,12 @@
 ;; ruby-mode
 ;; マジックコメントを入れない
 (setq ruby-insert-encoding-magic-comment nil)
+;; (setq enh-ruby-insert-encoding-magic-comment nil)
 ;; TODO FIXME を強調表示
 ;; (add-hook 'ruby-mode-hook 'fic-ext-mode)
 ;; flycheck
 (add-hook 'ruby-mode-hook 'flycheck-mode)
-(add-hook 'enh-ruby-mode-hook 'flycheck-mode)
+;; (add-hook 'enh-ruby-mode-hook 'flycheck-mode)
 (add-hook 'after-init-hook 'global-flycheck-mode)
 (setq flycheck-check-syntax-automatically '(mode-enabled save))
 ;; (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode)
@@ -374,7 +375,7 @@
 (setq ruby-block-highlight-toggle 'minibuffer)
 (setq ruby-block-highlight-toggle t)
 
-(require 'ruby-end)
+;; (require 'ruby-end)
 
 ;; (require 'ruby-tools)
 ;; (define-key ruby-mode-map (kbd "C-c C-d") 'xmp)
@@ -397,6 +398,7 @@
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
 (global-unset-key [insert])
 (define-key web-mode-map (kbd "C-;") 'nil)
 (add-hook 'web-mode-hook 'auto-complete-mode)
@@ -673,7 +675,8 @@ are always included."
 ;; (global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
 
 
-;; (elscreen-start)
+(elscreen-start)
+(elscreen-toggle-display-tab)
 
 (require 'recentf-ext)
 
