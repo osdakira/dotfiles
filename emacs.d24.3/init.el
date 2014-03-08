@@ -375,7 +375,7 @@
 (setq ruby-block-highlight-toggle 'minibuffer)
 (setq ruby-block-highlight-toggle t)
 
-;; (require 'ruby-end)
+(require 'ruby-end)
 
 ;; (require 'ruby-tools)
 ;; (define-key ruby-mode-map (kbd "C-c C-d") 'xmp)
@@ -684,3 +684,20 @@ are always included."
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
 (require 'pallet)
+
+(setenv "LANG" "ja_JP.UTF-8")
+
+(exec-path-from-shell-initialize)
+
+(when (and (executable-find "cmigemo")
+           (require 'migemo nil t))
+  (setq migemo-options '("-q" "--emacs"))
+
+  (setq migemo-user-dictionary nil)
+  (setq migemo-regex-dictionary nil)
+  (setq migemo-coding-system 'utf-8-unix)
+  (load-library "migemo")
+  (migemo-init)
+  )
+(setq migemo-command "cmigemo")
+(setq migemo-dictionary (concat (getenv "HOME") "/.homebrew/share/migemo/utf-8/migemo-dict"))

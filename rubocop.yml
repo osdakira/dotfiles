@@ -9,3 +9,7 @@ LineLength:
 
 StringLiterals:
   Enabled: false
+
+
+MethodLength:
+  Max: 20

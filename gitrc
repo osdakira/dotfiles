@@ -25,7 +25,7 @@ gout() {
     git log --oneline -1
 }
 gouto(){
-    gf
+    git fetch
     git checkout -b $1 origin/$1
 }
 alias gf="git fetch"
