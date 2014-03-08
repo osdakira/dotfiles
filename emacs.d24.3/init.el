@@ -364,6 +364,7 @@
 ;; flycheck
 (add-hook 'ruby-mode-hook 'flycheck-mode)
 ;; (add-hook 'enh-ruby-mode-hook 'flycheck-mode)
+
 (add-hook 'after-init-hook 'global-flycheck-mode)
 (setq flycheck-check-syntax-automatically '(mode-enabled save))
 ;; (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode)
@@ -674,7 +675,6 @@ are always included."
 ;; (global-set-key (kbd "M-%") 'anzu-query-replace)
 ;; (global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
 
-
 (elscreen-start)
 (elscreen-toggle-display-tab)
 
@@ -701,3 +701,7 @@ are always included."
   )
 (setq migemo-command "cmigemo")
 (setq migemo-dictionary (concat (getenv "HOME") "/.homebrew/share/migemo/utf-8/migemo-dict"))
+
+
+;; title shows file path
+(setq-default frame-title-format "%b (%f)")

@@ -52,7 +52,7 @@ install node
 install mysql
 
 install ctags
-
+install cmigemo
 
 # .dmg
 # cask install google-chrome
