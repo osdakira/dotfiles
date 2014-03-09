@@ -6,7 +6,7 @@
 update
 
 # Update already-installed formula
-upgrade
+# upgrade
 
 # Add Repository
 tap homebrew/versions
@@ -53,6 +53,8 @@ install mysql
 
 install ctags
 install cmigemo
+
+install qt
 
 # .dmg
 # cask install google-chrome
