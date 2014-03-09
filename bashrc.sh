@@ -104,9 +104,9 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 source $HOME/.git-completion.bash
 
-alias rdm="be rake db:migrate"
-alias rdreset="be rake db:reset && rdtp && notice 'rdreset'"
-alias rdmreset="be rake db:migrate:reset && rdtp && notice 'rdreset'"
+alias rdm="be bin/rake db:migrate"
+alias rdreset="be bin/rake db:reset && rdtp && notice 'rdreset'"
+alias rdmreset="be bin/rake db:migrate:reset && rdtp && notice 'rdreset'"
 alias gcomrdm="git commit -m 'rake db:migrate'"
 
 load_if_exist(){
@@ -138,19 +138,19 @@ load_if_exist(){
 #   redis-server &
 # }
 
-alias rgm="be spring rails g migration"
+alias rgm="be bin/rails g migration"
 alias con="be rails c"
-alias scon="be spring rails c"
+alias scon="be bin/rails c"
 alias db="be rails db"
-alias sdb="be spring rails db"
-alias rdtp="be spring rake db:test:prepare"
+alias sdb="be bin/rails db"
+alias rdtp="be bin/rake db:test:prepare"
 
 notice() {
     message=${1:-$?}
     title=${2:-"Terminal"}
     echo "display notification \"${message}\" with title \"${title}\"" | osascript
-    # alias pong='perl -nle '\''print "display notification \"$_\" with title \"Terminal\""'\'' | osascript'
 }
+# alias pong='perl -nle '\''print "display notification \"$_\" with title \"Terminal\""'\'' | osascript'
 
 # notice(){
 #   message=${1:-$?}
