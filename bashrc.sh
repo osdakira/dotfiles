@@ -27,7 +27,6 @@ alias unrepr="python -c \"import sys; [ sys.stdout.write('\t'.join( [ (s.startsw
 alias rm='rmtrash'
 
 rtags(){
-    # ripper-tags -R --exclude=vendor
     ripper-tags -e -R -f TAGS --exclude=vendor
 }
 
@@ -37,11 +36,11 @@ rtags(){
 #     # ctags --verbose -R --fields="+afikKlmnsSzt" --langmap=Python:+.t --exclude=.git
 #     gtags --gtagslabel=ctags `pwd` -v
 # }
-# rtags() {
-#     # ctags -a -e -f TAGS --tag-relative -R app lib vendor # TAGS のサイズが大きすぎる
-#     ctags -a -e -f TAGS --tag-relative -R app
-#     # ctags -e app/**/*.rb lib/*.rb vendor/plugins/**/*.rb
-# }
+rctags() {
+    ctags -a -e -f TAGS --tag-relative -R --exclude="*.js" --exclude=".git*"
+    # ctags -a -e -f TAGS --tag-relative -R app lib vendor # TAGS のサイズが大きすぎる
+    # ctags -e app/**/*.rb lib/*.rb vendor/plugins/**/*.rb
+}
 
 alias seleniumfox="open -a Firefox --args -p SeleniumUser"
 alias size="sips -g all"
@@ -255,3 +254,5 @@ if [ -d /usr/local/java ]; then
 fi
 
 alias shoes="/Applications/Shoes.app/Contents/MacOS/shoes"
+
+alias ssh_add_month="ssh-add -t 2592000 ~/.ssh/id_rsa"
