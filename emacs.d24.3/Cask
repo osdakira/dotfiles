@@ -15,5 +15,6 @@
 (depends-on "s")
 (depends-on "smartparens")
 (depends-on "smex")
+(depends-on "wgrep")
 (depends-on "wrap-region")
 (depends-on "yasnippet")
