@@ -4,9 +4,9 @@ export LOAD_BASHRC=1
 #export PATH=/usr/local/mysql/bin:/opt/local/bin:/usr/local/bin:${PATH}
 
 alias ls='ls -GFW'
-alias ll="ls -l"
+alias ll="ls -lh"
 alias la="ls -a"
-alias lla="ls -la"
+alias lla="ll -a"
 
 alias cd="pushd"
 alias pd="popd"

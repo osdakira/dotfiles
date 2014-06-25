@@ -64,6 +64,8 @@ install renameutils
 
 install jq
 
+install youtube-dl
+
 # .dmg
 # cask install google-chrome
 # cask install evernote
