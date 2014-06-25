@@ -4,9 +4,14 @@ R() {
     # killprog gurad
 
     # M
-    ps aux | grep ruby | grep guard | grep -v grep || bundle exec guard &
+    # ps aux | grep ruby | grep guard | grep -v grep || bundle exec guard &
+    # ps aux | grep resque | grep -v grep || bundle exec rake resque:work QUEUE='*' &
+
     ps aux | grep redis-server | grep -v grep || redis-server ~/.redis.conf &
-    ps aux | grep resque | grep -v grep || bundle exec rake resque:work QUEUE='*' &
+
+    killprog resque
+    bundle exec rake resque:work QUEUE='*' >> log/worker-1.log 2>&1 &
+    bundle exec rake resque:scheduler >> log/scheduler-1.log 2>&1 &
 
     # ps aux| grep -v grep | grep unicorn_rails | grep 8080 | awk '{print $2}' | xargs kill
     # bundle exec unicorn_rails -p 8080 &
@@ -34,9 +39,11 @@ b_deploy(){
     b_cap $1 deploy
 }
 
-alias b_deploy_st4="b_deploy staging_4"
+s_deploy(){
+    b_deploy staging deploy
+}
 
-unalias gr
+# unalias gr
 gr() {
     git checkout `git branch | grep -v "*" | grep " .release"`
 }
@@ -87,3 +94,33 @@ tree(){
 parallel_retry(){
     ruby -ne 'puts $1 if /(?<=rspec )([\.\/:\w]+)/' tmp/failing_specs.log | xargs bundle exec bin/rspec
 }
+
+alias cs4p="b_cap staging_4 precompile"
+alias cs4d="b_cap staging_4 deploy"
+alias cs4dp="cap staging_4 b_deploy precompile"
+alias cs4fp="b_cap staging_4 full_deploy precompile"
+alias cs4r="cap staging_4 deploy:restart"
+alias cs4s="cap staging_4 deploy:start"
+alias cs4l="cap staging_4 log"
+alias g4="gout feature/staging_4"
+reset_f4(){
+    gm
+    gbr -D feature/staging_4
+    gout -b feature/staging_4
+}
+
+b_deploy_with(){
+    this_branch=$(git branch 2>/dev/null | sed -n '/^\*/s/^\* //p')
+    target_staging=$1
+    target_branch="feature/"$1
+    if git diff --quiet 2>/dev/null >&2
+    then
+        git checkout $target_branch
+        git merge $this_branch && \
+            git push && \
+            git checkout $this_branch && \
+            cap $target_staging deploy -s branch=$target_branch
+    fi
+}
+alias b_deploy_with_4="b_deploy_with staging_4"
+alias load_by_sql="be rails db < `ls -1tr ~/tmp/mysql_dump* | tail -n 1`"

@@ -12,6 +12,9 @@
 (setq mc/cmds-to-run-once
       '(
         autopair-newline
+        coffee-dedent-line-backspace
         cua-cut-region
+        cua-delete-region
         other-window-or-split
+        ruby-end-return
         ))

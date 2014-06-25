@@ -208,6 +208,10 @@ traverse_dir() {
 
 alias android="adb forward tcp:9222 localabstract:chrome_devtools_remote"
 
+gbrclean(){
+  git branch --merged | grep -v "*" | grep -v "develop" | grep -v "master" | xargs git branch -d
+}
+
 android_logcat(){
   cd ~/projects/adt-bundle-mac-x86_64-20130514/sdk/platform-tools
   ./adb logcat
@@ -256,11 +260,11 @@ alias ssh_add_month="ssh-add -t 2592000 ~/.ssh/id_rsa"
 # export CHARTWORK_TOKEN="8eed8a24dc3ed65e2049c230f30a1590"
 
 export PYENV_ROOT=/Users/osada/.homebrew/opt/pyenv
-if which pyenv > /dev/null; then export PATH=$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH; eval "$(pyenv init -)"; fi
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 
 # if [ -f $(brew --prefix)/etc/bash_completion ]; then
 #     . $(brew --prefix)/etc/bash_completion
 # fi
 export PATH=$PATH:/Users/osada/projects/swift-0.94.1/bin
-
-export MAIL_SEND=false
+export PATH=$PATH:/Users/osada/projects/swift-0.94.1/bin
+FACEBOOK_ACCESS_TOKEN="CAACuV7x837MBALnrZB573pAeqzIjH18ZBye9BmYXWk28PSZBj1kEirbZAIpQvXZAmgUpnGEUKTis3vqyrpueL2ixZA0sv05aB0nZBssZAaTs9fdaFTI24L9TL4ZAm5B7IzjGmKWZCBsPruuZBdJZB2G6E2QDBb6Cx0g2ZB0cbloCxFRfZAkmFtYNajswGf"

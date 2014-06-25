@@ -1,15 +1,20 @@
+# コメントの中は ascii 文字でなければならない → 強制しない
 AsciiComments:
   Enabled: false
 
+# utf-8 のマジックコメントが書かれていないければならない → 不要
 Encoding:
   Enabled: false
 
+# 1行の長さは120文字を超えてはならない
 LineLength:
   Max: 120
 
+# 文字列は二重引用符か単引用符でなければならない。
+# 特別の理由がなければ単引用符を使うべきである → 強制しない
 StringLiterals:
   Enabled: false
 
-
-MethodLength:
-  Max: 20
+# ドキュメントが必要である → 強制しない
+Documentation:
+  Enabled: false

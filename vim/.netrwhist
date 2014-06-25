@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_cnt =4
 let g:netrw_dirhist_1='/Users/osada/projects/rails/edo/tmp'
 let g:netrw_dirhist_2='/Users/osada/projects/mugenup/workstation/app/models/concerns/posts_and_comments'
 let g:netrw_dirhist_3='/Users/osada/projects/mugenup/workstation/vendor/bundle/ruby/1.9.1/gems/libv8-3.3.10.4/lib/libv8/build/v8'
+let g:netrw_dirhist_4='/Users/osada'

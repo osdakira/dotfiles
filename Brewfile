@@ -6,11 +6,13 @@
 update
 
 # Update already-installed formula
-# upgrade
+upgrade
 
 # Add Repository
+tap caskroom/cask || true
+install brew-cask
+
 tap homebrew/versions
-tap phinze/homebrew-cask
 tap homebrew/binary
 
 
@@ -34,10 +36,7 @@ install reattach-to-user-namespace
 
 install imagemagick
 
-install brew-cask
 # install packer
-
-install ctags
 
 install redis
 
@@ -55,6 +54,15 @@ install ctags
 install cmigemo
 
 install qt
+
+install httpie
+
+install pyenv
+install rsync
+
+install renameutils
+
+install jq
 
 # .dmg
 # cask install google-chrome

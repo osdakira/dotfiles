@@ -1,17 +1,11 @@
 export GIT_MERGE_AUTOEDIT=no
-
 alias ginit="cd ..; git submodule init; cd application"
 alias gupdate="cd ..; git submodule update ; cd application"
 alias gsubmodule="cd ..; git submodule; cd application"
 
 alias gconf="git commit"
 alias gcom="git commit -m"
-
-alias gpul="git pull --rebase"
-
-# gpul(){
-#     git pull --rebase $* || (git branch --set-upstream-to=origin/`parse_git_branch` `parse_git_branch` && git pull --rebase $*)
-# }
+alias gpul="git pull --rebase --prune"
 # alias gpul="git pull"
 # alias gpulr="git pull --rebase --no-ff --prune"
 alias gpl="gpul"
@@ -21,7 +15,6 @@ alias gpuh="gpush"
 alias gpsh="gpush"
 alias gls="git log --stat"
 alias glp="git log -p"
-alias ggrep="git grep --line-number --show-function --color --heading --break"
 
 gout() {
     git checkout $*
@@ -29,20 +22,14 @@ gout() {
         echo "create branch ${*}"
         git checkout -b $*
     fi
-    git log --oneline -3
+    git log --oneline -1
 }
-
-gbrclean(){
-  git branch --merged | grep -v "*" | grep -v "develop" | grep -v "master" | xargs git branch -d
+gouto(){
+    git fetch
+    git checkout -b $1 origin/$1
 }
-
-gupstream(){
-  git branch --set-upstream-to=origin/`parse_git_branch` `parse_git_branch`
-}
-
 alias gf="git fetch"
 alias gbr="git branch"
-alias gbrr="git branch -r"
 alias gmerge="git merge --no-ff"
 #alias gmerge="git merge"
 alias gmerg="gmerge"
@@ -55,28 +42,27 @@ alias gstashl="gstash list"
 alias gstashp="gstash pop"
 
 alias grb="git rebase --no-ff"
-# alias gr="git rebase --no-ff"
+alias gr="git rebase --no-ff"
 alias grbm="gr master"
 
 alias gmgm="gmerg master"
 # alias gmgr="gmerge release"
-# alias gmgd="gmerge develop"
+alias gmgd="gmerge develop"
 
-# alias gr="gout release"
+alias gr="gout release"
 alias gm="gout master"
-# alias gs="gout staging"
-# alias gd="gout development"
-# alias go="gout osada"
-# alias gd="gout develop"
-# alias gpullup="git pull upstream master"
-
-# pullrequest(){
-#   git checkout master
-#   git pull upstream master
-#   git push origin master
-#   git checkout -
-#   git rebase origin master
-# }
+alias gs="gout staging"
+alias gd="gout development"
+alias go="gout osada"
+alias gd="gout develop"
+alias gpullup="git pull upstream master"
+pullrequest(){
+  git checkout master
+  git pull upstream master
+  git push origin master
+  git checkout -
+  git rebase origin master
+}
 
 alias grbc="git rebase --continue"
 alias A="git add"
@@ -89,9 +75,9 @@ alias gamend="git commit --amend"
 #alias gtree="git log --graph --pretty=oneline --decorate --date=short --abbrev-commit --branches"
 alias gtree="git log --graph --pretty=oneline --date=short --abbrev-commit --branches"
 
-# gtrack(){
-#     git branch --set-upstream-to=origin/$1 $1
-# }
+gtrack(){
+    git branch --set-upstream-to=origin/$1 $1
+}
 
 ### Display git branch ###
 
@@ -219,7 +205,7 @@ function prompt_command {
 # }
 
 hpush(){
-    git push heroku ${1:-master}
+git push heroku ${1:-master}
 }
 
 # goutf(){

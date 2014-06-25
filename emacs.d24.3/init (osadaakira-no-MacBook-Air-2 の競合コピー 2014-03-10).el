@@ -1,6 +1,5 @@
 ;; init settings
 ;; Replace Command-Key and Option-Key
-;;; Code:
 (setq ns-command-modifier (quote meta))
 (setq ns-alternate-modifier (quote super))
 (keyboard-translate ?\C-h ?\C-?)   ;; C-h is backspace
@@ -67,7 +66,6 @@
 (setq visible-bell t)
 (setq warning-minimum-level :emergency)
 (load-theme 'molokai t)
-(delete-selection-mode 1)
 
 (require 'package)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
@@ -233,11 +231,9 @@
 (setq ac-use-fuzzy t) ;; 曖昧マッチな補完が出来るようにする。
 
 ;; (add-hook 'emacs-lisp-mode-hook '(lambda () (require 'eldoc-extension) (eldoc-mode t) ))
-(add-to-list 'ac-modes 'coffee-mode)  ;; coffescript用：coffee-modeになったら、auto-completeをスタートさせる
-(add-to-list 'ac-modes 'web-mode)      ;; WEB用：web-modeになったら、auto-completeをスタートさせる
-(add-to-list 'ac-modes 'markdown-mode)
 (global-auto-complete-mode)
-
+(add-to-list 'ac-modes 'cofee-mode)
+(add-to-list 'ac-modes 'markdown-mode)
 
 
 ;; (require 'autopair)
@@ -275,8 +271,6 @@
 ;; (global-set-key "\M-]" 'goto-last-change-reverse)
 
 
-;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js3-mode))
-(require 'js2-refactor)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
 
@@ -300,6 +294,7 @@
 (key-combo-define-global (kbd "<") '("<" "<%- `!!' -%>" "<%= `!!' %>" "<%- `!!' %>" "<%# `!!' %>"))
 (key-combo-define-global (kbd "=") '("=" " = " "=" " == "))
 (key-combo-define-global (kbd "|") '("|" " | " " || "))
+
 
 
 ;; (require 'lineno)
@@ -359,8 +354,6 @@
 
 ;; これがあると、hungry が効く。理由は知らない。
 (auto-indent-global-mode)
-;; (setq auto-indent-indent-style 'aggressive)
-(setq auto-indent-indent-style 'conservative)
 
 ;; ruby-mode
 ;; マジックコメントを入れない
@@ -371,7 +364,6 @@
 ;; flycheck
 (add-hook 'ruby-mode-hook 'flycheck-mode)
 ;; (add-hook 'enh-ruby-mode-hook 'flycheck-mode)
-
 (add-hook 'after-init-hook 'global-flycheck-mode)
 (setq flycheck-check-syntax-automatically '(mode-enabled save))
 ;; (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode)
@@ -458,7 +450,7 @@
   (do-applescript (format "tell application \"iTerm\"
   activate
   tell current session of current terminal
-    write text \"bundle exec bin/rspec %s:%s\"
+    write text \"bundle exec spring rspec %s:%s\"
   end tell
   end tell
   tell application \"System Events\"
@@ -601,7 +593,7 @@ are always included."
 (add-hook 'ruby-mode-hook 'git-gutter+-mode)
 (add-hook 'enh-ruby-mode-hook 'git-gutter+-mode)
 (add-hook 'python-mode-hook 'git-gutter+-mode)
-;; (setq ruby-deep-indent-paren-style nil)
+(setq ruby-deep-indent-paren-style nil)
 
 ;; mysql
 ;; (autoload 'edbi:open-db-viewer "edbi")
@@ -640,7 +632,6 @@ are always included."
 (define-key global-map (kbd "M-y")     'helm-show-kill-ring)
 (define-key global-map (kbd "C-c i")   'helm-imenu)
 (define-key global-map (kbd "C-x b")   'helm-buffers-list)
-(define-key global-map (kbd "M-.")   'helm-etags-select)
 
 
 (defadvice helm-ff-kill-or-find-buffer-fname (around execute-only-if-exist activate)
@@ -683,11 +674,11 @@ are always included."
 ;; (global-set-key (kbd "M-%") 'anzu-query-replace)
 ;; (global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
 
+
 (elscreen-start)
 (elscreen-toggle-display-tab)
 
 (require 'recentf-ext)
-(recentf-mode 1)
 
 ;; cask の管理
 (require 'cask "~/.cask/cask.el")
@@ -710,8 +701,6 @@ are always included."
   )
 (setq migemo-command "cmigemo")
 (setq migemo-dictionary (concat (getenv "HOME") "/.homebrew/share/migemo/utf-8/migemo-dict"))
-;; title shows file path
-(setq-default frame-title-format "%b (%f)")
 
 (setq require-final-newline t)
 
@@ -722,74 +711,5 @@ are always included."
 (setq-default truncate-lines t)
 (setq truncate-partial-width-windows t)
 
-
-(require 'helm-config)
-(require 'helm-files)
-(require 'helm-ag)
-(global-set-key (kbd "C-c s") 'helm-ag)
-;; (global-set-key (kbd "M-g .") 'helm-ag)
-;; (global-set-key (kbd "M-g ,") 'helm-ag-pop-stack)
-;; (global-set-key (kbd "C-M-s") 'helm-ag-this-file)
-
-(defadvice ruby-indent-line (after unindent-closing-paren activate)
-  (let ((column (current-column))
-        indent offset)
-    (save-excursion
-      (back-to-indentation)
-      (let ((state (syntax-ppss)))
-        (setq offset (- column (current-column)))
-        (when (and (eq (char-after) ?\))
-                   (not (zerop (car state))))
-          (goto-char (cadr state))
-          (setq indent (current-indentation)))))
-    (when indent
-      (indent-line-to indent)
-      (when (> offset 0) (forward-char offset)))))
-
-
-
-;; (defun th-rename-tramp-buffer ()
-;;   (when (file-remote-p (buffer-file-name))
-;;     (rename-buffer
-;;      (format "%s:%s"
-;;              (file-remote-p (buffer-file-name) 'method)
-;;              (buffer-name)))))
-
-;; (add-hook 'find-file-hook
-;;           'th-rename-tramp-buffer)
-
-;; (defadvice find-file (around th-find-file activate)
-;;   "Open FILENAME using tramp's sudo method if it's read-only."
-;;   (if (and (not (file-writable-p (ad-get-arg 0)))
-;;            (y-or-n-p (concat "File "
-;;                              (ad-get-arg 0)
-;;                              " is read-only.  Open it as root? ")))
-;;       (th-find-file-sudo (ad-get-arg 0))
-;;     ad-do-it))
-
-;; (defun th-find-file-sudo (file)
-;;   "Opens FILE with root privileges."
-;;   (interactive "F")
-;;   (set-buffer (find-file (concat "/sudo::" file))))
-
-(setq ruby-deep-indent-paren-style nil)
-
-
-(add-hook 'python-mode-hook
-          '(lambda ()
-             (setq python-indent 4)
-             (setq indent-tabs-mod nil)
-             (define-key (current-local-map) "\C-h" 'python-backspace)
-             ))
-
-;; install rinari http://github.com/eschulte/rinari
-;; install http://github.com/flyerhzm/rails_best_practices
-;; run this in your emacs
-
-(defun rails_best_practices (rails-app-dir)
-  "Run rails_best_practices checker and provide results
-requires rinari-mode to run"
-  (interactive "DRails application: ")
-  (ruby-compilation-run (concat (executable-find "rails_best_practices")
-                                " "
-                                (expand-file-name rails-app-dir))))
+;;; 現在の関数名をモードラインに表示
+(which-function-mode 1)
