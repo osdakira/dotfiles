@@ -264,3 +264,8 @@ if which pyenv > /dev/null; then export PATH=$PYENV_ROOT/shims:$PYENV_ROOT/bin:$
 export PATH=$PATH:/Users/osada/projects/swift-0.94.1/bin
 
 export MAIL_SEND=false
+# alias git=hub
+eval "$(hub alias -s)"
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+alias cpl="cap production login"
+alias cbl="cap batch login"

@@ -6,7 +6,7 @@
 update
 
 # Update already-installed formula
-upgrade
+# upgrade
 
 # Add Repository
 tap caskroom/cask || true
@@ -14,7 +14,7 @@ install brew-cask
 
 tap homebrew/versions
 tap homebrew/binary
-
+tap homebrew/dupes
 
 # Packages
 
@@ -53,7 +53,7 @@ install mysql
 install ctags
 install cmigemo
 
-install qt
+# install qt
 
 install httpie
 
@@ -65,6 +65,11 @@ install renameutils
 install jq
 
 install youtube-dl
+install ffmpeg --with-ffplay
+install hub
+install the_silver_searcher
+
+install pyenv-virtualenv
 
 # .dmg
 # cask install google-chrome
@@ -72,6 +77,10 @@ install youtube-dl
 # cask install kobito
 # cask install virtualbox
 # cask install vagrant
+#
+cask install xquartz
+install mp4box
+
 
 # Remove outdated versions
 cleanup

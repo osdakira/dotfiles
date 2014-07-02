@@ -480,6 +480,7 @@
 (add-to-list 'auto-mode-alist '("\\.thor\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Thorfile\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Vagrantfile\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.podspec\\'" . ruby-mode))
 
 (global-rinari-mode t)
 

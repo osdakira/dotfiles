@@ -86,6 +86,9 @@ alias DW="git diff --word-diff=plain"
 alias DC="git diff --cached"
 alias gamend="git commit --amend"
 
+alias gpr="git pull-request"
+alias gb="git browse"
+
 #alias gtree="git log --graph --pretty=oneline --decorate --date=short --abbrev-commit --branches"
 alias gtree="git log --graph --pretty=oneline --date=short --abbrev-commit --branches"
 
