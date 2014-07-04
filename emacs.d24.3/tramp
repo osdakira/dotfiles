@@ -1,4 +1,4 @@
-;; -*- emacs-lisp -*- <14/04/16 09:51:06 /Users/osada/.emacs.d/tramp>
+;; -*- emacs-lisp -*- <14/07/03 11:03:51 /Users/osada/.emacs.d/tramp>
 ;; Tramp connection history.  Don't change this file.
 ;; You can delete it, forcing Tramp to reapply the checks.
 
@@ -16,4 +16,6 @@
   ("perl-cwd-realpath" t)
   ("perl" "\\perl")
   ("stat" nil)
-  ("ls" "/bin/ls")))
+  ("ls" "/bin/ls"))
+ (["scpc" nil "sudo" nil nil]
+  nil))

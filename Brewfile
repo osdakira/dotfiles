@@ -81,6 +81,8 @@ install pyenv-virtualenv
 cask install xquartz
 install mp4box
 
+install bind
+install maven
 
 # Remove outdated versions
 cleanup
