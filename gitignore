@@ -27,3 +27,8 @@ vendor/bundle/*
 .bundle/
 emacs.d24/history
 emacs.d24/tramp
+資料/
+.powenv
+.Rhistory
+.RData
+LibreOffice

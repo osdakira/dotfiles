@@ -6,6 +6,9 @@ alias gsubmodule="cd ..; git submodule; cd application"
 
 alias gconf="git commit"
 alias gcom="git commit -m"
+alias gcoma="git commit --allow-empty -m"
+
+alias gcln="git clean -d -f"
 
 alias gpul="git pull --rebase"
 
@@ -16,6 +19,7 @@ alias gpul="git pull --rebase"
 # alias gpulr="git pull --rebase --no-ff --prune"
 alias gpl="gpul"
 alias gpull="gpul"
+alias gprune="gpul --prune"
 alias gpush="git push"
 alias gpuh="gpush"
 alias gpsh="gpush"
@@ -24,16 +28,25 @@ alias glp="git log -p"
 alias ggrep="git grep --line-number --show-function --color --heading --break"
 
 gout() {
+  if [ "$#" -eq 0 ]; then
+    git checkout `git branch | peco | sed -e "s/\* //g" | awk "{print \$1}"`
+  else
     git checkout $*
-    if [ "$?" -ne 0 ]; then
-        echo "create branch ${*}"
-        git checkout -b $*
-    fi
+    # if [ "$?" -ne 0 ]; then
+    #     echo "create branch ${*}"
+    #     git checkout -b $*
+    # fi
     git log --oneline -3
+    git stash list
+  fi
+}
+
+goutp(){
+    git checkout -b $1 origin/$1
 }
 
 gbrclean(){
-  git branch --merged | grep -v "*" | grep -v "develop" | grep -v "master" | xargs git branch -d
+  [[ `parse_git_branch` =~ (master|release) ]] && git branch --merged | grep -v "*" | grep -v "production" | grep -v "master" | grep -v "release" | xargs git branch -d
 }
 
 gupstream(){
@@ -56,7 +69,7 @@ alias gstashp="gstash pop"
 
 alias grb="git rebase --no-ff"
 # alias gr="git rebase --no-ff"
-alias grbm="gr master"
+alias grbm="git rebase master"
 
 alias gmgm="gmerg master"
 # alias gmgr="gmerge release"
@@ -64,7 +77,7 @@ alias gmgm="gmerg master"
 
 # alias gr="gout release"
 alias gm="gout master"
-# alias gs="gout staging"
+alias gs="gout staging"
 # alias gd="gout development"
 # alias go="gout osada"
 # alias gd="gout develop"
@@ -86,7 +99,6 @@ alias DW="git diff --word-diff=plain"
 alias DC="git diff --cached"
 alias gamend="git commit --amend"
 
-alias gpr="git pull-request"
 alias gb="git browse"
 
 #alias gtree="git log --graph --pretty=oneline --decorate --date=short --abbrev-commit --branches"

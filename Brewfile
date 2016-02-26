@@ -84,5 +84,8 @@ install mp4box
 install bind
 install maven
 
+install android-sdk
+install android-ndk
+
 # Remove outdated versions
 cleanup

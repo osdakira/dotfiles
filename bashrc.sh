@@ -46,9 +46,7 @@ alias seleniumfox="open -a Firefox --args -p SeleniumUser"
 alias size="sips -g all"
 alias ql='qlmanage -p "$@" >& /dev/null'
 
-
 alias sqllog="sudo tail -n 1000 -f /tmp/myquery.log"
-
 
 # export WORKON_HOME=$HOME/.virtualenvs
 #source /usr/local/bin/virtualenvwrapper_bashrc
@@ -84,7 +82,7 @@ add_path_if_exist $HOME/.homebrew/share/npm/bin/
 # add_path_if_exist $HOME/projects/adt-bundle-mac-x86_64-20130514/sdk/platform-tools
 # add_path_if_exist $HOME/projects/adt-bundle-mac-x86_64-20130514/sdk/tools
 
-#export PYTHONDONTWRITEBYTECODE=1
+# export PYTHONDONTWRITEBYTECODE=1
 
 #[[ -s "/opt/local/lib/mysql55/bin" ]] && export PATH=/opt/local/lib/mysql55/bin:${PATH}
 
@@ -104,8 +102,12 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 source $HOME/.git-completion.bash
 
 alias rdm="be bin/rake db:migrate"
-alias rdreset="be bin/rake db:reset && rdtp && notice 'rdreset'"
-alias rdmreset="be bin/rake db:migrate:reset && rdtp && notice 'rdreset'"
+# alias rdreset="be bin/rake db:reset && rdtp && notice 'rdreset'"
+# alias rdmreset="be bin/rake db:migrate:reset && rdtp && notice 'rdreset'"
+# alias rdrecreate="bin/rake db:migrate:reset db:seed && notice 'rdreset'"
+alias rdmresetdev="bin/rake db:migrate:reset"
+alias rdmrt="RAILS_ENV=test bin/rake db:migrate:reset"
+alias rdmreset="rdmresetdev && rdmresettest && notice 'rdreset'"
 alias gcomrdm="git commit -m 'rake db:migrate'"
 
 load_if_exist(){
@@ -187,7 +189,7 @@ tlog(){
   M
   tail -n 1000 -f log/development.log
 }
-testlog() {
+tlogt() {
     tail -n 1000 -f log/test.log | grep -v TRUNCATE
 }
 
@@ -255,8 +257,11 @@ alias ssh_add_month="ssh-add -t 2592000 ~/.ssh/id_rsa"
 
 # export CHARTWORK_TOKEN="8eed8a24dc3ed65e2049c230f30a1590"
 
-export PYENV_ROOT=/Users/osada/.homebrew/opt/pyenv
-if which pyenv > /dev/null; then export PATH=$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH; eval "$(pyenv init -)"; fi
+if which pyenv > /dev/null; then
+    export PYENV_ROOT=`brew --prefix`/opt/pyenv
+    export PATH=$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH;
+    eval "$(pyenv init -)";
+fi
 
 # if [ -f $(brew --prefix)/etc/bash_completion ]; then
 #     . $(brew --prefix)/etc/bash_completion
@@ -267,5 +272,165 @@ export MAIL_SEND=false
 # alias git=hub
 eval "$(hub alias -s)"
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
-alias cpl="cap production login"
-alias cbl="cap batch login"
+
+export PATH=$PATH:/Users/osada/.homebrew/opt/go/libexec/bin
+alias boot2docker='boot2docker --vm=boot2docker-vm-vboxfs'
+export DOCKER_HOST=tcp://192.168.59.103:2375
+alias dl='docker ps -l -q'
+alias docker_rm="docker ps -a -q | xargs docker rm"
+alias docker_rmi="docker images | grep none | awk '{print $3}' | xargs docker rmi"
+export AUTODOC=1
+export ANDROID_HOME=/Users/osada/.homebrew/Cellar/android-sdk/23.0.2
+export PATH=~/.cabal/bin:/opt/local/bin:/opt/local/sbin:/Users/osada/.homebrew/opt/pyenv/shims:/Users/osada/.homebrew/opt/pyenv/bin:/usr/local/java/bin:/Users/osada/.cask/bin:/Users/osada/.homebrew/bin:/Users/osada/.homebrew/var/rbenv/shims:/usr/local/heroku/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/local/bin:/opt/local/sbin:/Users/osada/.homebrew/opt/pyenv/shims:/Users/osada/.homebrew/opt/pyenv/bin:/usr/local/java/bin:/Users/osada/.cask/bin:/Users/osada/.homebrew/bin:/usr/local/heroku/bin:/Users/osada/Dropbox/dotfiles/mybin:/Users/osada/projects/swift-0.94.1/bin:/Users/osada/.homebrew/opt/go/libexec/bin:/Users/osada/Dropbox/dotfiles/mybin:/Users/osada/projects/swift-0.94.1/bin:/Users/osada/.homebrew/opt/go/libexec/bin
+
+c_login(){
+    set -x
+    # set -eux
+    ip=`grep server $1 | cut -d "'" -f 2`
+    pem=`grep pem $1 | perl -pe '$_ =~ s/.*?(\w+\.pem).*/\1/'`
+    ssh -i $HOME/.ssh/${pem} ubuntu@${ip}
+    # set +eux
+    set +x
+}
+
+alias cls="c_login config/deploy/staging.rb"
+alias clp="c_login config/deploy/production.rb"
+
+# export JUBATUS_HOME="`brew --prefix`/jubatus"
+# export PATH="${JUBATUS_HOME}/bin:${PATH}"
+# export LD_LIBRARY_PATH="${JUBATUS_HOME}/lib:${LD_LIBRARY_PATH}"
+# export LDFLAGS="-L${JUBATUS_HOME}/lib ${LDFLAGS}"
+# export CPLUS_INCLUDE_PATH="${JUBATUS_HOME}/include:${CPLUS_INCLUDE_PATH}"
+# export PKG_CONFIG_PATH="${JUBATUS_HOME}/lib/pkgconfig:${PKG_CONFIG_PATH}"
+export R_HOME=/Library/Frameworks/R.framework/Resources
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$RHOME/bin
+alias ..="cd .."
+
+# curl -X GET -H "X-ChatWorkToken: 自分のAPIトークン"
+# "https://api.chatwork.com/v1/rooms/{room_id}/messages?force=0"
+chatwork(){
+    curl -X $1 -H "X-ChatWorkToken: ${CHAT_WORK_TOKEN}" \
+         "https://api.chatwork.com/v1/$2"
+}
+alias G="cd ~/projects/go"
+# export GOPATH=$HOME/projects/go_test
+# export PATH=$PATH:$GOPATH/bin
+# export GOENVGOROOT=$HOME/.goenvs
+# export GOENVTARGET=`pwd`/.homebrew/Cellar/go/1.3.3/bin
+# source $GOENVTARGET/goenvwrapper.sh
+alias rseed="bin/rake db:seed"
+# alias rmreset="bin/rake db:migrate:reset"
+export PATH=$PATH:/Users/osada/.homebrew/opt/go/libexec/bin
+
+#THIS MUST BE AT THE END OF THE FILE FOR GVM TO WORK!!!
+[[ -s "/Users/osada/.gvm/bin/gvm-init.sh" ]] && source "/Users/osada/.gvm/bin/gvm-init.sh"
+source "/Users/osada/.gvm/bin/gvm-init.sh"
+SBT_OPTS="-XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256M"
+
+AUTODOC=1
+# export PATH=$HOME/.nodebrew/current/bin:$PATH
+# source kvm.sh
+# source ~/.phpbrew/bashrc
+export PATH="/Users/osada/.homebrew/sbin:$PATH"
+alias today="date '+%Y%m%d'"
+f_deploy(){
+    previous=`parse_git_branch`
+    gom ; gmerg ${previous}; gpush; cmd &
+    gout -
+}
+alias grr="git rebase release"
+g_kill() {
+  ps aux | grep "$1" | grep -v grep | awk '{print $2}' | xargs kill
+}
+alias grbr="grb release"
+eval "$(direnv hook bash)"
+
+alias lessF="less +F -Rf"
+# export GOENVTARGET=$HOME/.goenv/
+# export GOPATH="$HOME/.gopath"
+# export PATH=$PATH:$GOPATH/bin
+export ANDROID_HOME=/Users/osada/.homebrew/opt/android-sdk
+alias tdl="tail -n 1000 -f log/development.log"
+
+red=31
+green=32
+yellow=33
+blue=34
+
+function cecho {
+    color=$1
+    shift
+    echo -e "\033[${color}m$@\033[m"
+}
+
+function usage {
+    cat <<EOF
+$(basename ${0}) is a tool for ...
+
+Usage:
+    $(basename ${0}) [command] [<options>]
+
+Options:
+    --version, -v     print $(basename ${0}) version
+    --help, -h        print this
+EOF
+}
+
+fd() {
+  local dir
+  dir=$(find ${1:-*} -path '*/\.*' -prune \
+                  -o -type d -print 2> /dev/null | fzf +m) &&
+  cd "$dir"
+}
+
+fkill() {
+  pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+
+  if [ "x$pid" != "x" ]
+  then
+    kill -${1:-9} $pid
+  fi
+}
+
+fbr() {
+  local branches branch
+  branches=$(git branch --all | grep -v HEAD) &&
+  branch=$(echo "$branches" |
+           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+}
+
+fs() {
+  local session
+  session=$(tmux list-sessions -F "#{session_name}" | \
+    fzf --query="$1" --select-1 --exit-0) &&
+  tmux switch-client -t "$session"
+}
+
+ftpane () {
+  local panes current_window target target_window target_pane
+  panes=$(tmux list-panes -s -F '#I:#P - #{pane_current_path} #{pane_current_command}')
+  current_window=$(tmux display-message  -p '#I')
+
+  target=$(echo "$panes" | fzf) || return
+
+  target_window=$(echo $target | awk 'BEGIN{FS=":|-"} {print$1}')
+  target_pane=$(echo $target | awk 'BEGIN{FS=":|-"} {print$2}' | cut -c 1)
+
+  if [[ $current_window -eq $target_window ]]; then
+    tmux select-pane -t ${target_window}.${target_pane}
+  else
+    tmux select-pane -t ${target_window}.${target_pane} &&
+    tmux select-window -t $target_window
+  fi
+}
+
+
+export NVM_DIR=~/.nvm
+. $(brew --prefix nvm)/nvm.sh
+
+setup_atom() {
+  ln -s ~/Dropbox/dotfiles/.atom ~/.atom
+}
+
+alias se="stack exec"

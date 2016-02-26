@@ -1,4 +1,4 @@
-R() {
+RR() {
     # killprog redis-server
     # killprog resque
     # killprog gurad
@@ -7,11 +7,22 @@ R() {
     # ps aux | grep ruby | grep guard | grep -v grep || bundle exec guard &
     # ps aux | grep resque | grep -v grep || bundle exec rake resque:work QUEUE='*' &
 
+    set -x
+
     ps aux | grep redis-server | grep -v grep || redis-server ~/.redis.conf &
 
-    killprog resque
-    bundle exec rake resque:work QUEUE='*' >> log/worker-1.log 2>&1 &
-    bundle exec rake resque:scheduler >> log/scheduler-1.log 2>&1 &
+    if [[ `pwd` =~ "workstation" ]]; then
+        killprog resque
+        bundle exec rake resque:work QUEUE='*' >> log/worker-1.log 2>&1 &
+        bundle exec rake resque:scheduler >> log/scheduler-1.log 2>&1 &
+    fi
+
+    if [[ "bin/sidekiq" ]]; then
+        bin/sidekiqctl stop tmp/pids/sidekiq.pid
+        # bin/sidekiqctl stop tmp/pids/sidekiq_batch.pid
+        bin/sidekiq -C config/sidekiq.yml &
+        # bin/sidekiq -C config/sidekiq_batch.yml &
+    fi
 
     # ps aux| grep -v grep | grep unicorn_rails | grep 8080 | awk '{print $2}' | xargs kill
     # bundle exec unicorn_rails -p 8080 &
@@ -20,14 +31,15 @@ R() {
 
     # ps aux | grep "rails s" | grep -v grep | awk '{print $2}' | xargs kill -9
     # bundle exec rails s
+    set +x
 }
 
-reset_db() {
-    bundle exec spring rake db:reset # 初期化。データベース構造を変えた場合
-    bundle exec spring rake db:import_dummy_data_all  # テストデータの挿入
-    bundle exec spring rake db:test:prepare
-    N "reset_db"
-}
+# reset_db() {
+#     bundle exec spring rake db:reset # 初期化。データベース構造を変えた場合
+#     bundle exec spring rake db:import_dummy_data_all  # テストデータの挿入
+#     bundle exec spring rake db:test:prepare
+#     N "reset_db"
+# }
 
 b_cap(){
     bundle exec cap $1 $2 -s branch=$(parse_git_branch)
@@ -44,9 +56,10 @@ s_deploy(){
 }
 
 # unalias gr
-gr() {
-    git checkout `git branch | grep -v "*" | grep " .release"`
-}
+# gr() {
+#     git checkout `git branch | grep -v "*" | grep " .release"`
+# }
+alias gr="git checkout release"
 
 parallel_prepare(){
     echo "RAILS_ENV=test bundle exec bin/rake parallel:prepare"
@@ -71,8 +84,14 @@ srspec() {
     notice "rspec"
 }
 
-alias srake="bundle exec bin/rake"
-alias srails="bundle exec bin/rails"
+srake(){
+    [[ "bin/rake" ]] && bin/rake $*
+    bundle exec spring rake $*
+}
+srails(){
+    [[ "bin/rails" ]] && bin/rails $*
+    bundle exec spring rails $*
+}
 
 alias sstop="bundle exec spring stop"
 alias cap="bundle exec cap"
@@ -101,8 +120,14 @@ alias cs4dp="cap staging_4 b_deploy precompile"
 alias cs4fp="b_cap staging_4 full_deploy precompile"
 alias cs4r="cap staging_4 deploy:restart"
 alias cs4s="cap staging_4 deploy:start"
-alias cs4l="cap staging_4 log"
+alias cs4log="cap staging_4 log"
+alias cs4l="cap staging_4 login"
+alias csl="cap staging_1 login"
 alias g4="gout feature/staging_4"
+alias cpl0="cap production login 0"
+alias cpl1="cap production login 1"
+alias cbl="cap batch login"
+
 reset_f4(){
     gm
     gbr -D feature/staging_4
@@ -123,4 +148,11 @@ b_deploy_with(){
     fi
 }
 alias b_deploy_with_4="b_deploy_with staging_4"
-alias load_by_sql="be rails db < `ls -1tr ~/tmp/mysql_dump* | tail -n 1`"
+# alias load_by_sql="be rails db < `ls -1tr ~/tmp/mysql_dump* | tail -n 1`"
+alias bdw4="b_deploy_with staging_4"
+
+alias recruit="echo export RAILS_AS=recruit > .powenv && touch tmp/restart.txt"
+alias station="echo export RAILS_AS=station > .powenv && touch tmp/restart.txt"
+alias csd="cap staging deploy"
+alias cslog="cap staging log"
+alias csr="cap staging unicorn:restart"

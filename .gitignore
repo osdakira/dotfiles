@@ -4,3 +4,8 @@ history
 *ignore*
 /emacs.d24.3/.edbi-ds-history
 .cask/
+.apm/
+.node-gyp/
+packages/
+compile-cache/
+storage/
