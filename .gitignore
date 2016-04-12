@@ -9,3 +9,5 @@ history
 packages/
 compile-cache/
 storage/
+vim/.netrwhist
+history*

@@ -1,21 +1,23 @@
-;; -*- emacs-lisp -*- <14/07/03 11:03:51 /Users/osada/.emacs.d/tramp>
+;; -*- emacs-lisp -*- <14/10/23 19:58:31 /Users/osada/.emacs.d/tramp>
 ;; Tramp connection history.  Don't change this file.
 ;; You can delete it, forcing Tramp to reapply the checks.
 
 ((["sudo" "root" "osadaakira-no-MacBook-Air-2.local" nil nil]
-  ("uname" "Darwin 13.1.0")
+  ("uname" "Darwin 14.0.0")
   ("test" "test")
   ("remote-path"
    ("/usr/bin" "/bin" "/usr/sbin" "/sbin" "/usr/local/bin"))
   ("remote-shell" "/bin/sh")
   ("busybox" nil)
-  ("~root" "/var/root")
-  ("file-exists" "test -e")
-  ("readlink" nil)
   ("perl-file-spec" t)
   ("perl-cwd-realpath" t)
   ("perl" "\\perl")
+  ("file-exists" "test -e")
+  ("readlink" nil)
   ("stat" nil)
-  ("ls" "/bin/ls"))
- (["scpc" nil "sudo" nil nil]
-  nil))
+  ("id" "/usr/bin/id")
+  ("gid-integer" 0)
+  ("uid-integer" 0)
+  ("ls" "/bin/ls")
+  ("ls-dired" nil)
+  ("trash" nil)))

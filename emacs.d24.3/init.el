@@ -29,12 +29,12 @@
  '(backward-delete-char-untabify-method (quote hungry))
  '(blink-cursor-mode nil)
  '(case-fold-search nil)
+ '(coffee-tab-width 2)
  '(column-number-mode t)
  '(current-language-environment "UTF-8")
  '(custom-safe-themes (quote ("466cdb687a83da9c0e9bb995023600ae00c43efe41fdf31c264fd17285214f95" default)))
  '(debug-on-error t)
- ;; '(debug-on-quit t)
- ;; '(enable-recursive-minibuffers t)
+ '(helm-ff-auto-update-initial-value nil)
  '(history-length 300)
  '(indent-tabs-mode nil)
  '(indicate-empty-lines t)
@@ -42,9 +42,10 @@
  '(initial-scratch-message "")
  '(kill-ring-max 100)
  '(make-backup-files nil)
+ '(rbenv-installation-dir (concat (getenv "HOME") "/.homebrew/var/rbenv/"))
  '(recentf-max-menu-items 10)
  '(recentf-max-saved-items 3000)
- '(safe-local-variable-values (quote ((encoding . utf-8))))
+ '(safe-local-variable-values (quote ((whitespace-style face tabs spaces trailing lines space-before-tab::space newline indentation::space empty space-after-tab::space space-mark tab-mark newline-mark) (ruby-compilation-executable . "ruby") (ruby-compilation-executable . "ruby1.8") (ruby-compilation-executable . "ruby1.9") (ruby-compilation-executable . "rbx") (ruby-compilation-executable . "jruby") (encoding . utf-8))))
  '(save-place t nil (saveplace))
  '(scroll-conservatively 1)
  '(scroll-step 1)
@@ -53,7 +54,7 @@
  '(show-paren-mode t)
  '(tool-bar-mode nil)
  '(uniquify-buffer-name-style (quote forward) nil (uniquify))
- )
+ '(vc-handled-backends nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -64,10 +65,10 @@
 ;; (set-face-underline-p 'modeline t) ; モードラインには下線をつける
 ;; (set-face-bold-p 'modeline t) ; モードラインは太字
 ;; (setq frame-background-mode 'dark)
-(setq visible-bell t)
+(setq visible-bell t) ;; ビープ音ではなく、画面を光らせる
 (setq warning-minimum-level :emergency)
 (load-theme 'molokai t)
-(delete-selection-mode 1)
+(delete-selection-mode 1) ;; 選択中に文字を入力すると、選択範囲を削除して挿入する
 
 (require 'package)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
@@ -89,6 +90,7 @@
 ;; (add-hook 'find-file-hook 'my-dynamic-modeline)
 ;; (add-hook 'select-window-functions 'my-dynamic-modeline)
 
+;; window を移動する。無かったら作る。
 (defun other-window-or-split ()
   (interactive)
   (when (one-window-p)
@@ -297,7 +299,7 @@
 (key-combo-load-default)
 (key-combo-define-global (kbd "C-a") '(back-to-indentation
                                        beginning-of-buffer key-combo-return))
-(key-combo-define-global (kbd "<") '("<" "<%- `!!' -%>" "<%= `!!' %>" "<%- `!!' %>" "<%# `!!' %>"))
+(key-combo-define-global (kbd "<") '("<" "<%= `!!' %>" "<% `!!' %>" "<%- `!!' -%>" "<%# `!!' %>"))
 (key-combo-define-global (kbd "=") '("=" " = " "=" " == "))
 (key-combo-define-global (kbd "|") '("|" " | " " || "))
 
@@ -355,7 +357,7 @@
 ;; (setq default-input-method "MacOSX")
 ;; (mac-set-input-method-parameter "com.google.inputmethod.Japanese.base" `title "あ")
 
-(global-auto-highlight-symbol-mode)
+(global-auto-highlight-symbol-mode) ;; カーソル上の単語をハイライトする
 
 ;; これがあると、hungry が効く。理由は知らない。
 (auto-indent-global-mode)
@@ -390,7 +392,7 @@
 ;; (define-key ruby-mode-map (kbd "C-;") nil)
 
 ;; (setq rbenv-installation-dir (concat (getenv "HOME") "/.homebrew/var/rbenv/"))
-(custom-set-variables '(rbenv-installation-dir (concat (getenv "HOME") "/.homebrew/var/rbenv/")))
+
 (require 'rbenv)
 (global-rbenv-mode)
 
@@ -471,6 +473,7 @@
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rake\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.jbuilder\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Rakefile\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.gemspec\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.ru\\'" . ruby-mode))
@@ -556,7 +559,6 @@ are always included."
 
 (setq tabbar-buffer-list-function 'my-tabbar-buffer-list)
 
-
 ;; Firefoxライクなキーバインドに
 (global-set-key [(control tab)]       'tabbar-forward)
 (global-set-key [(control shift tab)] 'tabbar-backward)
@@ -617,7 +619,7 @@ are always included."
 ;; 自動補完を無効にする
 (setq helm-ff-auto-update-initial-value nil)
 ;; 自動補完を無効
-(custom-set-variables '(helm-ff-auto-update-initial-value nil))
+
 ;; For find-file etc.
 (define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
 ;; For helm-find-files etc.
@@ -653,8 +655,7 @@ are always included."
 (add-to-list 'helm-completing-read-handlers-alist '(find-file . nil))
 
 ;; vcを起動しないようにする
-(custom-set-variables
- '(vc-handled-backends nil))
+
 (setq vc-handled-backends nil)
 
 ;; 不要なhookを外す
@@ -662,7 +663,7 @@ are always included."
 (remove-hook 'kill-buffer-hook 'vc-kill-buffer-hook)
 
 
-(custom-set-variables '(coffee-tab-width 2))
+
 ;; automatically clean up bad whitespace
 (setq whitespace-action '(auto-cleanup))
 ;; only show bad whitespace
@@ -720,14 +721,15 @@ are always included."
 (which-function-mode 1)
 
 ;;; 画面右端で折り返さない
-(setq-default truncate-lines t)
-(setq truncate-partial-width-windows t)
+;; (setq-default truncate-lines t)
+;; (setq truncate-partial-width-windows t)
 
 
 (require 'helm-config)
 (require 'helm-files)
 (require 'helm-ag)
 (global-set-key (kbd "C-c s") 'helm-ag)
+(global-set-key (kbd "C-M-s") 'helm-ag-this-file)
 ;; (global-set-key (kbd "M-g .") 'helm-ag)
 ;; (global-set-key (kbd "M-g ,") 'helm-ag-pop-stack)
 ;; (global-set-key (kbd "C-M-s") 'helm-ag-this-file)
@@ -794,3 +796,10 @@ requires rinari-mode to run"
   (ruby-compilation-run (concat (executable-find "rails_best_practices")
                                 " "
                                 (expand-file-name rails-app-dir))))
+
+;; (require 'powerline)
+;; (powerline-default-theme)
+
+;; (add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
+;; (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
