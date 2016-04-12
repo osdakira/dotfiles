@@ -8,7 +8,12 @@ RR() {
     # ps aux | grep resque | grep -v grep || bundle exec rake resque:work QUEUE='*' &
 
     set -x
+   
+    if [[ -f "config/webpack.config.js" ]]; then
+      ./node_modules/.bin/webpack --progress --colors --watch --config config/webpack.config.js
+    fi
 
+    # killall "foreman: master"
     ps aux | grep redis-server | grep -v grep || redis-server ~/.redis.conf &
 
     if [[ `pwd` =~ "workstation" ]]; then
@@ -24,6 +29,7 @@ RR() {
         # bin/sidekiq -C config/sidekiq_batch.yml &
     fi
 
+    # be foreman start &
     # ps aux| grep -v grep | grep unicorn_rails | grep 8080 | awk '{print $2}' | xargs kill
     # bundle exec unicorn_rails -p 8080 &
     # bundle exec rake resque:work QUEUE='*' &
@@ -127,12 +133,6 @@ alias g4="gout feature/staging_4"
 alias cpl0="cap production login 0"
 alias cpl1="cap production login 1"
 alias cbl="cap batch login"
-
-reset_f4(){
-    gm
-    gbr -D feature/staging_4
-    gout -b feature/staging_4
-}
 
 b_deploy_with(){
     this_branch=$(git branch 2>/dev/null | sed -n '/^\*/s/^\* //p')

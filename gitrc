@@ -29,7 +29,7 @@ alias ggrep="git grep --line-number --show-function --color --heading --break"
 
 gout() {
   if [ "$#" -eq 0 ]; then
-    git checkout `git branch | peco | sed -e "s/\* //g" | awk "{print \$1}"`
+    git checkout `git branch | grep -v pickles | peco | sed -e "s/\* //g" | awk "{print \$1}"`
   else
     git checkout $*
     # if [ "$?" -ne 0 ]; then
@@ -54,8 +54,8 @@ gupstream(){
 }
 
 alias gf="git fetch"
-alias gbr="git branch"
-alias gbrr="git branch -r"
+alias gbr="git branch | grep -v pickles"
+alias gbrp="git branch"
 alias gmerge="git merge --no-ff"
 #alias gmerge="git merge"
 alias gmerg="gmerge"
@@ -246,3 +246,9 @@ hpush(){
 
 #   git checkout ${opt} feature/${branch}
 # }
+
+gpicles () {
+  branch=`git branch | peco | sed -e "s/\* //g" | awk "{print \$1}"`
+  echo "git branch -m ${branch} ${branch//\//\/pickles/}"
+  # git branch -m ${branch} ${branch//\//\/pickles/}
+}
