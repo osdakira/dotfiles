@@ -1,0 +1,32 @@
+"*":
+  "advanced-open-file":
+    createDirectories: true
+    createFileInstantly: true
+  core:
+    disabledPackages: [
+      "language-clojure"
+      "language-java"
+      "language-toml"
+      "emacs-plus"
+    ]
+    packagesWithKeymapsDisabled: [
+      "emacs-plus"
+      "atomic-emacs"
+    ]
+  "disable-keybindings":
+    bundledPackages: [
+      "go-to-line"
+      "bracket-matcher"
+      ""
+    ]
+  editor:
+    fontFamily: "Migu 1m"
+    showInvisibles: true
+    showLineNumbers: false
+    tabType: "soft"
+  "exception-reporting":
+    userId: "b3d5d4c7-1c98-3001-0c1f-3bdea869e6e3"
+  welcome:
+    showOnStartup: false
+  whitespace:
+    ignoreWhitespaceOnCurrentLine: false

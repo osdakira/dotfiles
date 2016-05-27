@@ -1,0 +1,50 @@
+# Your keymap
+#
+# Atom keymaps work similarly to style sheets. Just as style sheets use
+# selectors to apply styles to elements, Atom keymaps use selectors to associate
+# keystrokes with events in specific contexts.
+#
+# You can create a new keybinding in this file by typing "key" and then hitting
+# tab.
+#
+# Here's an example taken from Atom's built-in keymap:
+#
+# 'atom-text-editor':
+#   'enter': 'editor:newline'
+#
+# 'atom-workspace':
+#   'ctrl-shift-p': 'core:move-up'
+#   'ctrl-p': 'core:move-down'
+#
+# You can find more information about keymaps in these guides:
+# * https://atom.io/docs/latest/using-atom-basic-customization#customizing-key-bindings
+# * https://atom.io/docs/latest/behind-atom-keymaps-in-depth
+#
+# This file uses CoffeeScript Object Notation (CSON).
+# If you are unfamiliar with CSON, you can read more about it here:
+# https://github.com/bevry/cson#what-is-cson
+'.platform-darwin atom-text-editor':
+  'ctrl-x g': 'go-to-line:toggle'
+'atom-workspace atom-text-editor':
+  'ctrl-t': 'window:focus-next-pane'
+  'cmd-h': 'atomic-emacs:backward-kill-word'
+  'ctrl-g': 'core:cancel'
+  'alt-;': 'editor:toggle-line-comments'
+  'ctrl-x k': 'core:close'
+  'ctrl-x 0': 'pane:close'
+  'ctrl-x 2': 'pane:split-down'
+  'ctrl-x 3': 'pane:split-right'
+  'ctrl-t': 'window:focus-next-pane'
+  'ctrl-space': 'atomic-emacs:set-mark'
+  'ctrl-b': 'atomic-emacs:backward-char'
+  'ctrl-:': 'editor:toggle-line-comments'
+  'alt-w': 'custom:copy'
+'body':
+  'cmd-c': 'custom:copy'
+  'ctrl-x 1': 'atomic-emacs:close-other-panes'
+  'ctrl-tab': 'pane:show-next-item'
+  'ctrl-shift-tab': 'pane:show-previous-item'
+'.platform-darwin':
+  'cmd-k cmd-b': 'bookmarks:toggle-bookmark'
+  'alt-p': 'bookmarks:jump-to-previous-bookmark'
+  'alt-n': 'bookmarks:jump-to-next-bookmark'
