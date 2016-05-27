@@ -2791,6 +2791,7 @@ __git_complete goutp _git_checkout
 __git_complete gmerg _git_merge
 __git_complete gmergs _git_merge
 __git_complete gbr _git_branch
+__git_complete gbrp _git_branch
 __git_complete glp _git_log
 __git_complete gpul _git_checkout
 __git_complete gpull _git_checkout

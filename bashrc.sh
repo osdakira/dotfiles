@@ -280,7 +280,9 @@ alias dl='docker ps -l -q'
 alias docker_rm="docker ps -a -q | xargs docker rm"
 alias docker_rmi="docker images | grep none | awk '{print $3}' | xargs docker rmi"
 export AUTODOC=1
-export ANDROID_HOME=/Users/osada/.homebrew/Cellar/android-sdk/23.0.2
+# export ANDROID_HOME=/Users/osada/.homebrew/Cellar/android-sdk/23.0.2
+export ANDROID_HOME=/Users/osada/Library/Android/sdk
+
 export PATH=~/.cabal/bin:/opt/local/bin:/opt/local/sbin:/Users/osada/.homebrew/opt/pyenv/shims:/Users/osada/.homebrew/opt/pyenv/bin:/usr/local/java/bin:/Users/osada/.cask/bin:/Users/osada/.homebrew/bin:/Users/osada/.homebrew/var/rbenv/shims:/usr/local/heroku/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/local/bin:/opt/local/sbin:/Users/osada/.homebrew/opt/pyenv/shims:/Users/osada/.homebrew/opt/pyenv/bin:/usr/local/java/bin:/Users/osada/.cask/bin:/Users/osada/.homebrew/bin:/usr/local/heroku/bin:/Users/osada/Dropbox/dotfiles/mybin:/Users/osada/projects/swift-0.94.1/bin:/Users/osada/.homebrew/opt/go/libexec/bin:/Users/osada/Dropbox/dotfiles/mybin:/Users/osada/projects/swift-0.94.1/bin:/Users/osada/.homebrew/opt/go/libexec/bin
 
 c_login(){
@@ -349,7 +351,7 @@ alias lessF="less +F -Rf"
 # export GOENVTARGET=$HOME/.goenv/
 # export GOPATH="$HOME/.gopath"
 # export PATH=$PATH:$GOPATH/bin
-export ANDROID_HOME=/Users/osada/.homebrew/opt/android-sdk
+# export ANDROID_HOME=/Users/osada/.homebrew/opt/android-sdk
 alias tdl="tail -n 1000 -f log/development.log"
 
 red=31
@@ -434,3 +436,7 @@ setup_atom() {
 }
 
 alias se="stack exec"
+alias tslog='tail -f log/sidekiq.log'
+
+add_path_if_exist $HOME/Library/Android/sdk/platform-tools
+alias powlog='tail -n 1000 -f ~/Library/Logs/Pow/apps/manon.log'

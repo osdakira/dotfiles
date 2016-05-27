@@ -8,7 +8,7 @@ RR() {
     # ps aux | grep resque | grep -v grep || bundle exec rake resque:work QUEUE='*' &
 
     set -x
-   
+
     if [[ -f "config/webpack.config.js" ]]; then
       ./node_modules/.bin/webpack --progress --colors --watch --config config/webpack.config.js
     fi
