@@ -12,3 +12,4 @@ storage/
 vim/.netrwhist
 history*
 vim/.netrwhist
+.config/hub
