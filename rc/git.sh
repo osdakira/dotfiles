@@ -10,7 +10,10 @@ alias gcoma="git commit --allow-empty -m"
 
 alias gcln="git clean -d -f"
 
-alias gpul="git pull --rebase"
+# alias gpul="git pull --rebase"
+alias gpul="git pull"
+alias grr="git rebase release"
+alias grbr="grb release"
 
 # gpul(){
 #     git pull --rebase $* || (git branch --set-upstream-to=origin/`parse_git_branch` `parse_git_branch` && git pull --rebase $*)
@@ -46,7 +49,7 @@ goutp(){
 }
 
 gbrclean(){
-  [[ `parse_git_branch` =~ (master|release) ]] && git branch --merged | grep -v "*" | grep -v "production" | grep -v "master" | grep -v "release" | xargs git branch -d
+  [[ `parse_git_branch` =~ (master|release|development) ]] && git branch --merged | grep -v -E "\*|master$|release$|development$" | xargs git branch -d
 }
 
 gupstream(){
@@ -54,8 +57,13 @@ gupstream(){
 }
 
 alias gf="git fetch"
-alias gbr="git branch | grep -v pickles"
-alias gbrp="git branch"
+gbr() {
+  if [ $# -eq 0 ]; then
+    git branch | grep -v pickles
+  else
+    git branch $*
+  fi
+}
 alias gmerge="git merge --no-ff"
 #alias gmerge="git merge"
 alias gmerg="gmerge"
@@ -161,7 +169,12 @@ branch_color (){
 }
 
 parse_git_branch(){
-    echo -ne $(git branch 2>/dev/null| sed -n '/^\*/s/^\* //p')
+  # git branch 2>/dev/null で、git 外の場合を無視
+  # sed -n は、sed デフォルト挙動の、標準出力への出力を停止。
+  # '/^\*/s/^\* //p' は、 `/^\*/` で、* にマッチした行に対して、`s/^\* //` で、削除し、`p` で、標準出力に出力する。
+  # echo -n は、改行をつけない
+  # echo -e は、エスケープオプションを解釈する
+  echo -ne $(git branch 2>/dev/null | sed -n '/^\*/s/^\* //p')
 }
 check_sync(){
         [[ `git diff --numstat origin/$(parse_git_branch)..HEAD 2>/dev/null` != "" ]] && echo -ne " (\033[33mno_sync\033[0m)"
