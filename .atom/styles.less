@@ -1,21 +1,21 @@
-html * {
-  background: rgba(0, 0, 0, 0.1) !important;
+html *:not(#linter-inline):not(linter-message) {
+  background: rgba(0, 0, 0, 0.2) !important;
 }
 
 atom-pane, atom-panel, atom-notification {
-  background: rgba(0, 0, 0, 0.6) !important;
+  background: rgba(0, 0, 0, 0.5) !important;
 }
 
-atom-overlay > * {
+atom-overlay > *:not(#linter-inline) {
   background: rgba(0, 0, 0, 0.9) !important;
 }
 
 atom-text-editor::shadow {
   .cursor-line {
-    background-color: rgba(0, 0, 0, 0.3) !important;
+    background-color: rgba(0, 100, 0, 0.5) !important;
   }
   .selection .region {
-    background-color: rgba(0, 0, 0, 0.6) !important;
+    background-color: rgba(100, 0, 0, 0.5) !important;
   }
   .gutter {
     background-color: rgba(0, 0, 0, 0.1) !important;

@@ -13,3 +13,8 @@ vim/.netrwhist
 history*
 vim/.netrwhist
 .config/hub
+tokens.sh
+.atom/*/
+emacs.d24.*
+.config/direnv/
+.config

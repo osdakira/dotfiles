@@ -7,11 +7,10 @@
       "language-clojure"
       "language-java"
       "language-toml"
-      "emacs-plus"
+      "linter-perl-lint"
     ]
     packagesWithKeymapsDisabled: [
       "emacs-plus"
-      "atomic-emacs"
     ]
   "disable-keybindings":
     bundledPackages: [
@@ -21,12 +20,39 @@
     ]
   editor:
     fontFamily: "Migu 1m"
+    invisibles: {}
     showInvisibles: true
     showLineNumbers: false
+    softWrap: true
     tabType: "soft"
   "exception-reporting":
     userId: "b3d5d4c7-1c98-3001-0c1f-3bdea869e6e3"
+  linter:
+    errorPanelHeight: 94
+  "linter-jshint":
+    lintJSXFiles: true
+  "linter-perl":
+    autoDetectCarton: true
   welcome:
     showOnStartup: false
   whitespace:
     ignoreWhitespaceOnCurrentLine: false
+".js.regexp.replacement.source":
+  editor:
+    tabLength: 4
+".js.regexp.source":
+  editor:
+    tabLength: 4
+".js.source":
+  editor:
+    tabLength: 4
+".perl.source":
+  editor:
+    tabLength: 4
+".slim.text":
+  editor:
+    commentStart: "/ "
+    increaseIndentPattern: "$."
+  whitespace:
+    ignoreWhitespaceOnCurrentLine: false
+    removeTrailingWhitespace: true

@@ -2,5 +2,39 @@ manon:
   title: "Manon"
   paths: [
     "/Users/osada/projects/mugenup/manon"
+  ]
+manonclient:
+  title: "Manon Client"
+  paths: [
     "/Users/osada/projects/mugenup/manon_client"
+  ]
+manonlp:
+  title: "Manon Lp"
+  paths: [
+    "/Users/osada/projects/mugenup/manon_lp"
+  ]
+hatenainternexercise2015:
+  title: "Hatena Intern Exercise 2015"
+  paths: [
+    "/Users/osada/projects/Hatena-Intern-Exercise2015"
+  ]
+manonparty:
+  title: "Manon Party"
+  paths: [
+    "/Users/osada/projects/mugenup/manon_party"
+  ]
+trellowebhookperl:
+  title: "Trello Webhook Perl"
+  paths: [
+    "/Users/osada/projects/heroku/trello_webhook_perl"
+  ]
+railsassets:
+  title: "Rails Assets"
+  paths: [
+    "/Users/osada/projects/mugenup/rails-assets"
+  ]
+mtburn:
+  title: "Mtburn"
+  paths: [
+    "/Users/osada.akira/projects/mtburn"
   ]

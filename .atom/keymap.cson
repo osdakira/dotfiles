@@ -31,9 +31,9 @@
   'ctrl-g': 'core:cancel'
   'alt-;': 'editor:toggle-line-comments'
   'ctrl-x k': 'core:close'
-  'ctrl-x 0': 'pane:close'
-  'ctrl-x 2': 'pane:split-down'
-  'ctrl-x 3': 'pane:split-right'
+  # 'ctrl-x 0': 'pane:close'
+  # 'ctrl-x 2': 'pane:split-down'
+  # 'ctrl-x 3': 'pane:split-right'
   'ctrl-t': 'window:focus-next-pane'
   'ctrl-space': 'atomic-emacs:set-mark'
   'ctrl-b': 'atomic-emacs:backward-char'
@@ -48,3 +48,7 @@
   'cmd-k cmd-b': 'bookmarks:toggle-bookmark'
   'alt-p': 'bookmarks:jump-to-previous-bookmark'
   'alt-n': 'bookmarks:jump-to-next-bookmark'
+'atom-text-editor[data-grammar^="source ts"]':
+  'ctrl-space': "atomic-emacs:set-mark"
+'atom-workspace .atom-fuzzy-grep atom-text-editor':
+  'ctrl-alt-f': 'fuzzy-grep:toggleFileFilter'
